@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/get_data"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Get Data" />
+        <item
+            android:id="@+id/set_data"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Set Data" />
+    </group>
+
+
+</menu>
