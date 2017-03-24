@@ -38,6 +38,7 @@ public class GetData extends Fragment {
             public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
                 List<User> list = response.body();
                 Log.d("NAME",list.get(0).getName());
+                Log.d("PASSWORD", list.get(0).getPassword());
                 List<Place> places = list.get(0).getPlaces();
                 Log.d("FIRST PLACE", places.get(0).getName());
             }
