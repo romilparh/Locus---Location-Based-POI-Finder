@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,9 +19,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    //List to inflate RecyclerView with ViewHolder
+    private List<CategoryDetails> categoryDetailsList;
+
+    //Category list Recycler View
+    private RecyclerView rv_cat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +39,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,    drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -37,7 +48,25 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        rv_cat = (RecyclerView) findViewById(R.id.rv_cat);
+        LinearLayoutManager llm_cat = new LinearLayoutManager(
+                this, LinearLayoutManager.HORIZONTAL, false);
+
+        rv_cat.setLayoutManager(llm_cat);
+        initializeDataCat();
+        initializeAdapter();
     }
+
+    public void initializeDataCat(){
+        categoryDetailsList = new ArrayList<>();
+        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
+    }
+
+    public void initializeAdapter(){
+        RVCat_Adapter adapter = new RVCat_Adapter(categoryDetailsList);
+        rv_cat.setAdapter(adapter);
+        }
 
     @Override
     protected void onDestroy() {
