@@ -61,6 +61,14 @@ public class MainActivity extends AppCompatActivity
     public void initializeDataCat(){
         categoryDetailsList = new ArrayList<>();
         categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
     }
 
     public void initializeAdapter(){
