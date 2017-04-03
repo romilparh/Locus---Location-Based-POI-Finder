@@ -24,7 +24,7 @@ public class RVCat_Adapter extends RecyclerView.Adapter<RVCat_Adapter.CategoryDe
     @Override
     public RVCat_Adapter.CategoryDetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.content_main, parent, false);
+                .inflate(R.layout.recyclerview_cat, parent, false);
         CategoryDetailsViewHolder cdvh = new CategoryDetailsViewHolder(v);
         return cdvh;
     }
