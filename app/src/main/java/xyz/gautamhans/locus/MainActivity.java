@@ -28,9 +28,11 @@ public class MainActivity extends AppCompatActivity
 
     //List to inflate RecyclerView with ViewHolder
     private List<CategoryDetails> categoryDetailsList;
+    private List<PlaceCardDetails> placeCardDetails;
 
     //Category list Recycler View
     private RecyclerView rv_cat;
+    private RecyclerView rv_places;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +52,19 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         rv_cat = (RecyclerView) findViewById(R.id.rv_cat);
+        rv_places = (RecyclerView) findViewById(R.id.rv_places);
+
         LinearLayoutManager llm_cat = new LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false);
 
+        LinearLayoutManager llm_places = new LinearLayoutManager(
+                this, LinearLayoutManager.VERTICAL, false);
+
         rv_cat.setLayoutManager(llm_cat);
+        rv_places.setLayoutManager(llm_places);
+
         initializeDataCat();
+        initializeDataPlaces();
         initializeAdapter();
     }
 
@@ -71,9 +81,27 @@ public class MainActivity extends AppCompatActivity
         categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
     }
 
+    public void initializeDataPlaces(){
+        placeCardDetails = new ArrayList<>();
+        placeCardDetails.add(new PlaceCardDetails(R.drawable.brewmaster, 4.0, "The Brewmaster", "3rd Floor & Terrace, Chun Mun Mall"));
+        placeCardDetails.add(new PlaceCardDetails(R.drawable.curo_mall, 3.9, "Curo Mall", "3rd Floor & Terrace, Chun Mun Mall"));
+        placeCardDetails.add(new PlaceCardDetails(R.drawable.pvr_mbdmall, 4.5, "PVR MBD Mall", "3rd Floor & Terrace, Chun Mun Mall"));
+        placeCardDetails.add(new PlaceCardDetails(R.drawable.hotel_cabbana, 4.6, "Hotel Cabbana", "Phagwara-Jalandhar Highway"));
+        placeCardDetails.add(new PlaceCardDetails(R.drawable.brewmaster, 4.0, "The Brewmaster", "3rd Floor & Terrace, Chun Mun Mall"));
+        placeCardDetails.add(new PlaceCardDetails(R.drawable.curo_mall, 3.9, "Curo Mall", "3rd Floor & Terrace, Chun Mun Mall"));
+        placeCardDetails.add(new PlaceCardDetails(R.drawable.pvr_mbdmall, 4.5, "PVR MBD Mall", "3rd Floor & Terrace, Chun Mun Mall"));
+        placeCardDetails.add(new PlaceCardDetails(R.drawable.hotel_cabbana, 4.6, "Hotel Cabbana", "Phagwara-Jalandhar Highway"));
+        placeCardDetails.add(new PlaceCardDetails(R.drawable.brewmaster, 4.0, "The Brewmaster", "3rd Floor & Terrace, Chun Mun Mall"));
+        placeCardDetails.add(new PlaceCardDetails(R.drawable.curo_mall, 3.9, "Curo Mall", "3rd Floor & Terrace, Chun Mun Mall"));
+        placeCardDetails.add(new PlaceCardDetails(R.drawable.pvr_mbdmall, 4.5, "PVR MBD Mall", "3rd Floor & Terrace, Chun Mun Mall"));
+        placeCardDetails.add(new PlaceCardDetails(R.drawable.hotel_cabbana, 4.6, "Hotel Cabbana", "Phagwara-Jalandhar Highway"));
+    }
+
     public void initializeAdapter(){
         RVCat_Adapter adapter = new RVCat_Adapter(categoryDetailsList);
         rv_cat.setAdapter(adapter);
+        RVAdapter_PlaceCard adapter_placeCard = new RVAdapter_PlaceCard(placeCardDetails);
+        rv_places.setAdapter(adapter_placeCard);
         }
 
     @Override

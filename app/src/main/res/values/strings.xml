@@ -11,4 +11,5 @@
     <string name="search_hint">Search Places ...</string>
     <string name="categories">Categories</string>
     <string name="categories_text">Categories</string>
+    <string name="places_around_you">Places Around You</string>
 </resources>
