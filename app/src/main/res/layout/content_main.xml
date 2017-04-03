@@ -2,20 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="xyz.gautamhans.locus.MainActivity"
     tools:showIn="@layout/app_bar_main"
     android:id="@+id/cat_bar"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/categories_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/categories_text"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="16dp"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_cat"
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:scrollbars="none"
-         />
+        />
 
 </LinearLayout>
