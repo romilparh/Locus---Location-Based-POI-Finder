@@ -70,15 +70,17 @@ public class MainActivity extends AppCompatActivity
 
     public void initializeDataCat(){
         categoryDetailsList = new ArrayList<>();
-        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.cat));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.atm));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.bank));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.bar));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.hospital));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.parks));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.police));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.shopping));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.store));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.train));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.taxi));
+        categoryDetailsList.add(new CategoryDetails(R.drawable.theater));
     }
 
     public void initializeDataPlaces(){
