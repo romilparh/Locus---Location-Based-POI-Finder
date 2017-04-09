@@ -41,7 +41,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
-,com.google.android.gms.location.LocationListener{
+,com.google.android.gms.location.LocationListener, RVCat_Adapter.ListItemClickListener{
 
     //List to inflate RecyclerView with ViewHolder
     private List<CategoryDetails> categoryDetailsList;
@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity
     private long UPDATE_INTERVAL = 10 * 100;
     private long FASTEST_INTERVAL = 2000;
     String longt, lat;
+
+    //Toast for onClick on RVCat
+    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +135,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void initializeAdapter(){
-        RVCat_Adapter adapter = new RVCat_Adapter(categoryDetailsList);
+        RVCat_Adapter adapter = new RVCat_Adapter(categoryDetailsList, this);
         rv_cat.setAdapter(adapter);
         RVAdapter_PlaceCard adapter_placeCard = new RVAdapter_PlaceCard(placeCardDetails);
         rv_places.setAdapter(adapter_placeCard);
@@ -278,4 +281,12 @@ public class MainActivity extends AppCompatActivity
     public void onLocationChanged(Location location) {
 
     }
-}
+
+    @Override
+    public void onListItemClick(int clickedItemIndex, String type) {
+            String toastMessage = "Item #" +clickedItemIndex+ " clicked. \n" + type;
+            mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
+            mToast.show();
+        }
+    }
+

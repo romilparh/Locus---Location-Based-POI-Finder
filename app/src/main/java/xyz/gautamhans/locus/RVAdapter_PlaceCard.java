@@ -49,7 +49,7 @@ public class RVAdapter_PlaceCard extends
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public static class PlaceCardViewHolder extends RecyclerView.ViewHolder {
+    class PlaceCardViewHolder extends RecyclerView.ViewHolder {
 
         ImageView iv_place_photo;
         TextView tv_place_name, tv_place_address;
