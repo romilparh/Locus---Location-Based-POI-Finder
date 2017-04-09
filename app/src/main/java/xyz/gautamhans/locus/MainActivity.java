@@ -157,7 +157,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_feedback) {
-        
+            Intent i=new Intent(this,FeedbackActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_help) {
 
         }
