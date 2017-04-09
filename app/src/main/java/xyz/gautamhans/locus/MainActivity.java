@@ -2,6 +2,7 @@ package xyz.gautamhans.locus;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -284,9 +285,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListItemClick(int clickedItemIndex, String type) {
-            String toastMessage = "Item #" +clickedItemIndex+ " clicked. \n" + type;
-            mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
-            mToast.show();
+            Intent i = new Intent(MainActivity.this, Category.class);
+            i.putExtra("clickIndex", clickedItemIndex);
+            startActivity(i);
         }
     }
 
