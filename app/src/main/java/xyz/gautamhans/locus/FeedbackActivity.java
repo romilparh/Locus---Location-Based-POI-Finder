@@ -75,7 +75,8 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Intent i=new Intent(this,MainActivity.class);
+            startActivity(i);
         }
     }
 
@@ -98,7 +99,8 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-
+            Intent i=new Intent(this,MainActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_saved_places) {
 
         } else if (id == R.id.nav_reminders) {
@@ -106,8 +108,11 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_feedback) {
-            Intent i=new Intent(this,FeedbackActivity.class);
-            startActivity(i);
+            Context context = getApplicationContext();
+            CharSequence text = "Already on Feedback Page";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
