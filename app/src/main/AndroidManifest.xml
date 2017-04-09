@@ -28,7 +28,11 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-        <activity android:name=".FeedbackActivity"></activity>
+        <activity android:name=".FeedbackActivity"
+            android:label="Locus Feedback"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>
