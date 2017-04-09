@@ -16,9 +16,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class FeedbackActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     int fail;
     @Override
@@ -38,41 +35,10 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
         navigationView.setNavigationItemSelectedListener(this);
 
     }
-    public boolean emailValidator(String email)
-    {
-        Pattern pattern;
-        Matcher matcher;
-        final String EMAIL_PATTERN = getString(R.string.email_regex);
-        pattern = Pattern.compile(EMAIL_PATTERN);
-        matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
+   
     public void sendFeedback(View button) {
         // Do click handling here
         fail=0;
-        final EditText nameField = (EditText) findViewById(R.id.EditTextName);
-        String name = nameField.getText().toString();
-        if(name.matches("")){
-            fail=1;
-            Context context = getApplicationContext();
-            CharSequence text = "Name is not provided";
-            int duration = Toast.LENGTH_LONG;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-            return;
-        }
-
-        final EditText emailField = (EditText) findViewById(R.id.editText);
-        String email = emailField.getText().toString();
-        if(!emailValidator(email)){
-            fail=1;
-            Context context = getApplicationContext();
-            CharSequence text = "E-Mail Not Valid";
-            int duration = Toast.LENGTH_LONG;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-            return;
-        }
 
         final EditText feedbackField = (EditText) findViewById(R.id.EditTextFeedbackBody);
         String feedback = feedbackField.getText().toString();
