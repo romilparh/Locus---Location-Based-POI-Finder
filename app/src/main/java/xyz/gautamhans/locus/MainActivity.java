@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity
             lat = String.valueOf(mCurrentLocation.getLatitude());
             longt = String.valueOf(mCurrentLocation.getLongitude());
 
-            Toast.makeText(this, "Latitude: " +lat+"\nLongitude: " +longt, Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "Latitude: " +lat+"\nLongitude: " +longt, Toast.LENGTH_LONG).show();
 
             Log.i(String.valueOf(this.getClass()), "Lat: " + lat + " Longt: " + longt);
         }
@@ -285,9 +285,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListItemClick(int clickedItemIndex, String type) {
-            Intent i = new Intent(MainActivity.this, Category.class);
-            i.putExtra("clickIndex", clickedItemIndex);
-            startActivity(i);
+        Intent intent = new Intent(MainActivity.this, Category.class);
+        Bundle extras = new Bundle();
+        extras.putInt("clickIndex", clickedItemIndex);
+        extras.putDouble("latitude", Double.parseDouble(lat));
+        extras.putDouble("longitude", Double.parseDouble(longt));
+        intent.putExtras(extras);
+        startActivity(intent);
         }
     }
 
