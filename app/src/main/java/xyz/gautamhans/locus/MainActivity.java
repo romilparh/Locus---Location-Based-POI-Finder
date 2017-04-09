@@ -18,11 +18,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +39,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 
+import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +69,14 @@ public class MainActivity extends AppCompatActivity
 
     //Toast for onClick on RVCat
     private Toast mToast;
+
+    //List to inflate RecyclerView with ViewHolder
+    private List<CategoryDetails> categoryDetailsList;
+    private List<PlaceCardDetails> placeCardDetails;
+
+    //Category list Recycler View
+    private RecyclerView rv_cat;
+    private RecyclerView rv_places;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +150,7 @@ public class MainActivity extends AppCompatActivity
 
     public void initializeAdapter(){
         RVCat_Adapter adapter = new RVCat_Adapter(categoryDetailsList, this);
+        RVCat_Adapter adapter = new RVCat_Adapter(categoryDetailsList);
         rv_cat.setAdapter(adapter);
         RVAdapter_PlaceCard adapter_placeCard = new RVAdapter_PlaceCard(placeCardDetails);
         rv_places.setAdapter(adapter_placeCard);
@@ -203,7 +217,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-
+            Context context = getApplicationContext();
+            CharSequence text = "Already Home!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
         } else if (id == R.id.nav_saved_places) {
 
         } else if (id == R.id.nav_reminders) {
@@ -211,11 +229,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_feedback) {
-
-        } else if (id == R.id.nav_help) {
-
+            Intent i=new Intent(this,FeedbackActivity.class);
+            startActivity(i);
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
