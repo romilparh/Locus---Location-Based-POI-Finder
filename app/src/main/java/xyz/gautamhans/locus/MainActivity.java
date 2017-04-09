@@ -49,13 +49,6 @@ public class MainActivity extends AppCompatActivity
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 ,com.google.android.gms.location.LocationListener, RVCat_Adapter.ListItemClickListener{
 
-    //List to inflate RecyclerView with ViewHolder
-    private List<CategoryDetails> categoryDetailsList;
-    private List<PlaceCardDetails> placeCardDetails;
-
-    //Category list Recycler View
-    private RecyclerView rv_cat;
-    private RecyclerView rv_places;
 
     private static final int PERMISSION_REQUEST_CODE = 100;
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
@@ -150,7 +143,6 @@ public class MainActivity extends AppCompatActivity
 
     public void initializeAdapter(){
         RVCat_Adapter adapter = new RVCat_Adapter(categoryDetailsList, this);
-        RVCat_Adapter adapter = new RVCat_Adapter(categoryDetailsList);
         rv_cat.setAdapter(adapter);
         RVAdapter_PlaceCard adapter_placeCard = new RVAdapter_PlaceCard(placeCardDetails);
         rv_places.setAdapter(adapter_placeCard);

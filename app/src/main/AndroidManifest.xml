@@ -34,11 +34,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".SearchResultsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-        </activity>
+
         <activity android:name=".FeedbackActivity"
             android:label="Locus Feedback"
             android:theme="@style/AppTheme.NoActionBar"

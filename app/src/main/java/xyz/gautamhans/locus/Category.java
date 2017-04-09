@@ -27,8 +27,8 @@ public class Category extends AppCompatActivity {
     Double latitude, longitude;
     String category;
     List<Result> places;
-    private RVAdapter_CategoryDetails adapter;
     RecyclerView recyclerView;
+    private RVAdapter_CategoryDetails adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,10 +36,13 @@ public class Category extends AppCompatActivity {
         setContentView(R.layout.category_layout);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        // TODO (2) : Fix the ActionBar disappearing
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         Intent intent = getIntent();
-        if(intent!=null) {
+        if (intent != null) {
             Bundle extras = intent.getExtras();
             itemIndex = extras.getInt("clickIndex", 0);
             latitude = extras.getDouble("latitude");
@@ -49,7 +52,7 @@ public class Category extends AppCompatActivity {
         }
 
         // TODO (1) : find a better solution to this
-        switch (itemIndex){
+        switch (itemIndex) {
             case 0:
                 setTitle("ATMs");
                 category = "atm";
@@ -102,7 +105,7 @@ public class Category extends AppCompatActivity {
         initViews();
     }
 
-    private void initViews(){
+    private void initViews() {
         recyclerView = (RecyclerView) findViewById(R.id.rv_cat_details);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(
@@ -111,12 +114,12 @@ public class Category extends AppCompatActivity {
         loadJson();
     }
 
-    private void loadJson(){
+    private void loadJson() {
         Retrofit retrofit = ApiClient.getClient();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
         Call<Example> exampleCall = apiInterface.getNearbyPlaces
-                (latitude+","+longitude, radius, category);
+                (latitude + "," + longitude, radius, category);
 
         exampleCall.enqueue(new Callback<Example>() {
             @Override
@@ -137,9 +140,9 @@ public class Category extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.home) {
+        if (item.getItemId() == R.id.home) {
             Intent actMain = new Intent(Category.this, MainActivity.class);
         }
-                return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 }

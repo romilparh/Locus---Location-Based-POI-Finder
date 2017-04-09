@@ -16,7 +16,6 @@ import java.util.List;
 
 public class RVCat_Adapter extends RecyclerView.Adapter<RVCat_Adapter.CategoryDetailsViewHolder>{
 
-
     final private ListItemClickListener mOnClickListener;
 
     //Interface to handle click events
@@ -31,11 +30,6 @@ public class RVCat_Adapter extends RecyclerView.Adapter<RVCat_Adapter.CategoryDe
                   ListItemClickListener listener){
         this.categoryDetailsList = categoryDetailsList;
         mOnClickListener = listener;
-
-    List<CategoryDetails> categoryDetailsList;
-
-    RVCat_Adapter(List<CategoryDetails> categoryDetailsList){
-        this.categoryDetailsList = categoryDetailsList;
     }
 
     @Override
@@ -61,11 +55,8 @@ public class RVCat_Adapter extends RecyclerView.Adapter<RVCat_Adapter.CategoryDe
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-
     class CategoryDetailsViewHolder extends RecyclerView.ViewHolder implements
-    View.OnClickListener{
-
-    public static class CategoryDetailsViewHolder extends RecyclerView.ViewHolder{
+            View.OnClickListener{
         ImageView catPhoto;
 
         public CategoryDetailsViewHolder(View itemView) {
@@ -82,6 +73,4 @@ public class RVCat_Adapter extends RecyclerView.Adapter<RVCat_Adapter.CategoryDe
         }
     }
 
-        }
-    }
 }

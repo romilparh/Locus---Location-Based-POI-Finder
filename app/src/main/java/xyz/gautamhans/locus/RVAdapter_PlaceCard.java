@@ -50,18 +50,17 @@ public class RVAdapter_PlaceCard extends
     }
 
     class PlaceCardViewHolder extends RecyclerView.ViewHolder {
-    public static class PlaceCardViewHolder extends RecyclerView.ViewHolder {
+            ImageView iv_place_photo;
+            TextView tv_place_name, tv_place_address;
+            RatingBar rb_place_rating;
 
-        ImageView iv_place_photo;
-        TextView tv_place_name, tv_place_address;
-        RatingBar rb_place_rating;
-
-        public PlaceCardViewHolder(View itemView) {
-            super(itemView);
-            iv_place_photo = (ImageView) itemView.findViewById(R.id.place_photo);
-            tv_place_name = (TextView) itemView.findViewById(R.id.place_name);
-            tv_place_address = (TextView) itemView.findViewById(R.id.place_address);
-            rb_place_rating = (RatingBar) itemView.findViewById(R.id.place_rating);
+            public PlaceCardViewHolder(View itemView) {
+                super(itemView);
+                iv_place_photo = (ImageView) itemView.findViewById(R.id.place_photo);
+                tv_place_name = (TextView) itemView.findViewById(R.id.place_name);
+                tv_place_address = (TextView) itemView.findViewById(R.id.place_address);
+                rb_place_rating = (RatingBar) itemView.findViewById(R.id.place_rating);
+            }
         }
     }
-}
+
