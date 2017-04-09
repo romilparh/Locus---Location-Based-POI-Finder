@@ -35,7 +35,7 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
         navigationView.setNavigationItemSelectedListener(this);
 
     }
-   
+
     public void sendFeedback(View button) {
         // Do click handling here
         fail=0;
