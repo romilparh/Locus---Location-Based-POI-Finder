@@ -155,11 +155,14 @@ public class Category extends AppCompatActivity implements
     }
 
     @Override
-    public void onListItemClick(int clickedItemIndex, String place_id) {
+    public void onListItemClick(int clickedItemIndex, String place_id, String photoReference) {
         Log.i(String.valueOf(this),  "Item #" +clickedItemIndex + "\nPlace ID:" +place_id);
-
-        if(mToast!=null){ mToast.cancel();}
-        mToast = Toast.makeText(this, "Item #" +clickedItemIndex + "\nPlace ID:" +place_id, Toast.LENGTH_LONG);
-        mToast.show();
+        Intent intent = new Intent(Category.this, PlaceDetails.class);
+        Bundle extras = new Bundle();
+        extras.putInt("clickIndex", clickedItemIndex);
+        extras.putString("placeId", place_id);
+        extras.putString("ref", photoReference);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 }

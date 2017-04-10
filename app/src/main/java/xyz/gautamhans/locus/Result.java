@@ -132,9 +132,7 @@ public class Result {
         this.openingHours = openingHours;
     }
 
-    public List<Photo> getPhotos() {
-        return photos;
-    }
+    public List<Photo> getPhotos() { return photos; }
 
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;

@@ -3,6 +3,7 @@ package xyz.gautamhans.locus;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,17 +27,16 @@ public class RVAdapter_CategoryDetails extends
 
     //Interface for handling Item Clicks
     public interface ListItemClickListener {
-        void onListItemClick(int clickedItemIndex, String place_id);
+        void onListItemClick(int clickedItemIndex, String place_id, String photoReference);
     }
 
     private List<Example> exampleList;
     private Context context;
     private List<Result> resultList;
-//    private String photoBaseUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=";
-//    private String API_KEY = "&key=AIzaSyDDs4rr2v_ZQJ9_6qkFq5NG4B_aRCEe0o0";
+
 
     // Constructor
-    RVAdapter_CategoryDetails(ListItemClickListener listener,List<Result> exampleList){
+    RVAdapter_CategoryDetails(ListItemClickListener listener, List<Result> exampleList) {
         this.resultList = exampleList;
         mListItemClickListener = listener;
     }
@@ -63,11 +63,12 @@ public class RVAdapter_CategoryDetails extends
         return resultList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView iv_place_photo;
         TextView tv_place_name, tv_place_address;
         RatingBar rb_place_rating;
+        String photoReference = "na";
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -82,7 +83,15 @@ public class RVAdapter_CategoryDetails extends
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
             String place_id = resultList.get(clickedPosition).getPlaceId();
-            mListItemClickListener.onListItemClick(clickedPosition, place_id);
+            // Log.d(String.valueOf(this), String.valueOf(resultList.get(clickedPosition).getPhotos().size()));
+
+            if (resultList.get(clickedPosition).getPhotos() != null)
+                try{
+                    photoReference = resultList.get(clickedPosition).getPhotos().get(clickedPosition).getPhotoReference();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                mListItemClickListener.onListItemClick(clickedPosition, place_id, photoReference);
         }
     }
 }
