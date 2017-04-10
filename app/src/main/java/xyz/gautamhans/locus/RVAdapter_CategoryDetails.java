@@ -22,14 +22,23 @@ import java.util.List;
 public class RVAdapter_CategoryDetails extends
         RecyclerView.Adapter<RVAdapter_CategoryDetails.ViewHolder> {
 
+    final private RVAdapter_CategoryDetails.ListItemClickListener mListItemClickListener;
+
+    //Interface for handling Item Clicks
+    public interface ListItemClickListener {
+        void onListItemClick(int clickedItemIndex, String place_id);
+    }
+
     private List<Example> exampleList;
     private Context context;
     private List<Result> resultList;
-    private String photoBaseUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=";
-    private String API_KEY = "&key=AIzaSyBE8jPCH28fGzNwldLfR2h5WTgMC_IvuJI";
+//    private String photoBaseUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=";
+//    private String API_KEY = "&key=AIzaSyDDs4rr2v_ZQJ9_6qkFq5NG4B_aRCEe0o0";
 
-    RVAdapter_CategoryDetails(List<Result> exampleList){
+    // Constructor
+    RVAdapter_CategoryDetails(ListItemClickListener listener,List<Result> exampleList){
         this.resultList = exampleList;
+        mListItemClickListener = listener;
     }
 
 
@@ -54,7 +63,7 @@ public class RVAdapter_CategoryDetails extends
         return resultList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         ImageView iv_place_photo;
         TextView tv_place_name, tv_place_address;
@@ -66,6 +75,14 @@ public class RVAdapter_CategoryDetails extends
             tv_place_name = (TextView) itemView.findViewById(R.id.place_name);
             tv_place_address = (TextView) itemView.findViewById(R.id.place_address);
             rb_place_rating = (RatingBar) itemView.findViewById(R.id.place_rating);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            String place_id = resultList.get(clickedPosition).getPlaceId();
+            mListItemClickListener.onListItemClick(clickedPosition, place_id);
         }
     }
 }

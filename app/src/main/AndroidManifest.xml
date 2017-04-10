@@ -36,6 +36,13 @@
 
         <activity android:name=".Category" android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity"/>
+
+        <activity android:name=".PlaceDetails" android:screenOrientation="portrait"
+            android:parentActivityName=".Category"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDDs4rr2v_ZQJ9_6qkFq5NG4B_aRCEe0o0"/>
     </application>
 
 </manifest>

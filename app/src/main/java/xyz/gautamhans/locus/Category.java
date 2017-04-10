@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -21,14 +22,17 @@ import retrofit2.Retrofit;
  * Created by Gautam on 09-Apr-17.
  */
 
-public class Category extends AppCompatActivity {
+public class Category extends AppCompatActivity implements
+        RVAdapter_CategoryDetails.ListItemClickListener{
+
     String type;
-    int itemIndex = 0, radius = 20000;
+    int itemIndex = 0, radius = 15000;
     Double latitude, longitude;
     String category;
     List<Result> places;
     RecyclerView recyclerView;
-    private RVAdapter_CategoryDetails adapter;
+    RVAdapter_CategoryDetails adapter;
+    Toast mToast;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,7 +40,7 @@ public class Category extends AppCompatActivity {
         setContentView(R.layout.category_layout);
 
         ActionBar actionBar = getSupportActionBar();
-        // TODO (2) : Fix the ActionBar disappearing
+        // TODO (COMPLETED) : Fix the ActionBar disappearing
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
@@ -126,8 +130,7 @@ public class Category extends AppCompatActivity {
             public void onResponse(Call<Example> call, Response<Example> response) {
                 places = response.body().getResults();
                 Log.d(String.valueOf(this), "Number of places received: " + places.size());
-                adapter = new RVAdapter_CategoryDetails(places);
-                recyclerView.setAdapter(adapter);
+                setAdapter();
             }
 
             @Override
@@ -137,6 +140,11 @@ public class Category extends AppCompatActivity {
         });
     }
 
+    private void setAdapter(){
+        adapter = new RVAdapter_CategoryDetails(this, places);
+        recyclerView.setAdapter(adapter);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -144,5 +152,14 @@ public class Category extends AppCompatActivity {
             Intent actMain = new Intent(Category.this, MainActivity.class);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onListItemClick(int clickedItemIndex, String place_id) {
+        Log.i(String.valueOf(this),  "Item #" +clickedItemIndex + "\nPlace ID:" +place_id);
+
+        if(mToast!=null){ mToast.cancel();}
+        mToast = Toast.makeText(this, "Item #" +clickedItemIndex + "\nPlace ID:" +place_id, Toast.LENGTH_LONG);
+        mToast.show();
     }
 }
