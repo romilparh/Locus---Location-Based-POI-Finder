@@ -23,7 +23,7 @@ import retrofit2.Retrofit;
 
 public class Category extends AppCompatActivity {
     String type;
-    int itemIndex = 0, radius = 10000;
+    int itemIndex = 0, radius = 20000;
     Double latitude, longitude;
     String category;
     List<Result> places;
