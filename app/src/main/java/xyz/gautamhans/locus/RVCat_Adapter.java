@@ -14,12 +14,12 @@ import java.util.List;
  * Created by Gautam on 02-Apr-17.
  */
 
-public class RVCat_Adapter extends RecyclerView.Adapter<RVCat_Adapter.CategoryDetailsViewHolder>{
+public class RVCat_Adapter extends RecyclerView.Adapter<RVCat_Adapter.CategoryDetailsViewHolder> {
 
     final private ListItemClickListener mOnClickListener;
 
     //Interface to handle click events
-    public interface ListItemClickListener{
+    public interface ListItemClickListener {
         void onListItemClick(int clickedItemIndex, String type);
     }
 
@@ -27,7 +27,7 @@ public class RVCat_Adapter extends RecyclerView.Adapter<RVCat_Adapter.CategoryDe
 
     //constructor to assign data at runtime
     RVCat_Adapter(List<CategoryDetails> categoryDetailsList,
-                  ListItemClickListener listener){
+                  ListItemClickListener listener) {
         this.categoryDetailsList = categoryDetailsList;
         mOnClickListener = listener;
     }
@@ -56,12 +56,13 @@ public class RVCat_Adapter extends RecyclerView.Adapter<RVCat_Adapter.CategoryDe
     }
 
     class CategoryDetailsViewHolder extends RecyclerView.ViewHolder implements
-            View.OnClickListener{
+            View.OnClickListener {
+
         ImageView catPhoto;
 
         public CategoryDetailsViewHolder(View itemView) {
             super(itemView);
-            catPhoto = (ImageView)itemView.findViewById(R.id.cat_logo);
+            catPhoto = (ImageView) itemView.findViewById(R.id.cat_logo);
             itemView.setOnClickListener(this);
         }
 

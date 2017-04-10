@@ -50,6 +50,7 @@ public class RVAdapter_PlaceCard extends
     }
 
     class PlaceCardViewHolder extends RecyclerView.ViewHolder {
+
             ImageView iv_place_photo;
             TextView tv_place_name, tv_place_address;
             RatingBar rb_place_rating;
