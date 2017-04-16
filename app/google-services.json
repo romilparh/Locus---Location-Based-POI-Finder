@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "569035656155",
+    "project_id": "locus-164209"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569035656155:android:efe8973f36f75836",
+        "android_client_info": {
+          "package_name": "xyz.gautamhans.locus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569035656155-p4uuiklfi9tlpadoig6ak85svd4c7jhm.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "569035656155-ivn6vo2g000til3icfvht3li5rbd6ulo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.gautamhans.locus",
+            "certificate_hash": "7fd7fc4ba9c052abde0ee3705b40b57ad202aac8"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPwZVnO-SHro2miA84KGyxC3BQcRNXElQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
