@@ -68,7 +68,7 @@ public class RVAdapter_CategoryDetails extends
         ImageView iv_place_photo;
         TextView tv_place_name, tv_place_address;
         RatingBar rb_place_rating;
-        String photoReference = "na";
+        String photoReference;
 
         public ViewHolder(View itemView) {
             super(itemView);

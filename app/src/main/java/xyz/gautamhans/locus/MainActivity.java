@@ -3,10 +3,12 @@ package xyz.gautamhans.locus;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -26,6 +28,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +37,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +67,14 @@ public class MainActivity extends AppCompatActivity
 
     //RecyclerView Variables
     public RecyclerView rv_cat, rv_places;
+
+    //User information Navigation Drawer
+    TextView userName, userEmail;
+    String name, email, photoUrl;
+    private NavigationView navigationView;
+    private DrawerLayout drawer;
+    private View navHeader;
+    ImageView userPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +113,32 @@ public class MainActivity extends AppCompatActivity
         initializeDataCat();
         initializeDataPlaces();
         initializeAdapter();
+        initializeUserInfo();
+    }
+
+    private void initializeUserInfo() {
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navHeader = navigationView.getHeaderView(0);
+
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        name = sharedPref.getString("userName", "");
+        email = sharedPref.getString("userEmail", "");
+        photoUrl = sharedPref.getString("photoUrl", "");
+
+        userName = (TextView) navHeader.findViewById(R.id.nav_user_name_tv);
+        userEmail = (TextView) navHeader.findViewById(R.id.nav_user_email_tv);
+        userPhoto = (ImageView) navHeader.findViewById(R.id.user_photoView);
+
+        try{
+            Picasso.with(this).load(photoUrl).into(userPhoto);
+            userName.setText(name);
+            userEmail.setText(email);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void initializeDataCat(){

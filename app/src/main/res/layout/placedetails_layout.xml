@@ -1,21 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
         android:id="@+id/iv_place_photo"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_place_name_pd"
-        android:textSize="18sp"
-        android:layout_alignBottom="@id/iv_place_photo"
-        android:textColor="@color/white"
-        />
+        android:padding="10dp"
+        android:layout_marginTop="10dp">
 
-</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rating_text"
+                android:text="Rating: "
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <RatingBar
+                android:id="@+id/rb_rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/rating_text"
+                android:layout_toEndOf="@+id/call_text"
+                android:layout_alignParentTop="true" />
+
+            <ImageView
+                android:id="@+id/address_icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/directionsigns"
+                android:layout_below="@id/rating_text"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/address_icon"
+                android:layout_below="@id/rb_rating"/>
+
+            <TextView
+                android:id="@+id/tv_place_name_pd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/address_icon"
+                android:layout_marginTop="6dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_address"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/tv_place_name_pd"
+                />
+
+            <TextView
+                android:id="@+id/call_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Call: "
+                android:layout_below="@id/tv_address"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_call_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/call_text"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/tv_address"
+                android:textSize="16sp"
+                />
+
+            <TextView
+                android:id="@+id/weblink_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="Website: "
+                android:layout_below="@id/call_text"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_website_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/weblink_text"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/tv_call_info"
+                android:textSize="16sp"
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
