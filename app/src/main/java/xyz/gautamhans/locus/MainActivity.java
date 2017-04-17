@@ -201,6 +201,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_saved_places) {
 
         } else if (id == R.id.nav_reminders) {
+            Intent i=new Intent(this,Reminder_UI_Activity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_settings) {
 
