@@ -4,6 +4,7 @@
 
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,11 +15,11 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable"
-                />
+                android:resource="@xml/searchable" />
         </activity>
 
         <activity android:name=".BaseLoginChecker"
@@ -37,7 +38,8 @@
         </activity>
 
 
-        <activity android:name=".SearchResultsActivity" >
+        <activity android:name=".SearchResultsActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -46,16 +48,27 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-
-        <activity android:name=".Category" android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity"/>
-
-        <activity android:name=".PlaceDetails" android:screenOrientation="portrait"
-            android:parentActivityName=".Category"/>
+        <activity
+            android:name=".Category"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PlaceDetails"
+            android:parentActivityName=".Category"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDDs4rr2v_ZQJ9_6qkFq5NG4B_aRCEe0o0"/>
+            android:value="AIzaSyDDs4rr2v_ZQJ9_6qkFq5NG4B_aRCEe0o0" />
+
+        <activity
+            android:name=".FeedbackActivity"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".Reminder_UI_Activity">
+
+        </activity>
     </application>
 
 </manifest>

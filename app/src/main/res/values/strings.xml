@@ -10,6 +10,22 @@
     <string name="search_title">Search</string>
     <string name="search_hint">Search Places ...</string>
     <string name="categories">Categories</string>
+    <string name="enter_radius">Enter Radius: </string>
+    <string name="not_point">Notification Point</string>
+    <string name="name_title">Enter Task</string>
+    <string name="start">Entry</string>
+    <string name="end">Exit</string>
+    <string name="enter_location">Enter Location</string>
+    <string name="task_desc">Task Description</string>
+    <string name="name_desc">Enter Description</string>
     <string name="categories_text">Categories</string>
     <string name="places_around_you">Places Around You</string>
+    <string name="feedbacktype2">Bug</string>
+    <string name="feedbacktype1">Request</string>
+    <string name="feedbacktype3">Error</string>
+    <string name="tasktitle">Task Title</string>
+    <string name="feedbacktype4">Suggestion</string>
+    <string name="feedbacktype">Feedback Type</string>
+    <string name="feedbackbody">Describe Feedback Here !</string>
+    <string name="send_feedback">Send Feedback</string>
 </resources>
