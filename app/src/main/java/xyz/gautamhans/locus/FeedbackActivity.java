@@ -107,7 +107,8 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
         } else if (id == R.id.nav_saved_places) {
 
         } else if (id == R.id.nav_reminders) {
-
+            Intent intent = new Intent(FeedbackActivity.this, Reminders.class);
+            startActivity(intent);
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_feedback) {

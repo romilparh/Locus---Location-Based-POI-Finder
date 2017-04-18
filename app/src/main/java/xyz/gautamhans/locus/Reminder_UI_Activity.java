@@ -1,9 +1,12 @@
 package xyz.gautamhans.locus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -17,6 +20,12 @@ public class Reminder_UI_Activity extends AppCompatActivity implements SeekBar.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_ui);
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         seekBar1 = (SeekBar) findViewById(R.id.seekBar1);
         seekBar1.setOnSeekBarChangeListener(this);
         textView = (TextView) findViewById(R.id.textview4);
@@ -43,6 +52,23 @@ public class Reminder_UI_Activity extends AppCompatActivity implements SeekBar.O
         //If you want it only one time
         //txtView.setVisibility(View.VISIBLE);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Intent intent = new Intent(Reminder_UI_Activity.this, Reminders.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.home){
+            Intent intent = new Intent(Reminder_UI_Activity.this, Reminders.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

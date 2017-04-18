@@ -28,4 +28,5 @@
     <string name="feedbacktype">Feedback Type</string>
     <string name="feedbackbody">Describe Feedback Here !</string>
     <string name="send_feedback">Send Feedback</string>
+    <string name="title_activity_reminders">Reminders</string>
 </resources>

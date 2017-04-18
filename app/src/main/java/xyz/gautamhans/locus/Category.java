@@ -145,13 +145,26 @@ public class Category extends AppCompatActivity implements
         recyclerView.setAdapter(adapter);
     }
 
+    //TODO (1): Find a fix for app crash
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.home) {
-            Intent actMain = new Intent(Category.this, MainActivity.class);
+        try {
+            if (item.getItemId() == R.id.home) {
+                Intent actMain = new Intent(Category.this, MainActivity.class);
+                startActivity(actMain);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Category.this, MainActivity.class);
+        startActivity(intent);
     }
 
     @Override

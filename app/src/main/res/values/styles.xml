@@ -20,5 +20,5 @@
     <style name="SignInActivity">
         <item name="colorPrimary">@color/nav_header_main_dark_grey</item>
     </style>
-    
+
 </resources>
