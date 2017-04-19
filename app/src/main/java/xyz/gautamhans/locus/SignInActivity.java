@@ -50,6 +50,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -105,7 +106,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         if(result.isSuccess()){
             GoogleSignInAccount acct = result.getSignInAccount();
 
-            Toast.makeText(this, "Sign in successful!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Sign in successful! \n User Token: " +acct.getIdToken(), Toast.LENGTH_LONG).show();
             setDefaults(acct.getDisplayName(), acct.getEmail(), acct.getIdToken(), String.valueOf(acct.getPhotoUrl()));
             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
             startActivity(intent);
