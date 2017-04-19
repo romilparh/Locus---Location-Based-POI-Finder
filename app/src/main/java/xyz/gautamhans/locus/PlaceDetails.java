@@ -76,39 +76,38 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
 
     private void loadData() {
         Places.GeoDataApi.getPlaceById(mGoogleApiClient, placeId)
-                .setResultCallback(new ResultCallback<PlaceBuffer>() {
-                    @Override
-                    public void onResult(@NonNull PlaceBuffer places) {
-                        if (places.getStatus().isSuccess()) {
-                            final Place myPlace = places.get(0);
-                            Log.i(String.valueOf(PlaceDetails.this),
-                                    "Place found: " + myPlace.getName() + "\n Address: " + myPlace.getAddress());
+            .setResultCallback(new ResultCallback<PlaceBuffer>() {
+        @Override
+        public void onResult(@NonNull PlaceBuffer places) {
+            if (places.getStatus().isSuccess()) {
+                final Place myPlace = places.get(0);
+                Log.i(String.valueOf(PlaceDetails.this),
+                        "Place found: " + myPlace.getName() + "\n Address: " + myPlace.getAddress());
+                placeName = (String) myPlace.getName();
+                tv_place_name = (TextView) findViewById(R.id.tv_place_name_pd);
+                tv_place_name.setText(placeName);
+                placeAddress = (String) myPlace.getAddress();
+                tv_address = (TextView) findViewById(R.id.tv_address);
+                tv_address.setText(placeAddress);
+                placeContact = (String) myPlace.getPhoneNumber();
+                tv_call_info = (TextView) findViewById(R.id.tv_call_info);
+                tv_call_info.setText(placeContact);
+                placePriceLevel = myPlace.getPriceLevel();
+                placeRating = myPlace.getRating();
+                placeWeblink = String.valueOf(myPlace.getWebsiteUri());
+                tv_website_info = (TextView) findViewById(R.id.tv_website_info);
+                tv_website_info.setText(placeWeblink);
+                placeRating = myPlace.getRating();
+                ratingBar = (RatingBar) findViewById(R.id.rb_rating);
+                ratingBar.setRating(placeRating);
 
-                            placeName = (String) myPlace.getName();
-                            tv_place_name = (TextView) findViewById(R.id.tv_place_name_pd);
-                            tv_place_name.setText(placeName);
-                            placeAddress = (String) myPlace.getAddress();
-                            tv_address = (TextView) findViewById(R.id.tv_address);
-                            tv_address.setText(placeAddress);
-                            placeContact = (String) myPlace.getPhoneNumber();
-                            tv_call_info = (TextView) findViewById(R.id.tv_call_info);
-                            tv_call_info.setText(placeContact);
-                            placePriceLevel = myPlace.getPriceLevel();
-                            placeRating = myPlace.getRating();
-                            placeWeblink = String.valueOf(myPlace.getWebsiteUri());
-                            tv_website_info = (TextView) findViewById(R.id.tv_website_info);
-                            tv_website_info.setText(placeWeblink);
-                            placeRating = myPlace.getRating();
-                            ratingBar = (RatingBar) findViewById(R.id.rb_rating);
-                            ratingBar.setRating(placeRating);
-
-                        } else {
-                            Log.i(String.valueOf(PlaceDetails.this), String.valueOf(places.getStatus()));
-                        }
-                        places.release();
-                    }
-                });
-    }
+            } else {
+                Log.i(String.valueOf(PlaceDetails.this), String.valueOf(places.getStatus()));
+            }
+            places.release();
+        }
+    });
+}
 
     private void loadViews() {
         iv_place_photo = (ImageView) findViewById(R.id.iv_place_photo);
