@@ -1,5 +1,6 @@
 package xyz.gautamhans.locus;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.List;
@@ -125,9 +127,17 @@ public class Category extends AppCompatActivity implements
         Call<Example> exampleCall = apiInterface.getNearbyPlaces
                 (latitude + "," + longitude, radius, category);
 
+        final ProgressDialog mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+
         exampleCall.enqueue(new Callback<Example>() {
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
+                if(mProgressDialog.isShowing()){
+                    mProgressDialog.dismiss();
+                }
                 places = response.body().getResults();
                 Log.d(String.valueOf(this), "Number of places received: " + places.size());
                 setAdapter();
@@ -135,6 +145,9 @@ public class Category extends AppCompatActivity implements
 
             @Override
             public void onFailure(Call<Example> call, Throwable t) {
+                if(mProgressDialog.isShowing()){
+                    mProgressDialog.dismiss();
+                }
                 Log.d(String.valueOf(this), t.toString());
             }
         });
