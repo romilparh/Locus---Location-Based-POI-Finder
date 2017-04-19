@@ -40,17 +40,27 @@ public class PlaceSearch extends AppCompatActivity {
         cv = (CardView) findViewById(R.id.cv_search);
         fragment = findViewById(R.id.place_autocomplete_fragment);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                fragment.performClick();
-            }
-        }, 1000);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                fragment.performClick();
+//            }
+//        }, 1000);
+
 
         //PlaceAutoComplete Search Implementation
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
+        //run autocompletefragment automatically on activity creation
+        final View root = autocompleteFragment.getView();
+        root.post(new Runnable() {
+            @Override
+            public void run() {
+                root.findViewById(R.id.place_autocomplete_search_input)
+                        .performClick();
+            }
+        });
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
