@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,9 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
     //Views References
     RatingBar ratingBar;
     TextView tv_place_name, tv_address, tv_call_info, tv_website_info;
+    ImageView iv_place_photo;
+
+
     private GoogleApiClient mGoogleApiClient;
 
     @Override
@@ -50,6 +54,7 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
         tv_call_info = (TextView) findViewById(R.id.tv_call_info);
         tv_website_info = (TextView) findViewById(R.id.tv_website_info);
         ratingBar = (RatingBar) findViewById(R.id.rb_rating);
+        iv_place_photo = (ImageView) findViewById(R.id.iv_place_photo);
 
         //Google API Client
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -80,7 +85,7 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
                             tv_website_info.setText(placeWeblink);
                             placeRating = myPlace.getRating();
                             ratingBar.setRating(placeRating);
-
+                            iv_place_photo.setImageResource(R.drawable.defaultplace);
                         } else {
                             Log.i(String.valueOf(PlaceDetailsFromSearch.this), String.valueOf(places.getStatus()));
                         }
@@ -103,7 +108,7 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
                 Toast.makeText(this, "Save Toast", Toast.LENGTH_LONG).show();
                 break;
             default:
-                Toast.makeText(this, "Incorrect Item Toast", Toast.LENGTH_LONG).show();
+                
         }
         return super.onOptionsItemSelected(item);
     }
