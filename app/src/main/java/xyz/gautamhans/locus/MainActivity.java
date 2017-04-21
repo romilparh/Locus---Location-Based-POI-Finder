@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
 //                    PERMISSION_REQUEST_CODE);
 //        }
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_main);
 
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
