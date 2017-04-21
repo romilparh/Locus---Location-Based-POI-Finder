@@ -29,4 +29,7 @@
     <string name="feedbackbody">Describe Feedback Here !</string>
     <string name="send_feedback">Send Feedback</string>
     <string name="title_activity_reminders">Reminders</string>
+    <string name="activity_home_name">Home</string>
+    <string name="activity_reminders_name">Reminders</string>
+    <string name="activity_saved_places_name">Saved Places</string>
 </resources>
