@@ -1,9 +1,13 @@
 
-package xyz.gautamhans.locus;
+package xyz.gautamhans.locus.retrofit.pojos;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import xyz.gautamhans.locus.retrofit.pojos.Geometry;
+import xyz.gautamhans.locus.retrofit.pojos.OpeningHours;
+import xyz.gautamhans.locus.retrofit.pojos.Photo;
 
 public class Result {
 

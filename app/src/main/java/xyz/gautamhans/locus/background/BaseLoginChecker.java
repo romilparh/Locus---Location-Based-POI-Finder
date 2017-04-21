@@ -1,4 +1,4 @@
-package xyz.gautamhans.locus;
+package xyz.gautamhans.locus.background;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import xyz.gautamhans.locus.ui.MainActivity;
+import xyz.gautamhans.locus.ui.SignInActivity;
 
 /**
  * Created by Gautam on 16-Apr-17.

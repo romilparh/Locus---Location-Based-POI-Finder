@@ -1,16 +1,17 @@
-package xyz.gautamhans.locus;
+package xyz.gautamhans.locus.ui;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import xyz.gautamhans.locus.R;
 
 public class Reminder_UI_Activity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
     SeekBar seekBar1;

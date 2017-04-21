@@ -1,13 +1,14 @@
-package xyz.gautamhans.locus;
+package xyz.gautamhans.locus.ui;
 
 /**
  * Created by Gautam on 02-Apr-17.
  */
 
 public class PlaceCardDetails {
-    int place_photoId;
-    double place_rating;
-    String place_name, place_address;
+    public int place_photoId;
+    public double place_rating;
+    public String place_name;
+    public String place_address;
 
     PlaceCardDetails(int place_photoId, double place_rating,
                      String place_name, String place_address) {

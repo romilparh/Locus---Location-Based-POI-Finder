@@ -1,7 +1,5 @@
-package xyz.gautamhans.locus;
+package xyz.gautamhans.locus.ui.adapter;
 
-import android.app.LauncherActivity;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.List;
+
+import xyz.gautamhans.locus.R;
+import xyz.gautamhans.locus.ui.CategoryDetails;
 
 /**
  * Created by Gautam on 02-Apr-17.
@@ -26,8 +27,8 @@ public class RVCat_Adapter extends RecyclerView.Adapter<RVCat_Adapter.CategoryDe
     List<CategoryDetails> categoryDetailsList;
 
     //constructor to assign data at runtime
-    RVCat_Adapter(List<CategoryDetails> categoryDetailsList,
-                  ListItemClickListener listener) {
+    public RVCat_Adapter(List<CategoryDetails> categoryDetailsList,
+                         ListItemClickListener listener) {
         this.categoryDetailsList = categoryDetailsList;
         mOnClickListener = listener;
     }

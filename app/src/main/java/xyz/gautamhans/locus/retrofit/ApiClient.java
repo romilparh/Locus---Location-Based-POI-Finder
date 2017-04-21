@@ -1,4 +1,4 @@
-package xyz.gautamhans.locus;
+package xyz.gautamhans.locus.retrofit;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

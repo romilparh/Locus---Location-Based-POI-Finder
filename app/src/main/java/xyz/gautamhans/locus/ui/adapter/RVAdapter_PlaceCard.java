@@ -1,4 +1,4 @@
-package xyz.gautamhans.locus;
+package xyz.gautamhans.locus.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import xyz.gautamhans.locus.R;
+import xyz.gautamhans.locus.ui.PlaceCardDetails;
+
 /**
  * Created by Gautam on 02-Apr-17.
  */
@@ -19,7 +22,7 @@ public class RVAdapter_PlaceCard extends
 
     List<PlaceCardDetails> placeCardDetails;
 
-    RVAdapter_PlaceCard(List<PlaceCardDetails> placeCardDetails) {
+    public RVAdapter_PlaceCard(List<PlaceCardDetails> placeCardDetails) {
         this.placeCardDetails = placeCardDetails;
     }
 

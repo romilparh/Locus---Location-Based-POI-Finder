@@ -1,9 +1,7 @@
-package xyz.gautamhans.locus;
+package xyz.gautamhans.locus.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +9,11 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 import java.util.List;
+
+import xyz.gautamhans.locus.R;
+import xyz.gautamhans.locus.retrofit.pojos.Example;
+import xyz.gautamhans.locus.retrofit.pojos.Result;
 
 /**
  * Created by Gautam on 09-Apr-17.
@@ -36,7 +35,7 @@ public class RVAdapter_CategoryDetails extends
 
 
     // Constructor
-    RVAdapter_CategoryDetails(ListItemClickListener listener, List<Result> exampleList) {
+    public RVAdapter_CategoryDetails(ListItemClickListener listener, List<Result> exampleList) {
         this.resultList = exampleList;
         mListItemClickListener = listener;
     }

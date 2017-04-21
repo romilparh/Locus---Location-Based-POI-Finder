@@ -1,4 +1,4 @@
-package xyz.gautamhans.locus;
+package xyz.gautamhans.locus.ui;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -44,6 +44,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import xyz.gautamhans.locus.R;
+import xyz.gautamhans.locus.ui.adapter.RVAdapter_PlaceCard;
+import xyz.gautamhans.locus.ui.adapter.RVCat_Adapter;
 
 
 public class MainActivity extends AppCompatActivity

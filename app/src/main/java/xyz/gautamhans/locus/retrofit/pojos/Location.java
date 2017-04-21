@@ -1,10 +1,10 @@
 
-package xyz.gautamhans.locus;
+package xyz.gautamhans.locus.retrofit.pojos;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Northeast {
+public class Location {
 
     @SerializedName("lat")
     @Expose

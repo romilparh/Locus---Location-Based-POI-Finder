@@ -1,4 +1,4 @@
-package xyz.gautamhans.locus;
+package xyz.gautamhans.locus.ui;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.List;
@@ -19,6 +18,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import xyz.gautamhans.locus.R;
+import xyz.gautamhans.locus.retrofit.ApiClient;
+import xyz.gautamhans.locus.retrofit.ApiInterface;
+import xyz.gautamhans.locus.retrofit.pojos.Example;
+import xyz.gautamhans.locus.retrofit.pojos.Result;
+import xyz.gautamhans.locus.ui.adapter.RVAdapter_CategoryDetails;
 
 /**
  * Created by Gautam on 09-Apr-17.

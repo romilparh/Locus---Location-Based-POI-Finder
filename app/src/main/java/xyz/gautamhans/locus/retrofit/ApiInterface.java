@@ -1,8 +1,9 @@
-package xyz.gautamhans.locus;
+package xyz.gautamhans.locus.retrofit;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import xyz.gautamhans.locus.retrofit.pojos.Example;
 
 /**
  * Created by Gautam on 09-Apr-17.

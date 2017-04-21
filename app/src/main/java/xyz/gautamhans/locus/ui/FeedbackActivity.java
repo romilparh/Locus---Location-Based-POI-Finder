@@ -1,4 +1,4 @@
-package xyz.gautamhans.locus;
+package xyz.gautamhans.locus.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import xyz.gautamhans.locus.R;
 
 public class FeedbackActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     int fail;
