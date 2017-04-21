@@ -10,6 +10,14 @@
     <string name="search_title">Search</string>
     <string name="search_hint">Search Places ...</string>
     <string name="categories">Categories</string>
+    <string name="enter_radius">Enter Radius: </string>
+    <string name="not_point">Notification Point</string>
+    <string name="name_title">Enter Task</string>
+    <string name="start">Entry</string>
+    <string name="end">Exit</string>
+    <string name="enter_location">Enter Location</string>
+    <string name="task_desc">Task Description</string>
+    <string name="name_desc">Enter Description</string>
     <string name="categories_text">Categories</string>
     <string name="places_around_you">Places Around You</string>
     <string name="feedbacktype2">Bug</string>
@@ -21,54 +29,4 @@
     <string name="feedbackbody">Describe Feedback Here !</string>
     <string name="send_feedback">Send Feedback</string>
     <string name="title_activity_reminders">Reminders</string>
-
-    <string name="close">Close</string>
-
-
-    <string name="service_not_available">Service not available</string>
-    <string name="invalid_lat_long_used">invalid_lat_long_used</string>
-    <string name="no_address_found">Address not found</string>
-    <string name="address_found">Address Found</string>
-    <string name="note_example">What do you want to be reminded of? Buy Milk?</string>
-    <string name="place_example">Add name for the location (i.e. Reliance Fresh)</string>
-    <string name="cancel">Cancel</string>
-    <string name="save">Save</string>
-    <string name="reminder_created">Reminder created</string>
-    <string name="new_reminder">New Reminder</string>
-    <string name="distance_from_target">Remind me when I am %d away from the location</string>
-    <string name="actions">Actions</string>
-    <string name="mute">Do Not Disturb</string>
-
-    <string name="about_message_by">Locus</string>
-    <string name="about_message_contact">Gautam</string>
-
-
-    <string name="error_no_note">Note cannot be empty</string>
-    <string name="x_dintance_away">3m away</string>
-    <string name="order_by_distance">Order by distance</string>
-    <string name="example_address">Address (i.e. NH1 GT Road LPU)</string>
-    <string name="error_no_address">Address cannot be empty</string>
-    <string name="card_delete">Cancel Reminder</string>
-    <string name="reminder_edit">Edit</string>
-    <string name="reminder_delete">Delete</string>
-    <string name="empty_no_reminders">No reminders have been set yet.\nPress the + button to set a new one!</string>
-    <string name="select">Select</string>
-    <string name="reminder_creation_failed">Unable to create reminder. Try again later</string>
-
-    <string name="distance">%.2f meters away</string>
-    <string name="destination_reached">You are there!</string>
-    <string name="delete_reminder_title">Delete Reminder?</string>
-    <string name="reminder_deleted">Reminder deleted</string>
-    <string name="distance_too_far">Far, far away</string>
-    <string name="reminder_open_compass">Open Compass</string>
-    <string name="reminder_updated">Reminder updated</string>
-    <string name="edit_reminder">Edit reminder</string>
-    <string name="edit">Edit</string>
-    <string name="waiting_for_location">Searching location</string>
-    <string name="near_place">Near %s</string>
-    <string name="dnd_enabled">Do not Disturbed Enabled</string>
-    <string name="editing_actions_unsupported">Sorry, editing actions is not available… yet</string>
-    <string name="notify_radius">Reminder radius</string>
-    <string name="radius_in_m">%s m</string>
-
 </resources>
