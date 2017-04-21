@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "569035656155",
-    "project_id": "locus-164209"
+    "firebase_url": "https://locus-164209.firebaseio.com",
+    "project_id": "locus-164209",
+    "storage_bucket": "locus-164209.appspot.com"
   },
   "client": [
     {
@@ -12,6 +14,18 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "569035656155-jc7gjgdfha1bd2f4medbfo03jrmq7gdh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.gautamhans.locus",
+            "certificate_hash": "97eecd0ef85bacf68efa0149ecc6f3c66160307f"
+          }
+        },
+        {
+          "client_id": "569035656155-kriq4r9se3q4fndb6uubn9butiscku10.apps.googleusercontent.com",
+          "client_type": 3
+        },
         {
           "client_id": "569035656155-p4uuiklfi9tlpadoig6ak85svd4c7jhm.apps.googleusercontent.com",
           "client_type": 3
@@ -35,11 +49,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569035656155-kriq4r9se3q4fndb6uubn9butiscku10.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
