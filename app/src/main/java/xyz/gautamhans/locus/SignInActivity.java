@@ -112,7 +112,8 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             startActivity(intent);
         }
         else{
-            Toast.makeText(this, "Sign In Failed!\nPlease try again.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Status: " + result.getStatus(), Toast.LENGTH_LONG).show();
+            Log.i(String.valueOf(this), "Login Status: " +result.getStatus());
         }
     }
 
