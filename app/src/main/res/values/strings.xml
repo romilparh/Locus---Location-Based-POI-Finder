@@ -40,4 +40,8 @@
     <string name="choose_location_tv_ni">Choose Location</string>
     <string name="radius_text">Radius</string>
     <string name="address_text_tv_ni">Address</string>
+    <string name="title_error">Title cannot be empty.</string>
+    <string name="description_error">Description cannot be empty.</string>
+    <string name="task_desc_title">Description: </string>
+    <string name="address_text_title">Address:</string>
 </resources>

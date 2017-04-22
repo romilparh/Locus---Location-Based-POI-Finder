@@ -63,7 +63,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".ui.Reminder_UI_Activity"
+            android:name=".ui.NewReminder"
             android:noHistory="true" />
 
         <activity

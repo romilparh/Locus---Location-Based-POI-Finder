@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="xyz.gautamhans.locus.ui.Reminder_UI_Activity"
+    tools:context="xyz.gautamhans.locus.ui.NewReminder"
     android:padding="10dp"
     android:orientation="vertical">
 
@@ -69,9 +69,10 @@
         android:id="@+id/choose_loc_icon_iv"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/chooselocreminder"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/choose_location_tv_ni"
-        android:layout_alignParentEnd="true" />
+        android:onClick="pickPlace"
+        app:srcCompat="@drawable/chooselocreminder" />
 
     <TextView
         android:id="@+id/address_selected_tv"
@@ -123,11 +124,12 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/checked"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:onClick="onSaveButtonClicked"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/checked" />
 </RelativeLayout>
 
