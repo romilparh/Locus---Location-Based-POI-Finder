@@ -12,12 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".BaseLoginChecker"
+            android:name=".background.BaseLoginChecker"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
@@ -25,29 +25,32 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
 
         <activity
-            android:name=".SignInActivity"
+            android:name=".ui.SignInActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
-        <activity android:name=".PlaceSearch"
-            android:parentActivityName=".MainActivity"
+        <activity android:name=".ui.PlaceSearch"
+            android:parentActivityName=".ui.MainActivity"
             />
 
-        <activity android:name=".PlaceDetailsFromSearch"
-            android:parentActivityName=".PlaceSearch" />
+        <activity android:name=".ui.PlaceDetailsFromSearch"
+            android:parentActivityName=".ui.PlaceSearch" />
 
         <activity
-            android:name=".Category"
-            android:parentActivityName=".MainActivity"
+            android:name=".ui.Category"
+            android:parentActivityName=".ui.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PlaceDetails"
-            android:parentActivityName=".Category"
+            android:name=".ui.PlaceDetails"
+            android:parentActivityName=".ui.Category"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -55,16 +58,16 @@
             android:value="AIzaSyDDs4rr2v_ZQJ9_6qkFq5NG4B_aRCEe0o0" />
 
         <activity
-            android:name=".FeedbackActivity"
+            android:name=".ui.FeedbackActivity"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".Reminder_UI_Activity"
+            android:name=".ui.NewReminder"
             android:noHistory="true" />
 
         <activity
-            android:name=".Reminders"
+            android:name=".ui.Reminders"
             android:noHistory="true" />
     </application>
 

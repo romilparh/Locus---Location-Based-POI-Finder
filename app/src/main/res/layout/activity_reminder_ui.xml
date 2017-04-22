@@ -1,218 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    tools:context="xyz.gautamhans.locus.Reminder_UI_Activity"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="xyz.gautamhans.locus.ui.NewReminder"
+    android:padding="10dp"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
         <TextView
-            android:layout_width="fill_parent"
+            android:id="@+id/task_title_tv_ni"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tasktitle"
-            android:textSize="15dp"
-            />
-        <EditText
-            android:layout_marginTop="10dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/name_title"
-            android:textSize="20dp"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/task_desc"
-            android:textSize="15dp"
-            />
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/name_desc"
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp">
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="25dp"
-            android:layout_marginLeft="10dp"
-            android:layout_height="25dp"
-            android:src="@drawable/placeholder"/>
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:src="@drawable/placeholder1"
-            android:id="@+id/imageView2"
-            android:onClick="hide"
-            />
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/enter_location"
-            android:layout_toRightOf="@id/imageView1"
-            android:paddingLeft="20dp"
-            android:id="@+id/textView1"
             android:layout_weight="1"
-            android:layout_toLeftOf="@id/imageView2"
-            android:textSize="20dp"/>
+            android:text="@string/task_title_tv_ni_text"
+            android:textSize="16sp" />
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
-        <TextView
-            android:id="@+id/locationSelected"
-            android:layout_gravity="center"
-            android:text="demo"
-            android:textStyle="italic"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="25dp"
-            android:layout_marginLeft="10dp"
-            android:layout_height="25dp"
-            android:src="@drawable/radius"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/enter_radius"
-            android:layout_toRightOf="@id/imageView3"
-            android:paddingLeft="20dp"
-            android:id="@+id/textView3"
-            android:textSize="20dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/textView3"
-            android:layout_marginLeft="10dp"
-            android:text="1"
-            android:textSize="20dp"
-            android:inputType="number"
-            android:id="@+id/textview4"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
-        <SeekBar
-            android:id="@+id/seekBar1"
+        <EditText
+            android:id="@+id/task_title_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_alignParentTop="true"
-            />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="fill_parent"
+            android:hint="@string/enter_task_title_here"
+            android:textSize="18sp"
+            android:layout_below="@+id/task_title_tv_ni"
+            android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/task_desc_tv_ni"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:id="@+id/imageView4"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ring"/>
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView5"
-            android:text="@string/not_point"
-            android:layout_toRightOf="@id/imageView4"
-            android:textSize="20dp"
-            android:layout_marginLeft="20dp"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="fill_parent"
+        android:text="@string/task_desc_tv_ni"
+        android:textSize="16sp"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/task_title_tv"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/task_desc_tv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:text="@string/start"
-            android:id="@+id/cb1"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/cb1"
-            android:layout_marginLeft="10dp"
-            android:text="@string/end"
-            android:id="@+id/cb2"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
+        android:textSize="18sp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/enter_task_description_here"
+        android:layout_below="@+id/task_desc_tv_ni"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:id="@+id/location_icon_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/task_desc_tv"
+        android:layout_marginTop="18dp"
+        app:srcCompat="@drawable/locreminder" />
+
+    <TextView
+        android:id="@+id/choose_location_tv_ni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_location_tv_ni"
+        android:textSize="18sp"
+        android:layout_alignTop="@+id/location_icon_iv"
+        android:layout_toEndOf="@+id/location_icon_iv"
+        android:layout_marginStart="12dp" />
+
+    <ImageView
+        android:id="@+id/choose_loc_icon_iv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/choose_location_tv_ni"
+        android:onClick="pickPlace"
+        app:srcCompat="@drawable/chooselocreminder" />
+
+    <TextView
+        android:id="@+id/address_selected_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/choose_loc_icon_iv"
+        android:text="@string/address_text_tv_ni"
+        android:layout_alignStart="@+id/choose_location_tv_ni"
+        android:layout_toStartOf="@+id/choose_loc_icon_iv" />
+
+    <ImageView
+        android:id="@+id/radius_icon_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/radius"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/radius_title_tv_ni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/address_selected_tv"
+        android:layout_alignTop="@+id/radius_icon_iv"
+        android:text="@string/radius_text"
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_below="@id/radius_title_tv_ni"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/stopwatch"
-            android:id="@+id/imageView5"/>
-
         <TextView
-            android:layout_toRightOf="@id/imageView5"
-            android:layout_marginLeft="20dp"
-            android:textSize="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Everytime"
-            android:id="@+id/textview6"/>
+            android:id="@+id/radius_text"
+            android:gravity="center"
+            android:layout_width="48dp"
+            android:text="@string/radius_in_m"
+            android:layout_height="48dp" />
 
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            />
+        <SeekBar
+            android:id="@+id/radius_slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:gravity="bottom"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_height="fill_parent"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:src="@drawable/checked"
-            android:id="@+id/imageView6"
-            android:onClick="saveButtonPressed"
-            />
-    </RelativeLayout>
-</LinearLayout>
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:onClick="onSaveButtonClicked"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/checked" />
+</RelativeLayout>
+
