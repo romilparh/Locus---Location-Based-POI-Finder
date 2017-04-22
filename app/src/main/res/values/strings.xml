@@ -32,4 +32,12 @@
     <string name="activity_home_name">Home</string>
     <string name="activity_reminders_name">Reminders</string>
     <string name="activity_saved_places_name">Saved Places</string>
+    <string name="radius_in_m">%s m</string>
+    <string name="task_title_tv_ni_text">Task Title</string>
+    <string name="enter_task_title_here">Enter task title here ...</string>
+    <string name="task_desc_tv_ni">Description</string>
+    <string name="enter_task_description_here">Enter task description here ...</string>
+    <string name="choose_location_tv_ni">Choose Location</string>
+    <string name="radius_text">Radius</string>
+    <string name="address_text_tv_ni">Address</string>
 </resources>
