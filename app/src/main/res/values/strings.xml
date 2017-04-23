@@ -44,4 +44,5 @@
     <string name="description_error">Description cannot be empty.</string>
     <string name="task_desc_title">Description: </string>
     <string name="address_text_title">Address:</string>
+    <string name="delete_menu_text">Delete</string>
 </resources>

@@ -5,9 +5,17 @@ package xyz.gautamhans.locus.db;
  */
 
 public class DatabaseModel {
-    private String title, description, address, placeID;
+    public String title, description, address, placeID;
     Double longitude, latitude;
-    int radius;
+    int radius, id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getRadius() {
         return radius;
