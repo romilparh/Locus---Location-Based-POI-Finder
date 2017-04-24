@@ -7,13 +7,35 @@ package xyz.gautamhans.locus.db;
 public class DatabaseModel {
     public String title, description, address, placeID;
     Double longitude, latitude;
-    int radius, id;
+    int radius;
+    long id;
 
     public int getId() {
-        return id;
+        return (int) id;
     }
 
-    public void setId(int id) {
+    public DatabaseModel(long id, String title, String description, String address, String placeID, Double longitude, Double latitude, int radius) {
+        this.title = title;
+        this.description = description;
+        this.address = address;
+        this.placeID = placeID;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.radius = radius;
+        this.id = id;
+    }
+
+    public DatabaseModel(String title, String description, String address, String placeID, Double longitude, Double latitude, int radius) {
+        this.title = title;
+        this.description = description;
+        this.address = address;
+        this.placeID = placeID;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.radius = radius;
+    }
+
+    public void setId(long id) {
         this.id = id;
     }
 

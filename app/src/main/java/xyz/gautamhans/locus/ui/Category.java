@@ -168,7 +168,7 @@ public class Category extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
 
         try {
-            if (item.getItemId() == R.id.home) {
+            if (item.getItemId() == android.R.id.home) {
                 Intent actMain = new Intent(Category.this, MainActivity.class);
                 startActivity(actMain);
             }

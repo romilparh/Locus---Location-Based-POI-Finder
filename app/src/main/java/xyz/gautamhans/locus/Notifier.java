@@ -1,0 +1,64 @@
+package xyz.gautamhans.locus;
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
+
+import xyz.gautamhans.locus.db.DatabaseModel;
+import xyz.gautamhans.locus.ui.Reminders;
+
+/**
+ * Created by Gautam on 24-Apr-17.
+ */
+
+public class Notifier {
+
+    private static Notifier sInstance;
+
+    private Notifier() {
+    }
+
+    private NotificationManager mManager;
+    private Context mContext;
+
+    private Notifier(Context context) {
+        this.mManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        this.mContext = context;
+    }
+
+    public Notifier getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new Notifier(context);
+        }
+        return sInstance;
+    }
+
+    public static void notifyForReminder(Context context, DatabaseModel reminder) {
+        Intent notificationIntent = new Intent(context, Reminders.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notification =
+                new NotificationCompat.Builder(context.getApplicationContext())
+                .setContentTitle(reminder.getTitle())
+                .setContentText(reminder.getDescription())
+                .setAutoCancel(false)
+                .setColor(context.getResources().getColor(R.color.colorPrimary))
+                .setTicker(reminder.getDescription())
+                .setContentIntent(contentIntent)
+                .setSmallIcon(R.drawable.ic_stat_maps_location_history)
+                .build();
+
+        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify((int) reminder.getId(), notification);
+    }
+
+    public static void cancelForReminder(Context context, long id) {
+        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.cancel((int) id);
+    }
+
+}

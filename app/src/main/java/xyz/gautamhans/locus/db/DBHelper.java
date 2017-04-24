@@ -4,9 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,12 @@ public class DBHelper extends SQLiteOpenHelper {
             sInstance = new DBHelper(context);
         }
         return sInstance;
+    }
+
+    public SQLiteDatabase getDatabase() {
+        synchronized (sInstance) {
+            return this.getWritableDatabase();
+        }
     }
 
     @Override
@@ -76,17 +82,77 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.i("insert into DB", "After insert");
     }
 
-    //Retrieve data from Database
-    public List<DatabaseModel> getDataFromDB() {
-        List<DatabaseModel> modelList = new ArrayList<DatabaseModel>();
-        String query = "SELECT * FROM " + REMINDERS_TABLE;
+    public long saveReminder(String title, String description, Double longitude, Double latitude, String placeID, String address, int radius) {
+        return saveReminder(new DatabaseModel(-1, title, description, address, placeID, longitude, latitude, radius));
+    }
 
+    public long saveReminder(DatabaseModel reminder) {
+        synchronized (sInstance) {
+            SQLiteDatabase db = getDatabase();
+            try {
+                ContentValues values = new ContentValues();
+                values.put("title", reminder.getTitle());
+                values.put("description", reminder.getDescription());
+                values.put("longitude", reminder.getLongitude());
+                values.put("latitude", reminder.getLatitude());
+                values.put("placeId", reminder.getPlaceID());
+                values.put("address", reminder.getAddress());
+                values.put("radius", reminder.getRadius());
+
+                return db.insert(REMINDERS_TABLE, null, values);
+            } catch (SQLiteException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return -1;
+    }
+        //Retrieve data from Database
+        public List<DatabaseModel> getDataFromDB () {
+            List<DatabaseModel> modelList = new ArrayList<DatabaseModel>();
+            String query = "SELECT * FROM " + REMINDERS_TABLE;
+            String title, description, address, placeID;
+            Double longitude, latitude;
+            int radius;
+            title=description=address=placeID="";
+            longitude=latitude= 0.0;
+            radius = 0;
+            SQLiteDatabase db = this.getWritableDatabase();
+            Cursor cursor = db.rawQuery(query, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    DatabaseModel model = new DatabaseModel(title, description, address, placeID, longitude, latitude, radius);
+                    model.setId(cursor.getInt(0));
+                    model.setTitle(cursor.getString(1));
+                    model.setDescription(cursor.getString(2));
+                    model.setLongitude(cursor.getDouble(3));
+                    model.setLatitude(cursor.getDouble(4));
+                    model.setPlaceID(cursor.getString(5));
+                    model.setAddress(cursor.getString(6));
+                    model.setRadius(cursor.getInt(7));
+                    modelList.add(model);
+                } while (cursor.moveToNext());
+            }
+            Log.d("reminders table data", modelList.toString());
+            return modelList;
+        }
+
+        //Delete a row from the db
+
+    public void deleteARow(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
+        db.delete(REMINDERS_TABLE, RemindersContract.ID + " = " + id, null);
+        Log.d(String.valueOf(this), id + " deleted");
+        db.close();
+    }
 
-        if (cursor.moveToFirst()) {
+    public DatabaseModel getReminder(long requestID) {
+        String query = "SELECT * FROM " + REMINDERS_TABLE + " WHERE id = " + requestID;
+
+        DatabaseModel model = null;
+        synchronized (sInstance) {
+            Cursor cursor = null;
             do {
-                DatabaseModel model = new DatabaseModel();
                 model.setId(cursor.getInt(0));
                 model.setTitle(cursor.getString(1));
                 model.setDescription(cursor.getString(2));
@@ -95,19 +161,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 model.setPlaceID(cursor.getString(5));
                 model.setAddress(cursor.getString(6));
                 model.setRadius(cursor.getInt(7));
-                modelList.add(model);
             } while (cursor.moveToNext());
         }
-        Log.d("reminders table data", modelList.toString());
-        return modelList;
-    }
-
-    //Delete a row from the db
-    public void deleteARow(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(REMINDERS_TABLE, RemindersContract.ID + " = " + id, null);
-        Log.d(String.valueOf(this), id + " deleted");
-        db.close();
+        return model;
     }
 }
 
