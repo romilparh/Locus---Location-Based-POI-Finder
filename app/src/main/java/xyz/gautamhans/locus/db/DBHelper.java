@@ -153,39 +153,25 @@ public class DBHelper extends SQLiteOpenHelper {
     public DatabaseModel getReminder(long requestID) {
         String query = "SELECT * FROM " + REMINDERS_TABLE + " WHERE id = " + (int) requestID;
 
-        DatabaseModel model = null;
+        String title, description, address, placeID;
+        Double longitude, latitude;
+        int radius;
+        title = description = address = placeID = "";
+        longitude = latitude = 0.0;
+        radius = 0;
+
+        DatabaseModel model = new DatabaseModel(title, description, address, placeID, longitude, latitude, radius);
         synchronized (sInstance) {
             SQLiteDatabase db = getDatabase();
             Cursor cursor = db.rawQuery(query, null);
-
-            try {
-                int col_id = cursor.getColumnIndex("id");
-                int col_title = cursor.getColumnIndex("title");
-                int col_desc = cursor.getColumnIndex("description");
-                int col_address = cursor.getColumnIndex("address");
-                int col_place_id = cursor.getColumnIndex("placeId");
-                int col_radius = cursor.getColumnIndex("radius");
-                int col_longitude = cursor.getColumnIndex("longitude");
-                int col_latitude = cursor.getColumnIndex("latitude");
-
-                while (cursor.moveToNext()) ;
-                {
-                    long id = cursor.getLong(col_id);
-                    String title = cursor.getString(col_title);
-                    String description = cursor.getString(col_desc);
-                    String address = cursor.getString(col_address);
-                    String place_id = cursor.getString(col_place_id);
-                    int radius = cursor.getInt(col_radius);
-                    Double longitude = cursor.getDouble(col_longitude);
-                    Double latitude = cursor.getDouble(col_latitude);
-                    model = new DatabaseModel(id, title, description, address, place_id, longitude, latitude, radius);
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }finally {
-                if (cursor != null && !cursor.isClosed()) {
-                    cursor.close();
-                }
+            while(cursor.moveToNext()){
+                model.setTitle(cursor.getString(1));
+                model.setDescription(cursor.getString(2));
+                model.setLongitude(cursor.getDouble(3));
+                model.setLatitude(cursor.getDouble(4));
+                model.setPlaceID(cursor.getString(5));
+                model.setAddress(cursor.getString(6));
+                model.setRadius(cursor.getInt(7));
             }
         }
         return model;

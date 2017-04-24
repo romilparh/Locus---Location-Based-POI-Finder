@@ -76,6 +76,7 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
         radius_text = (TextView) findViewById(R.id.radius_text);
         mRadius = (SeekBar) findViewById(R.id.radius_slider);
         mRadius.setMax(RADIUS_MAX);
+        mRadius.setProgress(DEFAULT_RADIUS);
         updateRadiusText();
 
         mRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -177,6 +178,7 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
                 .addOnConnectionFailedListener(this)
                 .build();
         mGoogleApiClient.connect();
+        Log.i(String.valueOf(this), "GoogleAPICLIENT STATUS: " +mGoogleApiClient.isConnected());
     }
 
     private void updateRadiusText() {
@@ -231,6 +233,9 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
 
     private class SaveReminderTask extends AsyncTask<Void, Void, Integer> {
 
+        private static final int ACTION_REMINDER_FAILED = -1;
+        private static final int ACTION_REMINDER_CREATED = 0;
+        private static final int ACTION_REMINDER_UPDATED = 1;
         private String title, description, placeID, address;
         private int radius;
         private long _id;
@@ -249,17 +254,13 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
             this.mContext = context.getApplicationContext();
         }
 
-        private static final int ACTION_REMINDER_FAILED = -1;
-        private static final int ACTION_REMINDER_CREATED = 0;
-        private static final int ACTION_REMINDER_UPDATED = 1;
-
         @Override
         protected Integer doInBackground(Void... params) {
             int actionPerformed = 0;
-            long id;
+            long id = _id;
             id = DBHelper.getInstance(mContext).insertIntoDB(title, description, longitude, latitude, placeID, address, radius);
-                actionPerformed = ACTION_REMINDER_CREATED;
-            Log.d(String.valueOf(this), "ID Returned after Insertion: " +id);
+            actionPerformed = ACTION_REMINDER_CREATED;
+            Log.d(String.valueOf(this), "ID Returned after Insertion: " + id);
 
                 Geofence cinemaFence = new Geofence.Builder()
                         .setRequestId(String.valueOf(id))
@@ -276,12 +277,11 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
                 // Create an intent pointing to the IntentService
                 Intent intent = new Intent(mContext, UserTransitionIntentService.class);
                 PendingIntent pi = PendingIntent.getService(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                LocationServices.GeofencingApi.addGeofences(mGoogleApiClient, request, pi);
 
                 if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return 1;
                 }
-
-                LocationServices.GeofencingApi.addGeofences(mGoogleApiClient, request, pi);
             return actionPerformed;
         }
 
