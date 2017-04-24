@@ -163,7 +163,6 @@ public class Category extends AppCompatActivity implements
         recyclerView.setAdapter(adapter);
     }
 
-    //TODO (1): Find a fix for app crash
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

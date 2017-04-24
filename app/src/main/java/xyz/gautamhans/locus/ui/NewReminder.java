@@ -215,7 +215,7 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
         String address = address_selected.getText().toString();
         this.setResult(Activity.RESULT_OK);
         new SaveReminderTask(this, mExistingID, title, description, placeID, radius, latitude, longitude, address).execute();
-        this.finish();
+        startActivity(new Intent(NewReminder.this, Reminders.class));
     }
 
     @Override
