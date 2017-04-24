@@ -256,13 +256,11 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
         @Override
         protected Integer doInBackground(Void... params) {
             int actionPerformed = 0;
-            long id = _id;
-            if (_id != -1) {
-                DBHelper.getInstance(mContext).saveReminder(title, description, longitude, latitude, placeID, address, radius);
+            long id;
+            id = DBHelper.getInstance(mContext).insertIntoDB(title, description, longitude, latitude, placeID, address, radius);
                 actionPerformed = ACTION_REMINDER_CREATED;
-            }
+            Log.d(String.valueOf(this), "ID Returned after Insertion: " +id);
 
-            if (id != -1) {
                 Geofence cinemaFence = new Geofence.Builder()
                         .setRequestId(String.valueOf(id))
                         .setExpirationDuration(Geofence.NEVER_EXPIRE)
@@ -284,13 +282,11 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
                 }
 
                 LocationServices.GeofencingApi.addGeofences(mGoogleApiClient, request, pi);
-            }
             return actionPerformed;
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
-
 
             if (integer == ACTION_REMINDER_CREATED)
                 Toast.makeText(mContext, "Reminder saved.", Toast.LENGTH_LONG).show();
