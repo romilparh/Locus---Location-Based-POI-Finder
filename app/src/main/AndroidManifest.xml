@@ -14,8 +14,8 @@
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".background.BaseLoginChecker"
             android:label="@string/app_name"
@@ -37,11 +37,13 @@
 
         </activity>
 
-        <activity android:name=".ui.PlaceSearch"
-            android:parentActivityName=".ui.MainActivity"
-            />
 
-        <activity android:name=".ui.PlaceDetailsFromSearch"
+        <activity
+            android:name=".ui.PlaceSearch"
+            android:parentActivityName=".ui.MainActivity" />
+
+        <activity
+            android:name=".ui.PlaceDetailsFromSearch"
             android:parentActivityName=".ui.PlaceSearch" />
 
         <activity
@@ -52,10 +54,6 @@
             android:name=".ui.PlaceDetails"
             android:parentActivityName=".ui.Category"
             android:screenOrientation="portrait" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDDs4rr2v_ZQJ9_6qkFq5NG4B_aRCEe0o0" />
 
         <activity
             android:name=".ui.FeedbackActivity"
@@ -69,6 +67,23 @@
         <activity
             android:name=".ui.Reminders"
             android:noHistory="true" />
+
+        <service
+            android:name=".service.UserTransitionIntentService"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDDs4rr2v_ZQJ9_6qkFq5NG4B_aRCEe0o0" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/MAPS_API_KEY" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

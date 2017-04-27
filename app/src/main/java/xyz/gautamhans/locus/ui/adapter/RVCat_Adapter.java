@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import java.util.List;
 
 import xyz.gautamhans.locus.R;
-import xyz.gautamhans.locus.ui.CategoryDetails;
+import xyz.gautamhans.locus.ui.CategoryDetailsModel;
 
 /**
  * Created by Gautam on 02-Apr-17.
@@ -24,10 +24,10 @@ public class RVCat_Adapter extends RecyclerView.Adapter<RVCat_Adapter.CategoryDe
         void onListItemClick(int clickedItemIndex, String type);
     }
 
-    List<CategoryDetails> categoryDetailsList;
+    List<CategoryDetailsModel> categoryDetailsList;
 
     //constructor to assign data at runtime
-    public RVCat_Adapter(List<CategoryDetails> categoryDetailsList,
+    public RVCat_Adapter(List<CategoryDetailsModel> categoryDetailsList,
                          ListItemClickListener listener) {
         this.categoryDetailsList = categoryDetailsList;
         mOnClickListener = listener;
