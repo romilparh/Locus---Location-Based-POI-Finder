@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
     String name, email, photoUrl;
     ImageView userPhoto;
     //List to inflate RecyclerView with ViewHolder
-    private List<CategoryDetails> categoryDetailsList;
+    private List<CategoryDetailsModel> categoryDetailsList;
     private List<PlaceCardDetails> placeCardDetails;
     //Get Longitude & Latitude using Places API
     private GoogleApiClient mGoogleApiClient;
@@ -163,17 +163,17 @@ public class MainActivity extends AppCompatActivity
 
     public void initializeDataCat() {
         categoryDetailsList = new ArrayList<>();
-        categoryDetailsList.add(new CategoryDetails(R.drawable.atm));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.bank));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.bar));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.hospital));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.parks));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.police));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.shopping));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.store));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.train));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.taxi));
-        categoryDetailsList.add(new CategoryDetails(R.drawable.theater));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.atm));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.bank));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.bar));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.hospital));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.parks));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.police));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.shopping));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.store));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.train));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.taxi));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.theater));
     }
 
     public void initializeDataPlaces() {

@@ -29,7 +29,6 @@ public class RVAdapter_CategoryDetails extends
         void onListItemClick(int clickedItemIndex, String place_id, String photoReference);
     }
 
-    private List<Example> exampleList;
     private Context context;
     private List<Result> resultList;
 
