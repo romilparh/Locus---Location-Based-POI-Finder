@@ -12,10 +12,9 @@ import xyz.gautamhans.locus.retrofit.pojos.SavePlace;
  * Created by Gautam on 09-Apr-17.
  */
 
-public interface ApiInterface {
+public interface ApiInterfaceSavePlace {
 
-    @GET("json?key=AIzaSyBE8jPCH28fGzNwldLfR2h5WTgMC_IvuJI")
-    Call<Example> getNearbyPlaces(@Query("location") String location, @Query("radius") int radius,
-                                  @Query("type") String category);
+    @GET("user")
+    Call<List<SavePlace>> getSavePlaces();
 
 }
