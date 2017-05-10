@@ -161,16 +161,14 @@ public class Category extends AppCompatActivity implements
         });
 
         Retrofit retrofitSave = ApiClientSavePlace.getClient();
-        ApiInterfaceSavePlace apiInterfaceSave = retrofit.create(ApiInterfaceSavePlace.class);
+        ApiInterfaceSavePlace apiInterfaceSave = retrofitSave.create(ApiInterfaceSavePlace.class);
         Call<List<SavePlace>> savedPlaces = apiInterfaceSave.getSavePlaces();
         savedPlaces.enqueue(new Callback<List<SavePlace>>() {
             @Override
             public void onResponse(Call<List<SavePlace>> call, Response<List<SavePlace>> response) {
                 Log.d("in", "RESPONSE2");
                 try {
-
-                    List<SavePlace> list = response.body();
-                    Log.d("RESPONSE", list.size() + "");
+                    Log.d("RESPONSE \nBody Size: ", response.body().size() + "");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

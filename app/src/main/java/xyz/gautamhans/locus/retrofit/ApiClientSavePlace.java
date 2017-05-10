@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClientSavePlace {
 
-    public static final String BASE_URL = "http://gautams-161606.appspot.com/";
+    public static final String BASE_URL = "https://locus-163607.appspot.com/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient(){
