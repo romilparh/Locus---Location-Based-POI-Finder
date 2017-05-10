@@ -20,9 +20,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import xyz.gautamhans.locus.R;
 import xyz.gautamhans.locus.retrofit.ApiClient;
+import xyz.gautamhans.locus.retrofit.ApiClientSavePlace;
 import xyz.gautamhans.locus.retrofit.ApiInterface;
+import xyz.gautamhans.locus.retrofit.ApiInterfaceSavePlace;
 import xyz.gautamhans.locus.retrofit.pojos.Example;
 import xyz.gautamhans.locus.retrofit.pojos.Result;
+import xyz.gautamhans.locus.retrofit.pojos.SavePlace;
 import xyz.gautamhans.locus.ui.adapter.RVAdapter_CategoryDetails;
 
 /**
@@ -30,7 +33,7 @@ import xyz.gautamhans.locus.ui.adapter.RVAdapter_CategoryDetails;
  */
 
 public class Category extends AppCompatActivity implements
-        RVAdapter_CategoryDetails.ListItemClickListener{
+        RVAdapter_CategoryDetails.ListItemClickListener {
 
     String type;
     int itemIndex = 0, radius = 15000;
@@ -140,7 +143,7 @@ public class Category extends AppCompatActivity implements
         exampleCall.enqueue(new Callback<Example>() {
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
-                if(mProgressDialog.isShowing()){
+                if (mProgressDialog.isShowing()) {
                     mProgressDialog.dismiss();
                 }
                 places = response.body().getResults();
@@ -150,15 +153,35 @@ public class Category extends AppCompatActivity implements
 
             @Override
             public void onFailure(Call<Example> call, Throwable t) {
-                if(mProgressDialog.isShowing()){
+                if (mProgressDialog.isShowing()) {
                     mProgressDialog.dismiss();
                 }
                 Log.d(String.valueOf(this), t.toString());
             }
         });
+
+        Retrofit retrofitSave = ApiClientSavePlace.getClient();
+        ApiInterfaceSavePlace apiInterfaceSave = retrofitSave.create(ApiInterfaceSavePlace.class);
+        Call<List<SavePlace>> savedPlaces = apiInterfaceSave.getSavePlaces();
+        savedPlaces.enqueue(new Callback<List<SavePlace>>() {
+            @Override
+            public void onResponse(Call<List<SavePlace>> call, Response<List<SavePlace>> response) {
+                Log.d("in", "RESPONSE2");
+                try {
+                    Log.d("RESPONSE \nBody Size: ", response.body().size() + "");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<SavePlace>> call, Throwable throwable) {
+                Log.d("RESPONSE", "FAILURE");
+            }
+        });
     }
 
-    private void setAdapter(){
+    private void setAdapter() {
         adapter = new RVAdapter_CategoryDetails(this, places);
         recyclerView.setAdapter(adapter);
     }
@@ -171,7 +194,7 @@ public class Category extends AppCompatActivity implements
                 Intent actMain = new Intent(Category.this, MainActivity.class);
                 startActivity(actMain);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return super.onOptionsItemSelected(item);
@@ -186,7 +209,7 @@ public class Category extends AppCompatActivity implements
 
     @Override
     public void onListItemClick(int clickedItemIndex, String place_id, String photoReference) {
-        Log.i(String.valueOf(this),  "Item #" +clickedItemIndex + "\nPlace ID:" +place_id);
+        Log.i(String.valueOf(this), "Item #" + clickedItemIndex + "\nPlace ID:" + place_id);
         Intent intent = new Intent(Category.this, PlaceDetails.class);
         Bundle extras = new Bundle();
         extras.putInt("clickIndex", clickedItemIndex);
