@@ -1,6 +1,8 @@
 package xyz.gautamhans.locus.ui;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
@@ -8,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
         , com.google.android.gms.location.LocationListener, RVCat_Adapter.ListItemClickListener {
 
+    //location user resolution specifier
+    protected static final int REQUEST_CHECK_SETTINGS = 0x1;
     private static final int PERMISSION_REQUEST_CODE = 100;
     //RecyclerView Variables
     public RecyclerView rv_cat, rv_places;
@@ -79,8 +84,20 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private View navHeader;
 
-    //location user resolution specifier
-    protected static final int REQUEST_CHECK_SETTINGS = 0x1;
+    public static boolean isLocationEnabled(Context context) {
+        int locationMode = 0;
+        String locationProviders;
+
+        try {
+            locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +112,33 @@ public class MainActivity extends AppCompatActivity
 //        }
 
         setContentView(R.layout.activity_main);
+
+        //  Declare a new thread to do a preference check
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //  Initialize SharedPreferences
+                SharedPreferences getPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(getBaseContext());
+
+                //  Create a new boolean and preference and set it to true
+                boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
+
+                if (isFirstStart) {
+
+                    Intent i = new Intent(MainActivity.this, IntroActivity.class);
+                    startActivity(i);
+
+                    SharedPreferences.Editor e = getPrefs.edit();
+
+                    e.putBoolean("firstStart", false);
+
+                    e.apply();
+                }
+            }
+        });
+
+        t.run();
 
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
@@ -202,24 +246,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-
-        if (ContextCompat.checkSelfPermission(MainActivity.this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSION_REQUEST_CODE);
-        }
-
         //connects GoogleAPIClient
         mGoogleApiClient.connect();
-
-        //Prompts user to enable location
-        settingsRequest();
     }
 
-    public void settingsRequest()
-    {
+    public void settingsRequest() {
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(30 * 1000);
@@ -236,47 +267,27 @@ public class MainActivity extends AppCompatActivity
                 final Status status = result.getStatus();
                 final LocationSettingsStates state = result.getLocationSettingsStates();
                 switch (status.getStatusCode()) {
+
                     case LocationSettingsStatusCodes.SUCCESS:
-                        if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                                != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(MainActivity.this,
-                                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                                    PERMISSION_REQUEST_CODE);
+                        if (doesUserHavePermission()) {
+                            requestLocation();
+                        } else {
+                            askForPermissions();
                         }
-
-                        Location mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-                        if (mCurrentLocation != null) {
-                            Log.d("Debug", "current location: " + mCurrentLocation.toString());
-                            LatLng latLng = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-
-                            lat = String.valueOf(mCurrentLocation.getLatitude());
-                            longt = String.valueOf(mCurrentLocation.getLongitude());
-
-                            Log.i(String.valueOf(this.getClass()), "Lat: " + lat + " Longt: " + longt);
-                        }
-                        startLocationUpdates();
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                        // Location settings are not satisfied. But could be fixed by showing the user
-                        // a dialog.
                         try {
-                            // Show the dialog by calling startResolutionForResult(),
-                            // and check the result in onActivityResult().
                             status.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
-                            requestLocation();
                         } catch (IntentSender.SendIntentException e) {
-                            // Ignore the error.
                         }
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        // Location settings are not satisfied. However, we have no way to fix the
-                        // settings so we won't show the dialog.
                         break;
                 }
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -287,7 +298,7 @@ public class MainActivity extends AppCompatActivity
                         startLocationUpdates();
                         break;
                     case Activity.RESULT_CANCELED:
-                        settingsRequest();//keep asking if imp or do whatever
+                        settingsRequest(); //keep asking for location
                         break;
                 }
                 break;
@@ -320,14 +331,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-
-        // Associate searchable configuration with the SearchView
-//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
         return true;
     }
 
@@ -336,7 +340,7 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        if(id == R.id.search){
+        if (id == R.id.search) {
             Intent intent = new Intent(MainActivity.this, PlaceSearch.class);
             startActivity(intent);
         }
@@ -354,13 +358,13 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_saved_places) {
 
         } else if (id == R.id.nav_reminders) {
-            Intent i=new Intent(MainActivity.this, Reminders.class);
+            Intent i = new Intent(MainActivity.this, Reminders.class);
             startActivity(i);
 
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_feedback) {
-            Intent i = new Intent(this,FeedbackActivity.class);
+            Intent i = new Intent(this, FeedbackActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_help) {
 
@@ -371,14 +375,18 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
-
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+        //Prompts user to enable location
+        settingsRequest();
 
+        if (doesUserHavePermission()) {
+            if(lat !=null && longt!=null)
+            requestLocation();
+        }
     }
 
-    protected void requestLocation(){
+    protected void requestLocation() {
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -395,11 +403,16 @@ public class MainActivity extends AppCompatActivity
             lat = String.valueOf(mCurrentLocation.getLatitude());
             longt = String.valueOf(mCurrentLocation.getLongitude());
 
-            Toast.makeText(this, "Latitude: " +lat+"\nLongitude: " +longt, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Latitude: " + lat + "\nLongitude: " + longt, Toast.LENGTH_LONG).show();
 
             Log.i(String.valueOf(this.getClass()), "Lat: " + lat + " Longt: " + longt);
         }
         startLocationUpdates();
+    }
+
+    private boolean doesUserHavePermission() {
+        int result = this.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
     protected void startLocationUpdates() {
@@ -409,6 +422,10 @@ public class MainActivity extends AppCompatActivity
                 .setInterval(UPDATE_INTERVAL)
                 .setFastestInterval(FASTEST_INTERVAL);
 
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+    }
+
+    public void askForPermissions() {
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -416,8 +433,42 @@ public class MainActivity extends AppCompatActivity
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSION_REQUEST_CODE);
         }
+    }
 
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Location mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                    if (mCurrentLocation != null) {
+                        Log.d("Debug", "current location: " + mCurrentLocation.toString());
+                        LatLng latLng = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+
+                        lat = String.valueOf(mCurrentLocation.getLatitude());
+                        longt = String.valueOf(mCurrentLocation.getLongitude());
+
+                        if(mToast != null){
+                            mToast.cancel();
+                        }
+
+                        mToast = Toast.makeText(this, "Latitude: " + lat + "\nLongitude: " + longt, Toast.LENGTH_LONG);
+                        mToast.show();
+
+                        Log.i(String.valueOf(this.getClass()), "Lat: " + lat + " Longt: " + longt);
+                    }
+
+                    mLocationRequest = LocationRequest.create()
+                            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                            .setInterval(UPDATE_INTERVAL)
+                            .setFastestInterval(FASTEST_INTERVAL);
+
+                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+                } else {
+                    askForPermissions();
+                }
+        }
     }
 
     @Override
@@ -449,7 +500,7 @@ public class MainActivity extends AppCompatActivity
             extras.putDouble("longitude", Double.parseDouble(longt));
             intent.putExtras(extras);
             startActivity(intent);
-        }catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "Network error.", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
