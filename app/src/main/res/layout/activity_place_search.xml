@@ -6,7 +6,10 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cv_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        cardElevation="4dp"
+        cardUseCompatPadding="true"
+        android:layout_margin="1dp">
 
     <fragment
         android:id="@+id/place_autocomplete_fragment"

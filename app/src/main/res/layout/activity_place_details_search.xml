@@ -14,6 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        cardElevation="4dp"
+        cardUseCompatPadding="true"
+        android:layout_margin="1dp"
         android:layout_marginTop="10dp">
 
         <RelativeLayout
