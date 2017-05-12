@@ -1,17 +1,24 @@
 package xyz.gautamhans.locus.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -30,7 +37,7 @@ import xyz.gautamhans.locus.ui.adapter.RVAdapter_Reminders;
  * Created by Gautam on 18-Apr-17.
  */
 
-public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.ReminderListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.ReminderListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener {
 
     FloatingActionButton fab;
     DBHelper dbHelper;
@@ -47,6 +54,17 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminders);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this,    drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         try {
             getSupportActionBar().setTitle("Reminders");
@@ -164,5 +182,34 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(String.valueOf(this), "connection failed!");
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home) {
+            Intent i=new Intent(this,MainActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_saved_places) {
+
+        } else if (id == R.id.nav_reminders) {
+            Context context = getApplicationContext();
+            CharSequence text = "Already on Reminders Page";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+        } else if (id == R.id.nav_settings) {
+
+        } else if (id == R.id.nav_feedback) {
+            Intent intent = new Intent(this, FeedbackActivity.class);
+            startActivity(intent);
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
