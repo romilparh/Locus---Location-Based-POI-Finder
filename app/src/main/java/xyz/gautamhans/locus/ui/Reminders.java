@@ -2,7 +2,9 @@ package xyz.gautamhans.locus.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -19,11 +21,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +53,16 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
     private RecyclerView.LayoutManager mLayoutManager;
     private long mDeletedReminderID = -1;
     public int position;
+
+    // Nav drawer vars
+    private DrawerLayout drawer;
+    private View navHeader;
+    private NavigationView navigationView;
+
+    String name, email, photoUrl;
+    private String userIdToken;
+    TextView userName, userEmail;
+    ImageView userPhoto;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,6 +102,7 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
         mAdapter = new RVAdapter_Reminders(this, dbList, this);
         mRecyclerView.setAdapter(mAdapter);
 
+        initializeUserInfo();
 
     }
 
@@ -160,6 +176,35 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
             }
         });
         popup.show();
+    }
+
+
+    private void initializeUserInfo() {
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navHeader = navigationView.getHeaderView(0);
+
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        name = sharedPref.getString("userName", "");
+        email = sharedPref.getString("userEmail", "");
+        userIdToken = sharedPref.getString("userIdToken", "");
+        photoUrl = sharedPref.getString("photoUrl", "");
+
+        Log.d(String.valueOf(this), "ID Token: " + userIdToken);
+
+        userName = (TextView) navHeader.findViewById(R.id.nav_user_name_tv);
+        userEmail = (TextView) navHeader.findViewById(R.id.nav_user_email_tv);
+        userPhoto = (ImageView) navHeader.findViewById(R.id.user_photoView);
+
+        try {
+            Picasso.with(this).load(photoUrl).into(userPhoto);
+            userName.setText(name);
+            userEmail.setText(email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
