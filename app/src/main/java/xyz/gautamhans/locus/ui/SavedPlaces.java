@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import xyz.gautamhans.locus.R;
 
-public class SavedPlacesUI extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class SavedPlaces extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

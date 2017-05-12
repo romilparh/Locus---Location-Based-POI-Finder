@@ -194,7 +194,7 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
             Intent i=new Intent(this,MainActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_saved_places) {
-            Intent i=new Intent(this, SavedPlacesUI.class);
+            Intent i=new Intent(this, SavedPlaces.class);
             startActivity(i);
         } else if (id == R.id.nav_reminders) {
             Context context = getApplicationContext();
