@@ -115,6 +115,7 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
         iv_place_photo = (ImageView) findViewById(R.id.iv_place_photo);
         tv_place_name = (TextView) findViewById(R.id.tv_place_name_pd);
 
+        Log.d("photo", photoReference);
         if (photoReference == "na") {
             iv_place_photo.setImageResource(R.drawable.atm_stock);
         } else {

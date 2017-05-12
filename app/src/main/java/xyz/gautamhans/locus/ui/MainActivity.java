@@ -49,6 +49,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.gautamhans.locus.R;
+import xyz.gautamhans.locus.background.UserExistenceChecker;
 import xyz.gautamhans.locus.ui.adapter.RVAdapter_PlaceCard;
 import xyz.gautamhans.locus.ui.adapter.RVCat_Adapter;
 
@@ -102,18 +103,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        if (ContextCompat.checkSelfPermission(MainActivity.this,
-//                android.Manifest.permission.ACCESS_FINE_LOCATION)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(MainActivity.this,
-//                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-//                    PERMISSION_REQUEST_CODE);
-//        }
-
         setContentView(R.layout.activity_main);
 
-        //  Declare a new thread to do a preference check
+        //  Declared a new thread to do a preference check
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -123,16 +115,11 @@ public class MainActivity extends AppCompatActivity
 
                 //  Create a new boolean and preference and set it to true
                 boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
-
                 if (isFirstStart) {
-
                     Intent i = new Intent(MainActivity.this, IntroActivity.class);
                     startActivity(i);
-
                     SharedPreferences.Editor e = getPrefs.edit();
-
                     e.putBoolean("firstStart", false);
-
                     e.apply();
                 }
             }
@@ -141,6 +128,16 @@ public class MainActivity extends AppCompatActivity
         t.run();
 
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        UserExistenceChecker userExistenceChecker = new UserExistenceChecker();
+        boolean userExists = userExistenceChecker.checkIfUserExist(sharedPref);
+
+        if(userExists){
+            Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
+        } else{
+            int idReturned = userExistenceChecker.saveUserInfo(sharedPref);
+            Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -16,7 +16,7 @@ public class SavePlace {
     @SerializedName("email")
     @Expose
     private String email;
-    @SerializedName("token")
+    @SerializedName("userToken")
     @Expose
     private String token;
     @SerializedName("createdAt")

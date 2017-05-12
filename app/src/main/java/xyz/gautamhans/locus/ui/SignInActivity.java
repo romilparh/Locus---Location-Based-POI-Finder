@@ -38,6 +38,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         setContentView(R.layout.signin_activity);
 
 
+
         getWindow().setStatusBarColor(Color.rgb(55,71,79));
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
