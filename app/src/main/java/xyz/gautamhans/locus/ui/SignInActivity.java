@@ -37,11 +37,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_activity);
 
-        try{
-            getSupportActionBar().hide();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
 
         getWindow().setStatusBarColor(Color.rgb(55,71,79));
 
