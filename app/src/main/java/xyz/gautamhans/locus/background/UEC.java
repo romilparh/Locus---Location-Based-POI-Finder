@@ -25,9 +25,10 @@ public class UEC extends AppCompatActivity {
 
     List<SavePlace> userInfo;
 
-    String name, email, userIdToken, photoUrl;
+    String email, name, userIdToken;
     boolean flag;
     SharedPreferences sharedPref;
+    OnUserExistsCallback callback;
 
     public UEC(SharedPreferences sharedPref){
         this.sharedPref = sharedPref;
@@ -38,14 +39,18 @@ public class UEC extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    public boolean checkIfUserExists() {
-        name = sharedPref.getString("userName", "");
+    public interface OnUserExistsCallback {
+        void onUserExists();
+        void onUserDoesNotExist();
+    }
+
+    public boolean checkIfUserExists(OnUserExistsCallback onUserExistsCallback) {
         email = sharedPref.getString("userEmail", "");
-        userIdToken = sharedPref.getString("userIdToken", "");
 
         Retrofit retrofitCheckUser = ApiClientSavePlace.getClient();
         ApiInterfaceSavePlace apiInterfaceSavePlace = retrofitCheckUser.create(ApiInterfaceSavePlace.class);
         final Call<List<SavePlace>> checkUser = apiInterfaceSavePlace.getSavePlaces();
+        final OnUserExistsCallback callback = onUserExistsCallback;
 
         checkUser.enqueue(new Callback<List<SavePlace>>() {
             @Override
@@ -59,12 +64,15 @@ public class UEC extends AppCompatActivity {
                             Log.d("sharedpref", "email: " + email);
                             if (emailReturned.equals(email)) {
                                 Log.d("response", "email match?: " + emailReturned.equals(email));
-                                flag = true;
+//                                flag = true;
                                 SharedPreferences.Editor editor = sharedPref.edit();
                                 editor.putInt("userID", userInfo.get(i).getId());
                                 Log.d("ID returned", String.valueOf(userInfo.get(i).getId()));
                                 editor.apply();
+                                callback.onUserExists();
                                 break;
+                            } else {
+                                callback.onUserDoesNotExist();
                             }
                         }
                     }
@@ -81,4 +89,33 @@ public class UEC extends AppCompatActivity {
         return flag;
     }
 
+    List<SavePlace> userInfoResponse;
+    public void saveUserInfo(){
+        name = sharedPref.getString("userName", "");
+        email = sharedPref.getString("userEmail", "");
+        userIdToken = sharedPref.getString("userIdToken", "");
+        Retrofit retrofitSaveUserInfo = ApiClientSavePlace.getClient();
+        ApiInterfaceSavePlace apiInterfaceSavePlace = retrofitSaveUserInfo.create(ApiInterfaceSavePlace.class);
+        Call<List<SavePlace>> savedInfo = apiInterfaceSavePlace.saveUserInfo(name, userIdToken, email);
+
+        savedInfo.enqueue(new Callback<List<SavePlace>>() {
+            @Override
+            public void onResponse(Call<List<SavePlace>> call, Response<List<SavePlace>> response) {
+                try {
+                    Log.d("error", ": "+ response.errorBody().toString());
+                    userInfoResponse = response.body();
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putInt("userID", userInfoResponse.get(0).getId());
+                    editor.apply();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<SavePlace>> call, Throwable throwable) {
+                Log.d("RESPONSE", "COULDN'T SAVE USER INFO");
+            }
+        });
+    }
 }

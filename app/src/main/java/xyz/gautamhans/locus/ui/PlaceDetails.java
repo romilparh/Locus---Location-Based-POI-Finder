@@ -191,17 +191,14 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
             @Override
             public void onResponse(Call<List<xyz.gautamhans.locus.retrofit.pojos.Place>> call, Response<List<xyz.gautamhans.locus.retrofit.pojos.Place>> response) {
                 savePlaceList = response.body();
-                Log.d("size of list", String.valueOf(savePlaceList.size()));
+
                 try {
-                    if(savePlaceList.size()!=0) {
                         if(mToast!=null){
                             mToast.cancel();
                         }
                         mToast = Toast.makeText(PlaceDetails.this, "Place saved.", Toast.LENGTH_LONG);
                         mToast.show();
-                    } else{
-                        savePlace();
-                    }
+                    Log.d("response: ", "placedetails: " + response.errorBody().toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

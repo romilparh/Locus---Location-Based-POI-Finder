@@ -58,7 +58,7 @@ import xyz.gautamhans.locus.ui.adapter.RVCat_Adapter;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
-        , com.google.android.gms.location.LocationListener, RVCat_Adapter.ListItemClickListener {
+        , com.google.android.gms.location.LocationListener, RVCat_Adapter.ListItemClickListener{
 
     //location user resolution specifier
     protected static final int REQUEST_CHECK_SETTINGS = 0x1;
@@ -110,14 +110,20 @@ public class MainActivity extends AppCompatActivity
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
-//        UEC uec = new UEC(sharedPref);
-//        boolean userExists = uec.checkIfUserExists();
-//        if (userExists) {
-//            Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
-//        } else{
-//            Log.d("USERSTATUS", "FALSE:DOESNT EXIST");
-//            Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
-//        }
+        UEC uec = new UEC(sharedPref);
+        uec.checkIfUserExists(new UEC.OnUserExistsCallback() {
+            @Override
+            public void onUserExists() {
+                Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
+            }
+
+            @Override
+            public void onUserDoesNotExist() {
+                Log.d("USERSTATUS", "FALSE:DOESNT EXIST");
+                Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
+            }
+        });
+
 
         //  Declared a new thread to do a preference check
         Thread t = new Thread(new Runnable() {
@@ -185,31 +191,6 @@ public class MainActivity extends AppCompatActivity
         initializeDataPlaces();
         initializeAdapter();
         initializeUserInfo();
-        Log.d("going to ", "execute async task for api");
-        new ApiFunctions();
-        Log.d("execution", "hua ya nahi");
-    }
-
-    private class ApiFunctions extends AsyncTask<Void, Void, Void>{
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-            UEC uec = new UEC(sharedPref);
-            userExists = uec.checkIfUserExists();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            if (userExists) {
-                Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
-            } else {
-                Log.d("USERSTATUS", "FALSE:DOESNT EXIST");
-                Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
-            }
-        }
     }
 
     private void initializeUserInfo() {

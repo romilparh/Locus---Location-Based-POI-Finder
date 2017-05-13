@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import xyz.gautamhans.locus.R;
+import xyz.gautamhans.locus.background.UEC;
 
 public class SavedPlaces extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -36,10 +37,18 @@ public class SavedPlaces extends AppCompatActivity implements NavigationView.OnN
     TextView userName, userEmail;
     ImageView userPhoto;
 
+    SharedPreferences sharedPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_places_ui);
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        UEC uec = new UEC(sharedPref);
+        uec.saveUserInfo();
+        Log.d("saveplace", "shared pref id: " +sharedPref.getInt("userID", 0));
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
