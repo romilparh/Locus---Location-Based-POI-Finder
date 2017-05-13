@@ -28,14 +28,20 @@ public class UserExistenceChecker extends AppCompatActivity {
     String name, email, userIdToken, photoUrl;
     boolean flag = false;
 
+    SharedPreferences sharedPref;
+
+    public UserExistenceChecker(SharedPreferences sharedPref){
+        this.sharedPref = sharedPref;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+//        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     }
 
-    public boolean checkIfUserExist(final SharedPreferences sharedPref){
+    public boolean checkIfUserExist(){
         name = sharedPref.getString("userName", "");
         email = sharedPref.getString("userEmail", "");
         userIdToken = sharedPref.getString("userIdToken", "");
@@ -87,7 +93,7 @@ public class UserExistenceChecker extends AppCompatActivity {
     Call<List<SavePlace>> savedInfo;
     int userIDReturned;
 
-    public int saveUserInfo(SharedPreferences sharedPref){
+    public int saveUserInfo(){
         name = sharedPref.getString("userName", "");
         email = sharedPref.getString("userEmail", "");
         userIdToken = sharedPref.getString("userIdToken", "");
@@ -95,20 +101,20 @@ public class UserExistenceChecker extends AppCompatActivity {
         apiInterfaceSavePlace = retrofitSaveUserInfo.create(ApiInterfaceSavePlace.class);
         savedInfo = apiInterfaceSavePlace.saveUserInfo(name, userIdToken, email);
 
-        userIDReturned = checkForSaveUserInfo(sharedPref);
+        userIDReturned = checkForSaveUserInfo();
         Log.d("userID", String.valueOf(userIDReturned));
         return userIDReturned;
     }
 
     List<SavePlace> userInfoResponse;
-    public int checkForSaveUserInfo(final SharedPreferences sharedPref){
+    public int checkForSaveUserInfo(){
         savedInfo.enqueue(new Callback<List<SavePlace>>() {
             @Override
             public void onResponse(Call<List<SavePlace>> call, Response<List<SavePlace>> response) {
                 try {
                     userInfoResponse = response.body();
                     if(userInfoResponse.size() == 0){
-                      checkForSaveUserInfo(sharedPref);
+                      checkForSaveUserInfo();
                     } else{
                         userIDReturned = userInfoResponse.get(0).getId();
                         SharedPreferences.Editor editor = sharedPref.edit();

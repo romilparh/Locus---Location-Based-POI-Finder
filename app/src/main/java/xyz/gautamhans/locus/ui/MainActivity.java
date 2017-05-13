@@ -8,6 +8,7 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -49,7 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.gautamhans.locus.R;
-import xyz.gautamhans.locus.background.UserExistenceChecker;
+import xyz.gautamhans.locus.background.UEC;
 import xyz.gautamhans.locus.ui.adapter.RVAdapter_PlaceCard;
 import xyz.gautamhans.locus.ui.adapter.RVCat_Adapter;
 
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity
     //RecyclerView Variables
     public RecyclerView rv_cat, rv_places;
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    boolean userExists;
     String longt, lat;
     //User information Navigation Drawer
     TextView userName, userEmail;
@@ -84,6 +86,7 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
+    SharedPreferences sharedPref;
 
     public static boolean isLocationEnabled(Context context) {
         int locationMode = 0;
@@ -104,6 +107,17 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+//        UEC uec = new UEC(sharedPref);
+//        boolean userExists = uec.checkIfUserExists();
+//        if (userExists) {
+//            Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
+//        } else{
+//            Log.d("USERSTATUS", "FALSE:DOESNT EXIST");
+//            Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
+//        }
 
         //  Declared a new thread to do a preference check
         Thread t = new Thread(new Runnable() {
@@ -127,17 +141,16 @@ public class MainActivity extends AppCompatActivity
 
         t.run();
 
-        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+//        UserExistenceChecker userExistenceChecker = new UserExistenceChecker(sharedPref);
+//        boolean userExists = userExistenceChecker.checkIfUserExist();
+//
+//        if(userExists){
+//            Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
+//        } else{
+//            int idReturned = userExistenceChecker.saveUserInfo();
+//            Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
+//        }
 
-        UserExistenceChecker userExistenceChecker = new UserExistenceChecker();
-        boolean userExists = userExistenceChecker.checkIfUserExist(sharedPref);
-
-        if(userExists){
-            Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
-        } else{
-            int idReturned = userExistenceChecker.saveUserInfo(sharedPref);
-            Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
-        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -172,6 +185,31 @@ public class MainActivity extends AppCompatActivity
         initializeDataPlaces();
         initializeAdapter();
         initializeUserInfo();
+        Log.d("going to ", "execute async task for api");
+        new ApiFunctions();
+        Log.d("execution", "hua ya nahi");
+    }
+
+    private class ApiFunctions extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            UEC uec = new UEC(sharedPref);
+            userExists = uec.checkIfUserExists();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if (userExists) {
+                Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
+            } else {
+                Log.d("USERSTATUS", "FALSE:DOESNT EXIST");
+                Log.d("USERSTATUS", String.valueOf(sharedPref.getInt("userID", 0)));
+            }
+        }
     }
 
     private void initializeUserInfo() {
@@ -353,7 +391,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
 
         } else if (id == R.id.nav_saved_places) {
-            Intent i=new Intent(MainActivity.this, SavedPlaces.class);
+            Intent i = new Intent(MainActivity.this, SavedPlaces.class);
             startActivity(i);
         } else if (id == R.id.nav_reminders) {
             Intent i = new Intent(MainActivity.this, Reminders.class);
@@ -379,8 +417,8 @@ public class MainActivity extends AppCompatActivity
         settingsRequest();
 
         if (doesUserHavePermission()) {
-            if(lat !=null && longt!=null)
-            requestLocation();
+            if (lat != null && longt != null)
+                requestLocation();
         }
     }
 
@@ -447,7 +485,7 @@ public class MainActivity extends AppCompatActivity
                         lat = String.valueOf(mCurrentLocation.getLatitude());
                         longt = String.valueOf(mCurrentLocation.getLongitude());
 
-                        if(mToast != null){
+                        if (mToast != null) {
                             mToast.cancel();
                         }
 
