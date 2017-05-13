@@ -1,7 +1,9 @@
 package xyz.gautamhans.locus.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +23,15 @@ import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import xyz.gautamhans.locus.R;
+import xyz.gautamhans.locus.retrofit.ApiClientSavePlace;
+import xyz.gautamhans.locus.retrofit.ApiInterfaceSavePlace;
 
 /**
  * Created by Gautam on 10-Apr-17.
@@ -29,7 +39,7 @@ import xyz.gautamhans.locus.R;
 
 public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    String placeId, photoReference, placeName, placeAddress, placeContact;
+    String placeId, photoReference, placeName, placeAddress, placeContact, placeLatitude, placeLongitude;
     int itemIndex, placePriceLevel;
     String placeWeblink;
     String na_reference = "na";
@@ -44,6 +54,7 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
     private String API_KEY = "&key=AIzaSyARJMoytbx68cOuuX1aIzhRrdN5uql90uY";
     //Google API Client to get places details
     private GoogleApiClient mGoogleApiClient;
+    List<xyz.gautamhans.locus.retrofit.pojos.Place> savePlaceList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,6 +113,8 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
                 placeRating = myPlace.getRating();
                 ratingBar = (RatingBar) findViewById(R.id.rb_rating);
                 ratingBar.setRating(placeRating);
+                placeLatitude = String.valueOf(myPlace.getLatLng().latitude);
+                placeLongitude = String.valueOf(myPlace.getLatLng().longitude);
 
             } else {
                 Log.i(String.valueOf(PlaceDetails.this), String.valueOf(places.getStatus()));
@@ -115,7 +128,7 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
         iv_place_photo = (ImageView) findViewById(R.id.iv_place_photo);
         tv_place_name = (TextView) findViewById(R.id.tv_place_name_pd);
 
-        Log.d("photo", photoReference);
+//        Log.d("photo", photoReference);
         if (photoReference == "na") {
             iv_place_photo.setImageResource(R.drawable.atm_stock);
         } else {
@@ -139,12 +152,67 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_place:
-                Toast.makeText(this, "Save Toast", Toast.LENGTH_LONG).show();
+                savePlace();
                 break;
             default:
                 Toast.makeText(this, "Incorrect Item Toast", Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void savePlace(){
+        Log.d("address", placeAddress);
+        Log.d("place name", placeName);
+        Log.d("place id", placeId);
+        Log.d("latitude", placeLatitude);
+        Log.d("longitude", placeLongitude);
+        try {
+            Log.d("photoReference", "" + finalImageUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String latitude = placeLatitude;
+        String longitude = placeLongitude;
+        photoReference = finalImageUrl;
+
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        int id = sharedPref.getInt("userID", 0);
+
+        Log.d("userID", String.valueOf(id));
+
+        Retrofit retrofitSavePlace = ApiClientSavePlace.getClient();
+        ApiInterfaceSavePlace apiInterfaceSavePlace = retrofitSavePlace.create(ApiInterfaceSavePlace.class);
+        Call<List<xyz.gautamhans.locus.retrofit.pojos.Place>> savePlace =
+                apiInterfaceSavePlace.savePlace(id, placeName, placeId, placeAddress, latitude, longitude, photoReference);
+
+
+        savePlace.enqueue(new Callback<List<xyz.gautamhans.locus.retrofit.pojos.Place>>() {
+            @Override
+            public void onResponse(Call<List<xyz.gautamhans.locus.retrofit.pojos.Place>> call, Response<List<xyz.gautamhans.locus.retrofit.pojos.Place>> response) {
+                savePlaceList = response.body();
+                Log.d("size of list", String.valueOf(savePlaceList.size()));
+                try {
+                    if(savePlaceList.size()!=0) {
+                        if(mToast!=null){
+                            mToast.cancel();
+                        }
+                        mToast = Toast.makeText(PlaceDetails.this, "Place saved.", Toast.LENGTH_LONG);
+                        mToast.show();
+                    } else{
+                        savePlace();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<xyz.gautamhans.locus.retrofit.pojos.Place>> call, Throwable throwable) {
+                Log.d("place save error", "ERROR SAVING PLACE");
+            }
+        });
+
     }
 
     @Override
