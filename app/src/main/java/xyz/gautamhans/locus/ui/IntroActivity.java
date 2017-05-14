@@ -39,7 +39,7 @@ public class IntroActivity extends AppIntro2 {
 
         addSlide(AppIntroFragment.newInstance("Don't forget to buy some Fruits", "Utilise the reminders to make sure that you never forget to get a task done next time you reach some place.",
                 R.drawable.reminderstock,
-                ContextCompat.getColor(this, R.color.colorGreen)));
+                ContextCompat.getColor(this, R.color.colorDeepPurple)));
 //        setCustomTransformer(new ZoomOutPageTransformer());
         setFadeAnimation();
     }

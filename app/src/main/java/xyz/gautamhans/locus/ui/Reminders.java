@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,7 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
     private RecyclerView.LayoutManager mLayoutManager;
     private long mDeletedReminderID = -1;
     public int position;
+    private RelativeLayout noReminder;
 
     // Nav drawer vars
     private DrawerLayout drawer;
@@ -81,6 +83,8 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        noReminder = (RelativeLayout) findViewById(R.id.noReminder);
+
         try {
             getSupportActionBar().setTitle("Reminders");
         } catch (Exception e) {
@@ -90,6 +94,8 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
         dbHelper = new DBHelper(this);
         dbList = new ArrayList<DatabaseModel>();
         dbList = dbHelper.getDataFromDB();
+
+        noReminderHintToggle();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_reminders);
         mRecyclerView.setHasFixedSize(true);
@@ -154,7 +160,16 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
         dbHelper.deleteARow(id);
         dbList.remove(position);
         mAdapter.notifyDataSetChanged();
+        noReminderHintToggle();
         Toast.makeText(this, "Reminder deleted.", Toast.LENGTH_SHORT).show();
+    }
+
+    private void noReminderHintToggle(){
+        if(dbList.size() == 0){
+            noReminder.setVisibility(View.VISIBLE);
+        } else {
+            noReminder.setVisibility(View.GONE);
+        }
     }
 
     @Override
