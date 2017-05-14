@@ -43,6 +43,7 @@ public class Category extends AppCompatActivity implements
     RecyclerView recyclerView;
     RVAdapter_CategoryDetails adapter;
     Toast mToast;
+    String rankby = "distance";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -153,7 +154,7 @@ public class Category extends AppCompatActivity implements
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
         Call<Example> exampleCall = apiInterface.getNearbyPlaces
-                (latitude + "," + longitude, radius, category);
+                (latitude + "," + longitude, rankby, category);
 
         final ProgressDialog mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setIndeterminate(true);

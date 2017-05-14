@@ -15,7 +15,7 @@ import xyz.gautamhans.locus.retrofit.pojos.SavePlace;
 public interface ApiInterface {
 
     @GET("json?key=AIzaSyBE8jPCH28fGzNwldLfR2h5WTgMC_IvuJI")
-    Call<Example> getNearbyPlaces(@Query("location") String location, @Query("radius") int radius,
+    Call<Example> getNearbyPlaces(@Query("location") String location, @Query("rankby") String rankby,
                                   @Query("type") String category);
 
 }
