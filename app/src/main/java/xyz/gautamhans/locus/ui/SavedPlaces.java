@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -40,7 +41,7 @@ import xyz.gautamhans.locus.retrofit.ApiInterfaceSavePlace;
 import xyz.gautamhans.locus.retrofit.pojos.Place;
 import xyz.gautamhans.locus.ui.adapter.RVAdapter_SavedPlaces;
 
-public class SavedPlaces extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class SavedPlaces extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RVAdapter_SavedPlaces.SavedPlaceListener {
 
     String name, email, photoUrl;
     TextView userName, userEmail;
@@ -128,7 +129,7 @@ public class SavedPlaces extends AppCompatActivity implements NavigationView.OnN
 
 
     private void setAdapter(){
-        adapter = new RVAdapter_SavedPlaces(this, savedPlacesList);
+        adapter = new RVAdapter_SavedPlaces(this, savedPlacesList, this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -214,4 +215,22 @@ public class SavedPlaces extends AppCompatActivity implements NavigationView.OnN
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onCardClick(View v, int position, String placeId, String photoUrl) {
+
+    }
+
+    @Override
+    public void onViewMapClicked(View v, int position, String latitude, String longitude, String placeName) {
+        Double latitudeLoc = Double.valueOf(latitude);
+        Double longitudeLoc = Double.valueOf(longitude);
+        String placeNameLoc = placeName;
+
+        Uri gmmIntentUri = Uri.parse("geo:"+latitudeLoc+","+longitudeLoc+"("+Uri.encode(placeNameLoc)+")?z=19");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+    }
+
 }

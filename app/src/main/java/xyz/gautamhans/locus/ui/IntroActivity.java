@@ -29,14 +29,19 @@ public class IntroActivity extends AppIntro2 {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addSlide(SampleSlide.newInstance(R.layout.slide_1));
-//        addSlide(SampleSlide.newInstance(R.layout.slide_2));
-        setCustomTransformer(new ZoomOutPageTransformer());
-//        setFadeAnimation();
-        addSlide(SampleSlide.newInstance(R.layout.slide_3));
-        addSlide(AppIntroFragment.newInstance("Slide", "Looooooooong Description here",
-                R.drawable.welcome_desk,
-                ContextCompat.getColor(this, R.color.colorAccent)));
+        addSlide(AppIntroFragment.newInstance("Welcome", "... to Locus which will help you discover points of interests around you",
+                R.drawable.applogo,
+                ContextCompat.getColor(this, R.color.colorPrimaryDark)));
+
+        addSlide(AppIntroFragment.newInstance("Location Reminders", "Save reminders particular to a location.",
+                R.drawable.notifbell,
+                ContextCompat.getColor(this, R.color.colorBlueLight)));
+
+        addSlide(AppIntroFragment.newInstance("Don't forget to buy some Fruits", "Utilise the reminders to make sure that you never forget to get a task done next time you reach some place.",
+                R.drawable.reminderstock,
+                ContextCompat.getColor(this, R.color.colorGreen)));
+//        setCustomTransformer(new ZoomOutPageTransformer());
+        setFadeAnimation();
     }
 
     @Override

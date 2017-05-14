@@ -6,4 +6,7 @@
     <color name="white">#FFFFFF</color>
     <color name="nav_header_main_black">#000000</color>
     <color name="nav_header_main_dark_grey">#455a64</color>
+    <color name="colorGreyLight">#eceff1</color>
+    <color name="colorBlueLight">#536dfe</color>
+    <color name="colorGreen">#c0ca33</color>
 </resources>

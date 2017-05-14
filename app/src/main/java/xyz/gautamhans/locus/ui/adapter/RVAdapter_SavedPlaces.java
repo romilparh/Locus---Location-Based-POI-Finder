@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,9 +28,18 @@ public class RVAdapter_SavedPlaces extends RecyclerView.Adapter<RVAdapter_SavedP
     private List<Place> savedPlaces;
     private Context context;
 
-    public RVAdapter_SavedPlaces(Context context, List<Place> savedPlaces) {
+    public interface SavedPlaceListener{
+        void onCardClick(View v, int position, String placeId, String photoUrl);
+        void onViewMapClicked(View v, int position, String latitude, String longitude, String placeName);
+    }
+
+    SavedPlaceListener savedPlaceListener;
+
+    public RVAdapter_SavedPlaces(Context context, List<Place> savedPlaces,
+                                 SavedPlaceListener savedPlaceListener) {
         this.context = context;
         this.savedPlaces = savedPlaces;
+        this.savedPlaceListener = savedPlaceListener;
     }
 
     @Override
@@ -39,7 +49,7 @@ public class RVAdapter_SavedPlaces extends RecyclerView.Adapter<RVAdapter_SavedP
     }
 
     @Override
-    public void onBindViewHolder(RVAdapter_SavedPlaces.SavedPlacesViewHolder holder, int position) {
+    public void onBindViewHolder(RVAdapter_SavedPlaces.SavedPlacesViewHolder holder, final int position) {
         holder.placeName.setText(savedPlaces.get(position).getPlaceName());
         holder.placeAddress.setText(savedPlaces.get(position).getPlaceAddress());
         if(savedPlaces.get(position).getPhotoReference().equals("na")){
@@ -47,8 +57,19 @@ public class RVAdapter_SavedPlaces extends RecyclerView.Adapter<RVAdapter_SavedP
         }else{
             Picasso.with(context)
                     .load(savedPlaces.get(position).getPhotoReference())
-                    .resize(400,200)
-                    .into(holder.placePhoto);
+                    .resize(1080,200)
+                    .centerCrop()
+                    .into(holder.placePhoto, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+
+                        }
+                    });
         }
     }
 
@@ -59,7 +80,7 @@ public class RVAdapter_SavedPlaces extends RecyclerView.Adapter<RVAdapter_SavedP
 
     public class SavedPlacesViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView placeName, placeAddress;
+        private TextView placeName, placeAddress, viewOnMap;
         private ImageView placePhoto;
 
         public SavedPlacesViewHolder(View itemView) {
@@ -67,6 +88,17 @@ public class RVAdapter_SavedPlaces extends RecyclerView.Adapter<RVAdapter_SavedP
             placeName = (TextView) itemView.findViewById(R.id.place_name_tv_i);
             placeAddress = (TextView) itemView.findViewById(R.id.place_address_tv_i);
             placePhoto = (ImageView) itemView.findViewById(R.id.placePhoto);
+            viewOnMap = (TextView) itemView.findViewById(R.id.viewOnMap_tv);
+
+            this.viewOnMap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RVAdapter_SavedPlaces.this.savedPlaceListener.onViewMapClicked(viewOnMap, getAdapterPosition(),
+                            savedPlaces.get(getAdapterPosition()).getLatitude(),
+                            savedPlaces.get(getAdapterPosition()).getLongitude(),
+                            savedPlaces.get(getAdapterPosition()).getPlaceName());
+                }
+            });
         }
     }
 }
