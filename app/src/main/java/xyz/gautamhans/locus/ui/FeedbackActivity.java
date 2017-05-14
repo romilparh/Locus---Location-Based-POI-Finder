@@ -132,7 +132,7 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
             Intent intent = new Intent(FeedbackActivity.this, Reminders.class);
             startActivity(intent);
         } else if (id == R.id.nav_settings) {
-
+            startActivity(new Intent(FeedbackActivity.this, SettingsActivity.class));
         } else if (id == R.id.nav_feedback) {
             Context context = getApplicationContext();
             CharSequence text = "Already on Feedback Page";

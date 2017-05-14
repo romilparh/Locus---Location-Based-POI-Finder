@@ -249,7 +249,7 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
             toast.show();
 
         } else if (id == R.id.nav_settings) {
-
+            startActivity(new Intent(Reminders.this, SettingsActivity.class));
         } else if (id == R.id.nav_feedback) {
             Intent intent = new Intent(this, FeedbackActivity.class);
             startActivity(intent);

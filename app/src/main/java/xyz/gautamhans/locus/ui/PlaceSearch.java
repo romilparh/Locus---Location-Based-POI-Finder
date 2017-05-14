@@ -44,11 +44,13 @@ public class PlaceSearch extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
         cv = (CardView) findViewById(R.id.cv_search);
         fragment = findViewById(R.id.place_autocomplete_fragment);
 
-        double radius = 20000d;
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        double radius = sharedPref.getInt("currentRadius", 0);
+        Log.d("place search", "current radius: " +radius);
         Double latitude = Double.longBitsToDouble(sharedPref.getLong("currentLat", 0));
         Double longitude = Double.longBitsToDouble(sharedPref.getLong("currentLong", 0));
 

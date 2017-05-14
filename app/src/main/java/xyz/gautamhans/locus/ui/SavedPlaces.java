@@ -206,7 +206,7 @@ public class SavedPlaces extends AppCompatActivity implements NavigationView.OnN
             startActivity(intent);
 
         } else if (id == R.id.nav_settings) {
-
+            startActivity(new Intent(SavedPlaces.this, SettingsActivity.class));
         } else if (id == R.id.nav_feedback) {
             Intent intent = new Intent(this, FeedbackActivity.class);
             startActivity(intent);

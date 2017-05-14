@@ -122,7 +122,7 @@ public class Category extends AppCompatActivity implements
                 break;
             case 13:
                 setTitle("Gas Stations");
-                category = "gas_stations";
+                category = "gas_station";
                 break;
             case 14:
                 setTitle("Schools");

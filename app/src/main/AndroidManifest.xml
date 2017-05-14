@@ -12,13 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".background.BaseLoginChecker"
             android:label="@string/app_name"
@@ -36,9 +34,8 @@
         <activity
             android:name=".ui.SignInActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:noHistory="true"/>
-
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.PlaceSearch"
             android:parentActivityName=".ui.MainActivity" />
@@ -64,12 +61,10 @@
             android:name=".ui.Reminders"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".ui.IntroActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:noHistory="true"/>
-
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".service.UserTransitionIntentService"
@@ -85,9 +80,18 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".ui.SavedPlaces"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:noHistory="true"/>
+        <activity
+            android:name=".ui.SavedPlaces"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="xyz.gautamhans.locus.ui.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
