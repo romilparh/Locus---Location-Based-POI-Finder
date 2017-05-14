@@ -229,15 +229,17 @@ public class MainActivity extends AppCompatActivity
         categoryDetailsList = new ArrayList<>();
         categoryDetailsList.add(new CategoryDetailsModel(R.drawable.atm));
         categoryDetailsList.add(new CategoryDetailsModel(R.drawable.bank));
-        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.bar));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.hotel));
         categoryDetailsList.add(new CategoryDetailsModel(R.drawable.hospital));
         categoryDetailsList.add(new CategoryDetailsModel(R.drawable.parks));
         categoryDetailsList.add(new CategoryDetailsModel(R.drawable.police));
         categoryDetailsList.add(new CategoryDetailsModel(R.drawable.shopping));
         categoryDetailsList.add(new CategoryDetailsModel(R.drawable.store));
         categoryDetailsList.add(new CategoryDetailsModel(R.drawable.train));
-        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.taxi));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.cabs));
         categoryDetailsList.add(new CategoryDetailsModel(R.drawable.theater));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.flight));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.restaurants));
     }
 
     public void initializeDataPlaces() {
@@ -449,9 +451,12 @@ public class MainActivity extends AppCompatActivity
     public void askForPermissions() {
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
+                + ContextCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.CALL_PHONE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.CALL_PHONE},
                     PERMISSION_REQUEST_CODE);
         }
     }

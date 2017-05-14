@@ -76,8 +76,8 @@ public class Category extends AppCompatActivity implements
                 category = "bank";
                 break;
             case 2:
-                setTitle("Bars");
-                category = "bars";
+                setTitle("Hotels");
+                category = "bar";
                 break;
             case 3:
                 setTitle("Hospital");
@@ -104,12 +104,20 @@ public class Category extends AppCompatActivity implements
                 category = "train_station";
                 break;
             case 9:
-                setTitle("Taxi Stations");
+                setTitle("Travel Agencies");
                 category = "travel_agency";
                 break;
             case 10:
                 setTitle("Movie Theaters");
                 category = "movie_theater";
+                break;
+            case 11:
+                setTitle("Airport");
+                category = "airport";
+                break;
+            case 12:
+                setTitle("Restaurants");
+                category = "restaurant";
                 break;
             default:
                 setTitle("Respected Category Here");
