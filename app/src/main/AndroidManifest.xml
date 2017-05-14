@@ -85,7 +85,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".ui.SavedPlaces"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true"/>
     </application>
 
 </manifest>

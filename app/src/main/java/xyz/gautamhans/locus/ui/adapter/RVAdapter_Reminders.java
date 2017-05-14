@@ -2,22 +2,17 @@ package xyz.gautamhans.locus.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import xyz.gautamhans.locus.R;
 import xyz.gautamhans.locus.db.DBHelper;
-import xyz.gautamhans.locus.db.DatabaseModel;
+import xyz.gautamhans.locus.db.model.DatabaseModel;
 
 /**
  * Created by Gautam on 22-Apr-17.

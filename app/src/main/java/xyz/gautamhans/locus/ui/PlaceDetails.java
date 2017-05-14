@@ -49,12 +49,12 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
     RatingBar ratingBar;
     ImageView iv_place_photo;
     TextView tv_place_name, tv_address, tv_call_info, tv_website_info;
+    List<xyz.gautamhans.locus.retrofit.pojos.Place> savePlaceList;
     private Toast mToast;
     private String photoBaseUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=";
     private String API_KEY = "&key=AIzaSyARJMoytbx68cOuuX1aIzhRrdN5uql90uY";
     //Google API Client to get places details
     private GoogleApiClient mGoogleApiClient;
-    List<xyz.gautamhans.locus.retrofit.pojos.Place> savePlaceList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,56 +89,50 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
 
     private void loadData() {
         Places.GeoDataApi.getPlaceById(mGoogleApiClient, placeId)
-            .setResultCallback(new ResultCallback<PlaceBuffer>() {
-        @Override
-        public void onResult(@NonNull PlaceBuffer places) {
-            if (places.getStatus().isSuccess()) {
-                final Place myPlace = places.get(0);
-                Log.i(String.valueOf(PlaceDetails.this),
-                        "Place found: " + myPlace.getName() + "\n Address: " + myPlace.getAddress());
-                placeName = (String) myPlace.getName();
-                tv_place_name = (TextView) findViewById(R.id.tv_place_name_pd);
-                tv_place_name.setText(placeName);
-                placeAddress = (String) myPlace.getAddress();
-                tv_address = (TextView) findViewById(R.id.tv_address);
-                tv_address.setText(placeAddress);
-                placeContact = (String) myPlace.getPhoneNumber();
-                tv_call_info = (TextView) findViewById(R.id.tv_call_info);
-                tv_call_info.setText(placeContact);
-                placePriceLevel = myPlace.getPriceLevel();
-                placeRating = myPlace.getRating();
-                placeWeblink = String.valueOf(myPlace.getWebsiteUri());
-                tv_website_info = (TextView) findViewById(R.id.tv_website_info);
-                tv_website_info.setText(placeWeblink);
-                placeRating = myPlace.getRating();
-                ratingBar = (RatingBar) findViewById(R.id.rb_rating);
-                ratingBar.setRating(placeRating);
-                placeLatitude = String.valueOf(myPlace.getLatLng().latitude);
-                placeLongitude = String.valueOf(myPlace.getLatLng().longitude);
+                .setResultCallback(new ResultCallback<PlaceBuffer>() {
+                    @Override
+                    public void onResult(@NonNull PlaceBuffer places) {
+                        if (places.getStatus().isSuccess()) {
+                            final Place myPlace = places.get(0);
+                            Log.i(String.valueOf(PlaceDetails.this),
+                                    "Place found: " + myPlace.getName() + "\n Address: " + myPlace.getAddress());
+                            placeName = (String) myPlace.getName();
+                            tv_place_name = (TextView) findViewById(R.id.tv_place_name_pd);
+                            tv_place_name.setText(placeName);
+                            placeAddress = (String) myPlace.getAddress();
+                            tv_address = (TextView) findViewById(R.id.tv_address);
+                            tv_address.setText(placeAddress);
+                            placeContact = (String) myPlace.getPhoneNumber();
+                            tv_call_info = (TextView) findViewById(R.id.tv_call_info);
+                            tv_call_info.setText(placeContact);
+                            placePriceLevel = myPlace.getPriceLevel();
+                            placeRating = myPlace.getRating();
+                            placeWeblink = String.valueOf(myPlace.getWebsiteUri());
+                            tv_website_info = (TextView) findViewById(R.id.tv_website_info);
+                            tv_website_info.setText(placeWeblink);
+                            placeRating = myPlace.getRating();
+                            ratingBar = (RatingBar) findViewById(R.id.rb_rating);
+                            ratingBar.setRating(placeRating);
+                            placeLatitude = String.valueOf(myPlace.getLatLng().latitude);
+                            placeLongitude = String.valueOf(myPlace.getLatLng().longitude);
 
-            } else {
-                Log.i(String.valueOf(PlaceDetails.this), String.valueOf(places.getStatus()));
-            }
-            places.release();
-        }
-    });
-}
+                        } else {
+                            Log.i(String.valueOf(PlaceDetails.this), String.valueOf(places.getStatus()));
+                        }
+                        places.release();
+                    }
+                });
+    }
 
     private void loadViews() {
         iv_place_photo = (ImageView) findViewById(R.id.iv_place_photo);
         tv_place_name = (TextView) findViewById(R.id.tv_place_name_pd);
-
-//        Log.d("photo", photoReference);
-        if (photoReference == "na") {
-            iv_place_photo.setImageResource(R.drawable.atm_stock);
+        if (photoReference == null) {
+            iv_place_photo.setImageResource(R.drawable.defaultplace);
         } else {
             Picasso.with(this).load(finalImageUrl)
                     .resize(420, 200).centerCrop().into(iv_place_photo);
         }
-
-//        Log.i(String.valueOf(this), "Place name from loadView: " + placeName);
-//
-//        tv_place_name.setText(placeName);
     }
 
     @Override
@@ -160,7 +154,7 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
         return super.onOptionsItemSelected(item);
     }
 
-    public void savePlace(){
+    public void savePlace() {
         Log.d("address", placeAddress);
         Log.d("place name", placeName);
         Log.d("place id", placeId);
@@ -174,7 +168,11 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
 
         String latitude = placeLatitude;
         String longitude = placeLongitude;
-        photoReference = finalImageUrl;
+        if (photoReference == null) {
+            photoReference = "na";
+        } else {
+            photoReference = finalImageUrl;
+        }
 
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         int id = sharedPref.getInt("userID", 0);
@@ -193,11 +191,11 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
                 savePlaceList = response.body();
 
                 try {
-                        if(mToast!=null){
-                            mToast.cancel();
-                        }
-                        mToast = Toast.makeText(PlaceDetails.this, "Place saved.", Toast.LENGTH_LONG);
-                        mToast.show();
+                    if (mToast != null) {
+                        mToast.cancel();
+                    }
+                    mToast = Toast.makeText(PlaceDetails.this, "Place saved.", Toast.LENGTH_LONG);
+                    mToast.show();
                     Log.d("response: ", "placedetails: " + response.errorBody().toString());
                 } catch (Exception e) {
                     e.printStackTrace();

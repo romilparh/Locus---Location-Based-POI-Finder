@@ -124,6 +124,10 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        uec.saveUserInfo();
+        Log.d("saveplace", "shared pref id: " + sharedPref.getInt("userID", 0));
+
 
         //  Declared a new thread to do a preference check
         Thread t = new Thread(new Runnable() {
@@ -420,7 +424,7 @@ public class MainActivity extends AppCompatActivity
             lat = String.valueOf(mCurrentLocation.getLatitude());
             longt = String.valueOf(mCurrentLocation.getLongitude());
 
-            Toast.makeText(this, "Latitude: " + lat + "\nLongitude: " + longt, Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "Latitude: " + lat + "\nLongitude: " + longt, Toast.LENGTH_LONG).show();
 
             Log.i(String.valueOf(this.getClass()), "Lat: " + lat + " Longt: " + longt);
         }

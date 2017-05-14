@@ -35,7 +35,7 @@ import java.util.List;
 
 import xyz.gautamhans.locus.R;
 import xyz.gautamhans.locus.db.DBHelper;
-import xyz.gautamhans.locus.db.DatabaseModel;
+import xyz.gautamhans.locus.db.model.DatabaseModel;
 import xyz.gautamhans.locus.ui.adapter.RVAdapter_Reminders;
 
 /**

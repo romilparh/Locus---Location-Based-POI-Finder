@@ -8,13 +8,12 @@ import android.util.Log;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
-import com.google.android.gms.location.GeofencingRequest;
 
 import java.util.List;
 
 import xyz.gautamhans.locus.Notifier;
 import xyz.gautamhans.locus.db.DBHelper;
-import xyz.gautamhans.locus.db.DatabaseModel;
+import xyz.gautamhans.locus.db.model.DatabaseModel;
 
 /**
  * Created by Gautam on 24-Apr-17.

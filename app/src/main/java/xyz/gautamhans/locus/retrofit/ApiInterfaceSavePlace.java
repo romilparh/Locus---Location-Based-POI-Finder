@@ -33,4 +33,7 @@ public interface ApiInterfaceSavePlace {
                                 @Query("latitude") String latitude,
                                 @Query("longitude") String longitude,
                                 @Query("photoReference") String photoReference);
+
+    @GET("user/{id}/places")
+    Call<List<Place>> getSavedPlaces(@Path("id") int id);
 }

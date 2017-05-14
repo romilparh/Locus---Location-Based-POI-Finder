@@ -1,4 +1,4 @@
-package xyz.gautamhans.locus.db;
+package xyz.gautamhans.locus.db.model;
 
 /**
  * Created by Gautam on 22-Apr-17.

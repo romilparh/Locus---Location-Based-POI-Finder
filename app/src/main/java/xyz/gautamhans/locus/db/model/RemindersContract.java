@@ -1,4 +1,4 @@
-package xyz.gautamhans.locus.db;
+package xyz.gautamhans.locus.db.model;
 
 import android.provider.BaseColumns;
 

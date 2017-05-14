@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
 
-import xyz.gautamhans.locus.db.DatabaseModel;
+import xyz.gautamhans.locus.db.model.DatabaseModel;
 import xyz.gautamhans.locus.ui.Reminders;
 
 /**

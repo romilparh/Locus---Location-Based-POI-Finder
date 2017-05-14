@@ -38,7 +38,7 @@ import java.util.List;
 
 import xyz.gautamhans.locus.R;
 import xyz.gautamhans.locus.db.DBHelper;
-import xyz.gautamhans.locus.db.DatabaseModel;
+import xyz.gautamhans.locus.db.model.DatabaseModel;
 import xyz.gautamhans.locus.service.UserTransitionIntentService;
 
 public class NewReminder extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
