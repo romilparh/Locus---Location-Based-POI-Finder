@@ -434,11 +434,6 @@ public class MainActivity extends AppCompatActivity
 //            Toast.makeText(this, "Latitude: " + lat + "\nLongitude: " + longt, Toast.LENGTH_LONG).show();
 
             Log.i(String.valueOf(this.getClass()), "Lat: " + lat + " Longt: " + longt);
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putLong("currentLat", Double.doubleToLongBits(mCurrentLocation.getLatitude()));
-            editor.putLong("currentLong", Double.doubleToLongBits(mCurrentLocation.getLongitude()));
-            editor.apply();
         }
         startLocationUpdates();
     }
