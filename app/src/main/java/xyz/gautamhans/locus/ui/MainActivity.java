@@ -240,6 +240,9 @@ public class MainActivity extends AppCompatActivity
         categoryDetailsList.add(new CategoryDetailsModel(R.drawable.theater));
         categoryDetailsList.add(new CategoryDetailsModel(R.drawable.flight));
         categoryDetailsList.add(new CategoryDetailsModel(R.drawable.restaurants));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.gas));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.school));
+        categoryDetailsList.add(new CategoryDetailsModel(R.drawable.uni));
     }
 
     public void initializeDataPlaces() {

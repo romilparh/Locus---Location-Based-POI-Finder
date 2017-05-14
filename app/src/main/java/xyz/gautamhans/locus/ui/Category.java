@@ -119,6 +119,18 @@ public class Category extends AppCompatActivity implements
                 setTitle("Restaurants");
                 category = "restaurant";
                 break;
+            case 13:
+                setTitle("Gas Stations");
+                category = "gas_stations";
+                break;
+            case 14:
+                setTitle("Schools");
+                category = "school";
+                break;
+            case 15:
+                setTitle("Universities");
+                category = "university";
+                break;
             default:
                 setTitle("Respected Category Here");
         }
