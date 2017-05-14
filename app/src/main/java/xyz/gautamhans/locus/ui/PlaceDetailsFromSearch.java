@@ -1,7 +1,9 @@
 package xyz.gautamhans.locus.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +22,15 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import xyz.gautamhans.locus.R;
+import xyz.gautamhans.locus.retrofit.ApiClientSavePlace;
+import xyz.gautamhans.locus.retrofit.ApiInterfaceSavePlace;
 
 /**
  * Created by Gautam on 19-Apr-17.
@@ -28,13 +38,16 @@ import xyz.gautamhans.locus.R;
 
 public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    String placeId, placeName, placeAddress, placeContact;
+    String placeId, placeName, placeAddress, placeContact, placeLatitude, placeLongitude;
+    String  photoReference = "na";
     String placeWeblink;
     float placeRating;
     //Views References
     RatingBar ratingBar;
     TextView tv_place_name, tv_address, tv_call_info, tv_website_info;
     ImageView iv_place_photo;
+    List<xyz.gautamhans.locus.retrofit.pojos.Place> savePlaceList;
+    Toast mToast;
 
 
     private GoogleApiClient mGoogleApiClient;
@@ -88,6 +101,8 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
                             placeRating = myPlace.getRating();
                             ratingBar.setRating(placeRating);
                             iv_place_photo.setImageResource(R.drawable.defaultplace);
+                            placeLatitude = String.valueOf(myPlace.getLatLng().latitude);
+                            placeLongitude = String.valueOf(myPlace.getLatLng().longitude);
                         } else {
                             Log.i(String.valueOf(PlaceDetailsFromSearch.this), String.valueOf(places.getStatus()));
                         }
@@ -107,12 +122,63 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_place:
-                Toast.makeText(this, "Save Toast", Toast.LENGTH_LONG).show();
+                savePlace();
                 break;
             default:
                 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void savePlace() {
+        Log.d("address", placeAddress);
+        Log.d("place name", placeName);
+        Log.d("place id", placeId);
+        Log.d("latitude", placeLatitude);
+        Log.d("longitude", placeLongitude);
+
+        String latitude = placeLatitude;
+        String longitude = placeLongitude;
+
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        int id = sharedPref.getInt("userID", 0);
+
+        Log.d("userID", String.valueOf(id));
+
+        Retrofit retrofitSavePlace = ApiClientSavePlace.getClient();
+        ApiInterfaceSavePlace apiInterfaceSavePlace = retrofitSavePlace.create(ApiInterfaceSavePlace.class);
+        Call<List<xyz.gautamhans.locus.retrofit.pojos.Place>> savePlace =
+                apiInterfaceSavePlace.savePlace(id, placeName, placeId, placeAddress, latitude, longitude, photoReference);
+
+        savePlace.enqueue(new Callback<List<xyz.gautamhans.locus.retrofit.pojos.Place>>() {
+            @Override
+            public void onResponse(Call<List<xyz.gautamhans.locus.retrofit.pojos.Place>> call, Response<List<xyz.gautamhans.locus.retrofit.pojos.Place>> response) {
+                savePlaceList = response.body();
+
+                try {
+                    if (mToast != null) {
+                        mToast.cancel();
+                    }
+                    mToast = Toast.makeText(PlaceDetailsFromSearch.this, "Place saved.", Toast.LENGTH_LONG);
+                    mToast.show();
+                    Log.d("response: ", "placedetails: " + response.errorBody().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<xyz.gautamhans.locus.retrofit.pojos.Place>> call, Throwable throwable) {
+                if (mToast != null) {
+                    mToast.cancel();
+                }
+                mToast = Toast.makeText(PlaceDetailsFromSearch.this, "Place saved.", Toast.LENGTH_LONG);
+                mToast.show();
+                Log.d("place save error", "ERROR SAVING PLACE");
+            }
+        });
+
+
     }
 
     @Override
