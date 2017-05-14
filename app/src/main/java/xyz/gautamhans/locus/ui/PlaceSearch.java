@@ -1,7 +1,9 @@
 package xyz.gautamhans.locus.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -12,6 +14,9 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.maps.android.SphericalUtil;
 
 import xyz.gautamhans.locus.R;
 
@@ -23,6 +28,9 @@ public class PlaceSearch extends AppCompatActivity {
 
     CardView cv;
     View fragment;
+    int radius;
+    SharedPreferences sharedPref;
+    LatLngBounds latLngBounds;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,17 +47,20 @@ public class PlaceSearch extends AppCompatActivity {
         cv = (CardView) findViewById(R.id.cv_search);
         fragment = findViewById(R.id.place_autocomplete_fragment);
 
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                fragment.performClick();
-//            }
-//        }, 1000);
+        double radius = 20000d;
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        Double latitude = Double.longBitsToDouble(sharedPref.getLong("currentLat", 0));
+        Double longitude = Double.longBitsToDouble(sharedPref.getLong("currentLong", 0));
 
+        if(latitude!=0.0 && longitude!=0.0) {
+            LatLng center = new LatLng(latitude, longitude);
+            latLngBounds = toBounds(center, radius);
+        }
 
         //PlaceAutoComplete Search Implementation
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+        autocompleteFragment.setBoundsBias(latLngBounds);
 
         //run autocompletefragment automatically on activity creation
         final View root = autocompleteFragment.getView();
@@ -82,6 +93,12 @@ public class PlaceSearch extends AppCompatActivity {
                 Log.i(String.valueOf(this), "An error occurred: " + status);
             }
         });
+    }
+
+    private LatLngBounds toBounds(LatLng center, double radius) {
+        LatLng southwest = SphericalUtil.computeOffset(center, radius * Math.sqrt(2.0), 225);
+        LatLng northeast = SphericalUtil.computeOffset(center, radius * Math.sqrt(2.0), 45);
+        return new LatLngBounds(southwest, northeast);
     }
 
     @Override

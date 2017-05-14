@@ -388,7 +388,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);
 
         } else if (id == R.id.nav_settings) {
-
+            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
         } else if (id == R.id.nav_feedback) {
             Intent i = new Intent(this, FeedbackActivity.class);
             startActivity(i);
@@ -400,6 +400,8 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -432,6 +434,11 @@ public class MainActivity extends AppCompatActivity
 //            Toast.makeText(this, "Latitude: " + lat + "\nLongitude: " + longt, Toast.LENGTH_LONG).show();
 
             Log.i(String.valueOf(this.getClass()), "Lat: " + lat + " Longt: " + longt);
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putLong("currentLat", Double.doubleToLongBits(mCurrentLocation.getLatitude()));
+            editor.putLong("currentLong", Double.doubleToLongBits(mCurrentLocation.getLongitude()));
+            editor.apply();
         }
         startLocationUpdates();
     }
