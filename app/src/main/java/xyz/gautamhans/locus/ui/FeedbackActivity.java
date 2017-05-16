@@ -75,7 +75,7 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
         startActivity(i);
     }
 
-    public void sendEMAIL() {
+    public void sendEMAIL(View v) {
         Intent intent = new Intent(Intent.ACTION_SENDTO)
                 .setData(new Uri.Builder().scheme("mailto").build())
                 .putExtra(Intent.EXTRA_EMAIL, new String[]{ "Romil <romilparhwal007@gmail.com>" })
@@ -101,6 +101,31 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
                 .show();
     }
 
+    public void sendEMAIL() {
+        Intent intent = new Intent(Intent.ACTION_SENDTO)
+                .setData(new Uri.Builder().scheme("mailto").build())
+                .putExtra(Intent.EXTRA_EMAIL, new String[]{ "Romil <romilparhwal007@gmail.com>" })
+                .putExtra(Intent.EXTRA_SUBJECT, "Locus Feedback")
+                .putExtra(Intent.EXTRA_TEXT, "Hello Locus Team, I would like to give feedback about your application.")
+                ;
+
+        ComponentName emailApp = intent.resolveActivity(getPackageManager());
+        ComponentName unsupportedAction = ComponentName.unflattenFromString("com.android.fallback/.Fallback");
+        if (emailApp != null && !emailApp.equals(unsupportedAction))
+            try {
+                // Needed to customise the chooser dialog title since it might default to "Share with"
+                // Note that the chooser will still be skipped if only one app is matched
+                Intent chooser = Intent.createChooser(intent, "Send email with");
+                startActivity(chooser);
+                return;
+            }
+            catch (ActivityNotFoundException ignored) {
+            }
+
+        Toast
+                .makeText(this, "Couldn't find an email app and account", Toast.LENGTH_LONG)
+                .show();
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
