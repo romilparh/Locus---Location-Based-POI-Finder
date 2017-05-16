@@ -3,7 +3,6 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
     <string name="user_name">{name}</string>
     <string name="user_email">{email}</string>
@@ -20,13 +19,7 @@
     <string name="name_desc">Enter Description</string>
     <string name="categories_text">Categories</string>
     <string name="places_around_you">Places Around You</string>
-    <string name="feedbacktype2">Bug</string>
-    <string name="feedbacktype1">Request</string>
-    <string name="feedbacktype3">Error</string>
     <string name="tasktitle">Task Title</string>
-    <string name="feedbacktype4">Suggestion</string>
-    <string name="feedbacktype">Feedback Type</string>
-    <string name="feedbackbody">Describe Feedback Here !</string>
     <string name="send_feedback">Send Feedback</string>
     <string name="title_activity_reminders">Reminders</string>
     <string name="activity_home_name">Home</string>
@@ -48,7 +41,13 @@
     <string name="delete_menu_text">Delete</string>
     <string name="MAPS_API_KEY" templateMergeStrategy="preserve" translatable="false">AIzaSyCO-xmGTB6Vn-BUNjqBH20CbH6QWRRx-VI</string>
     <string name="title_activity_settings">Settings</string>
-
+    <string name="whatL">What is Locus?</string>
+    <string name="howto">How to:</string>
+    <string name="viewC">View Categorised Places</string>
+    <string name="viewS">View Saved Places</string>
+    <string name="navigatePlaceNow">Navigate to a place</string>
+    <string name="reminderHelp">View/Add/Delete Location-based Reminders</string>
+    <string name="sendFeedbackHelp">Send Feedback to us</string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->

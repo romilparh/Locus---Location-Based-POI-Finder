@@ -1,6 +1,8 @@
 package xyz.gautamhans.locus.ui;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -57,6 +59,31 @@ public class SavedPlaces extends AppCompatActivity implements NavigationView.OnN
     List<Place> savedPlacesList;
     RVAdapter_SavedPlaces adapter;
 
+    public void sendEMAIL() {
+        Intent intent = new Intent(Intent.ACTION_SENDTO)
+                .setData(new Uri.Builder().scheme("mailto").build())
+                .putExtra(Intent.EXTRA_EMAIL, new String[]{ "Romil <romilparhwal007@gmail.com>" })
+                .putExtra(Intent.EXTRA_SUBJECT, "Locus Feedback")
+                .putExtra(Intent.EXTRA_TEXT, "Hello Locus Team, I would like to give feedback about your application.")
+                ;
+
+        ComponentName emailApp = intent.resolveActivity(getPackageManager());
+        ComponentName unsupportedAction = ComponentName.unflattenFromString("com.android.fallback/.Fallback");
+        if (emailApp != null && !emailApp.equals(unsupportedAction))
+            try {
+                // Needed to customise the chooser dialog title since it might default to "Share with"
+                // Note that the chooser will still be skipped if only one app is matched
+                Intent chooser = Intent.createChooser(intent, "Send email with");
+                startActivity(chooser);
+                return;
+            }
+            catch (ActivityNotFoundException ignored) {
+            }
+
+        Toast
+                .makeText(this, "Couldn't find an email app and account", Toast.LENGTH_LONG)
+                .show();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -208,8 +235,10 @@ public class SavedPlaces extends AppCompatActivity implements NavigationView.OnN
         } else if (id == R.id.nav_settings) {
             startActivity(new Intent(SavedPlaces.this, SettingsActivity.class));
         } else if (id == R.id.nav_feedback) {
-            Intent intent = new Intent(this, FeedbackActivity.class);
-            startActivity(intent);
+            sendEMAIL();
+        } else if (id == R.id.nav_help) {
+            Intent i=new Intent(this,FeedbackActivity.class);
+            startActivity(i);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
