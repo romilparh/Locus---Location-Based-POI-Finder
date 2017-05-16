@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -38,14 +37,9 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_activity);
 
-        getWindow().setStatusBarColor(Color.rgb(55,71,79));
 
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads()
-                .detectDiskWrites()
-                .detectNetwork()
-                .penaltyDeath()
-                .build());
+
+        getWindow().setStatusBarColor(Color.rgb(55,71,79));
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -53,12 +47,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Log.i("sign error", ": " +connectionResult.getErrorMessage());
-                    }
-                })
+                .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -76,7 +65,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-            Log.i("error sign", ": " +connectionResult.getErrorMessage());
+
     }
 
     @Override
@@ -89,12 +78,8 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     }
 
     private void signIn(){
-        try {
-            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-            startActivityForResult(signInIntent, RC_SIGN_IN);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
 
@@ -120,7 +105,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             startActivity(intent);
         }
         else{
-            Log.i("sign in error", "Login Status: " +result.getStatus());
             Toast.makeText(this, "Status: " + result.getStatus(), Toast.LENGTH_LONG).show();
             Log.i(String.valueOf(this), "Login Status: " +result.getStatus());
         }
