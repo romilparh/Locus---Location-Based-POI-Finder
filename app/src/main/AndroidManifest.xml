@@ -53,7 +53,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.FeedbackActivity"
-            android:noHistory="true"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.NewReminder"
@@ -92,6 +92,11 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xyz.gautamhans.locus.ui.MainActivity" />
+        </activity>
+        <activity android:name=".ui.WhatIsLocus">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.FeedbackActivity" />
         </activity>
     </application>
 

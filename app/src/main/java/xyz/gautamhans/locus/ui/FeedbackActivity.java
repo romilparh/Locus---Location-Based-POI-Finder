@@ -1,8 +1,11 @@
 package xyz.gautamhans.locus.ui;
 
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,9 +45,14 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        try {
+            getSupportActionBar().setTitle("Help");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,    drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -57,35 +66,39 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
 
     }
 
-    public void sendFeedback(View button) {
-        // Do click handling here
-        fail=0;
+    public void openLocusDetails(View v){
+        Intent i=new Intent(this,WhatIsLocus.class);
+        startActivity(i);
+    }
+    public void openManual(View v){
+        Intent i=new Intent(this,WhatIsLocus.class);
+        startActivity(i);
+    }
 
-        final EditText feedbackField = (EditText) findViewById(R.id.EditTextFeedbackBody);
-        String feedback = feedbackField.getText().toString();
-        if(feedback.matches("")){
-            fail=1;
-            Context context = getApplicationContext();
-            CharSequence text = "No Feedback Message";
-            int duration = Toast.LENGTH_LONG;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-            return;
-        }
+    public void sendEMAIL() {
+        Intent intent = new Intent(Intent.ACTION_SENDTO)
+                .setData(new Uri.Builder().scheme("mailto").build())
+                .putExtra(Intent.EXTRA_EMAIL, new String[]{ "Romil <romilparhwal007@gmail.com>" })
+                .putExtra(Intent.EXTRA_SUBJECT, "Locus Feedback")
+                .putExtra(Intent.EXTRA_TEXT, "Hello Locus Team, I would like to give feedback about your application.")
+                ;
 
-        final Spinner feedbackSpinner = (Spinner) findViewById(R.id.SpinnerFeedbackType);
-        String feedbackType = feedbackSpinner.getSelectedItem().toString();
+        ComponentName emailApp = intent.resolveActivity(getPackageManager());
+        ComponentName unsupportedAction = ComponentName.unflattenFromString("com.android.fallback/.Fallback");
+        if (emailApp != null && !emailApp.equals(unsupportedAction))
+            try {
+                // Needed to customise the chooser dialog title since it might default to "Share with"
+                // Note that the chooser will still be skipped if only one app is matched
+                Intent chooser = Intent.createChooser(intent, "Send email with");
+                startActivity(chooser);
+                return;
+            }
+            catch (ActivityNotFoundException ignored) {
+            }
 
-        Context context = getApplicationContext();
-        CharSequence text = "Feedback Sent!";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
-//        toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 0);
-        if(fail==0) {
-            toast.show();
-            Intent i=new Intent(this,MainActivity.class);
-            startActivity(i);
-        }
+        Toast
+                .makeText(this, "Couldn't find an email app and account", Toast.LENGTH_LONG)
+                .show();
     }
 
     @Override
@@ -134,8 +147,10 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
         } else if (id == R.id.nav_settings) {
             startActivity(new Intent(FeedbackActivity.this, SettingsActivity.class));
         } else if (id == R.id.nav_feedback) {
+            sendEMAIL();
+        } else if (id == R.id.nav_help) {
             Context context = getApplicationContext();
-            CharSequence text = "Already on Feedback Page";
+            CharSequence text = "Already on Help Page";
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
