@@ -41,7 +41,7 @@ import xyz.gautamhans.locus.db.DBHelper;
 import xyz.gautamhans.locus.db.model.DatabaseModel;
 import xyz.gautamhans.locus.service.UserTransitionIntentService;
 
-public class NewReminder extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class NewReminder extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     private static final int RADIUS_MAX = 500;
     private static final int DEFAULT_RADIUS = 50;
@@ -75,9 +75,12 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
         address_selected = (TextView) findViewById(R.id.address_selected_tv);
         radius_text = (TextView) findViewById(R.id.radius_text);
         mRadius = (SeekBar) findViewById(R.id.radius_slider);
+        chooseLocation = (ImageView) findViewById(R.id.choose_loc_icon_iv);
+        chooseLocation.setOnClickListener(this);
         mRadius.setMax(RADIUS_MAX);
         mRadius.setProgress(DEFAULT_RADIUS);
         updateRadiusText();
+
 
         mRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -99,12 +102,14 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
     }
 
     void pickPlace(View view) {
-        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        if(view.getId() == R.id.choose_loc_icon_iv) {
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
-        try {
-            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
+            try {
+                startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+            } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -229,6 +234,19 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(String.valueOf(this), "connection failed!" + connectionResult);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.choose_loc_icon_iv){
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+            try {
+                startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+            } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private class SaveReminderTask extends AsyncTask<Void, Void, Integer> {

@@ -71,7 +71,6 @@
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/choose_location_tv_ni"
-        android:onClick="pickPlace"
         app:srcCompat="@drawable/chooselocreminder" />
 
     <TextView

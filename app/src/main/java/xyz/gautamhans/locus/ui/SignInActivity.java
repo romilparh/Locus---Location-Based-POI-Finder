@@ -37,8 +37,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_activity);
 
-
-
         getWindow().setStatusBarColor(Color.rgb(55,71,79));
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -47,7 +45,12 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        Log.i(TAG, "Error: " +connectionResult.getErrorMessage());
+                    }
+                })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -55,7 +58,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setOnClickListener(this);
     }
-
 
     @Override
     protected void onStart() {

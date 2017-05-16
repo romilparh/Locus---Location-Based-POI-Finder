@@ -57,8 +57,8 @@ public class RVAdapter_SavedPlaces extends RecyclerView.Adapter<RVAdapter_SavedP
         }else{
             Picasso.with(context)
                     .load(savedPlaces.get(position).getPhotoReference())
-                    .resize(1080,200)
-                    .centerCrop()
+//                    .resize(1080,400)
+                    .fit()
                     .into(holder.placePhoto, new Callback() {
                         @Override
                         public void onSuccess() {
