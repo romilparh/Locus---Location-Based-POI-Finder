@@ -31,7 +31,6 @@ public class BaseLoginChecker extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             finish();
             startActivity(intent);
-
         }
     }
 }

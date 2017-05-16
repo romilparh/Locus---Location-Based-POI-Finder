@@ -53,6 +53,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.FeedbackActivity"
+            android:noHistory="true"
 
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
