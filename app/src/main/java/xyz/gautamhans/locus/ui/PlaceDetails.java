@@ -2,6 +2,7 @@ package xyz.gautamhans.locus.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -37,7 +39,7 @@ import xyz.gautamhans.locus.retrofit.ApiInterfaceSavePlace;
  * Created by Gautam on 10-Apr-17.
  */
 
-public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     String placeId, photoReference, placeName, placeAddress, placeContact, placeLatitude, placeLongitude;
     int itemIndex, placePriceLevel;
@@ -89,6 +91,9 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
         Log.i(String.valueOf(this), "Reference: " + finalImageUrl);
         mToast.show();
 
+        tv_call_info = (TextView) findViewById(R.id.tv_call_info);
+        tv_website_info = (TextView) findViewById(R.id.tv_website_info);
+
         loadData();
         loadViews();
     }
@@ -127,13 +132,18 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
                             ratingBar.setRating(placeRating);
                             placeLatitude = String.valueOf(myPlace.getLatLng().latitude);
                             placeLongitude = String.valueOf(myPlace.getLatLng().longitude);
-
+                            setIntents();
                         } else {
                             Log.i(String.valueOf(PlaceDetails.this), String.valueOf(places.getStatus()));
                         }
                         places.release();
                     }
                 });
+    }
+
+    private void setIntents(){
+       tv_website_info.setOnClickListener(this);
+        tv_call_info.setOnClickListener(this);
     }
 
     private void loadViews() {
@@ -246,5 +256,27 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_website_info:
+                if(placeWeblink!=null){
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(placeWeblink));
+                    startActivity(i);
+                }
+                break;
+            case R.id.tv_call_info:
+                if(placeContact!=null){
+                    Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+placeContact));
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                }
+                break;
+            default:
+                Log.d("placedetails: ", "incorrect intent" );
+        }
     }
 }
