@@ -16,8 +16,8 @@
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".background.BaseLoginChecker"
             android:label="@string/app_name"
@@ -38,8 +38,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.PlaceSearch"
-            android:parentActivityName=".ui.MainActivity"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            android:parentActivityName=".ui.MainActivity" />
         <activity
             android:name=".ui.PlaceDetailsFromSearch"
             android:parentActivityName=".ui.PlaceSearch" />
@@ -52,15 +52,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.FeedbackActivity"
-            android:noHistory="true"
-
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.NewReminder"
             android:noHistory="true" />
         <activity
             android:name=".ui.Reminders"
-            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.IntroActivity"
@@ -83,7 +80,6 @@
 
         <activity
             android:name=".ui.SavedPlaces"
-            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.SettingsActivity"
@@ -94,6 +90,31 @@
                 android:value="xyz.gautamhans.locus.ui.MainActivity" />
         </activity>
         <activity android:name=".ui.WhatIsLocus">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.FeedbackActivity" />
+        </activity>
+        <activity android:name=".ui.reminder_info" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.FeedbackActivity" />
+        </activity>
+        <activity android:name=".ui.categorised_info" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.FeedbackActivity" />
+        </activity>
+        <activity android:name=".ui.feedback_info" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ui.FeedbackActivity" />
+        </activity>
+        <activity android:name=".ui.saved_place_info" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ui.FeedbackActivity" />
+        </activity>
+        <activity android:name=".ui.navigate_info">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.FeedbackActivity" />

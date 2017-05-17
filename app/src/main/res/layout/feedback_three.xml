@@ -87,7 +87,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:onClick="openManual"
+                    android:onClick="openManualCategory"
                     android:id="@+id/relativeLayout1">
                     <ImageView
                         android:layout_width="30dp"
@@ -111,7 +111,7 @@
                     android:layout_width="fill_parent"
                     android:layout_marginBottom="5dp"
                     android:layout_height="wrap_content"
-                    android:onClick="openManual"
+                    android:onClick="openManualSaved"
                     android:layout_marginLeft="20dp"
                     android:id="@+id/relativeLayout2">
                     <ImageView
@@ -136,7 +136,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:onClick="openManual"
+                    android:onClick="openManualNavigation"
                     android:layout_marginLeft="20dp"
                     android:id="@+id/relativeLayout3">
                     <ImageView
@@ -161,7 +161,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:onClick="openManual"
+                    android:onClick="openManualReminder"
                     android:layout_marginBottom="5dp"
                     android:id="@+id/relativeLayout4">
                     <ImageView
@@ -186,7 +186,7 @@
                     android:layout_width="fill_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="5dp"
-                    android:onClick="openManual"
+                    android:onClick="openManualFeedback"
                     android:layout_height="wrap_content"
                     android:id="@+id/relativeLayout5">
                     <ImageView

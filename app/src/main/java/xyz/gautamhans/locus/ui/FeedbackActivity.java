@@ -70,11 +70,26 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
         Intent i=new Intent(this,WhatIsLocus.class);
         startActivity(i);
     }
-    public void openManual(View v){
-        Intent i=new Intent(this,WhatIsLocus.class);
+    public void openManualReminder(View v){
+        Intent i=new Intent(this,reminder_info.class);
         startActivity(i);
     }
-
+    public void openManualNavigation(View v){
+        Intent i=new Intent(this,navigate_info.class);
+        startActivity(i);
+    }
+    public void openManualFeedback(View v){
+        Intent i=new Intent(this,feedback_info.class);
+        startActivity(i);
+    }
+    public void openManualCategory(View v){
+        Intent i=new Intent(this,categorised_info.class);
+        startActivity(i);
+    }
+    public void openManualSaved(View v){
+        Intent i=new Intent(this,saved_place_info.class);
+        startActivity(i);
+    }
     public void sendEMAIL(View v) {
         Intent intent = new Intent(Intent.ACTION_SENDTO)
                 .setData(new Uri.Builder().scheme("mailto").build())
