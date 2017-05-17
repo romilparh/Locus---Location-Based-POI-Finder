@@ -94,31 +94,32 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.FeedbackActivity" />
         </activity>
-        <activity android:name=".ui.reminder_info" >
+        <activity android:name=".ui.reminder_info">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.FeedbackActivity" />
         </activity>
-        <activity android:name=".ui.categorised_info" >
+        <activity android:name=".ui.categorised_info">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.FeedbackActivity" />
         </activity>
-        <activity android:name=".ui.feedback_info" >
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".ui.FeedbackActivity" />
+        <activity android:name=".ui.feedback_info">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.FeedbackActivity" />
         </activity>
-        <activity android:name=".ui.saved_place_info" >
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".ui.FeedbackActivity" />
+        <activity android:name=".ui.saved_place_info">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.FeedbackActivity" />
         </activity>
         <activity android:name=".ui.navigate_info">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.FeedbackActivity" />
         </activity>
+        <activity android:name=".ui.Save_Place_Info"></activity>
     </application>
 
 </manifest>

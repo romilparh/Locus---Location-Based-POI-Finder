@@ -135,4 +135,5 @@ At last, we will also like to tell you that this application uses minimal local 
     <string name="saved_step2">2. Select Saved Places from drawer menu. </string>
     <string name="saved_step3">3. It will open the saved places interface providing you with all the places that have been saved for a particular user.</string>
     <string name="nav_step">1. Open any place detail and click on <b>VIEW ON MAP</b> option to directly navigate to place.</string>
+    <string name="save_step1">1. Open any place detail and click on save button located on top right corner.</string>
 </resources>
