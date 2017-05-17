@@ -200,7 +200,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20dp"
                         android:layout_toRightOf="@id/imageHelp5"
-                        android:text="@string/sendFeedbackHelp"
+                        android:text="@string/save_a_place"
                         android:layout_marginLeft="10dp"/>
                 </RelativeLayout>
             </LinearLayout>
