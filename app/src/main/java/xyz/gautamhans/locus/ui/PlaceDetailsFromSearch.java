@@ -140,6 +140,7 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     @Override

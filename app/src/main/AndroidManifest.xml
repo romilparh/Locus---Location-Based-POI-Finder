@@ -38,7 +38,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.PlaceSearch"
-            android:noHistory="true"
             android:parentActivityName=".ui.MainActivity" />
         <activity
             android:name=".ui.PlaceDetailsFromSearch"
@@ -55,9 +54,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.NewReminder"
-            android:noHistory="true" />
+            android:noHistory="true"/>
         <activity
             android:name=".ui.Reminders"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.IntroActivity"

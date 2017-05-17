@@ -199,6 +199,7 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
     public void onBackPressed() {
         Intent intent = new Intent(NewReminder.this, Reminders.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

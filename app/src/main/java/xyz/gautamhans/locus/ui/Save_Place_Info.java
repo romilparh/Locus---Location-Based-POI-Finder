@@ -19,5 +19,6 @@ public class Save_Place_Info extends AppCompatActivity {
     public void onBackPressed() {
         Intent i=new Intent(this,FeedbackActivity.class);
         startActivity(i);
+        finish();
     }
 }

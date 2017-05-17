@@ -122,8 +122,14 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(Reminders.this, MainActivity.class);
-        startActivity(intent);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            Intent i=new Intent(this,MainActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 
     private void onReminderDelete(int position) {

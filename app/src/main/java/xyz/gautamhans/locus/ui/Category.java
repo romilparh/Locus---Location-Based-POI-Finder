@@ -224,9 +224,9 @@ public class Category extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         Intent intent = new Intent(Category.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

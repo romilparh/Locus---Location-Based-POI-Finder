@@ -117,6 +117,7 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     private void loadData() {

@@ -107,5 +107,6 @@ public class PlaceSearch extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(PlaceSearch.this, MainActivity.class));
+        finish();
     }
 }

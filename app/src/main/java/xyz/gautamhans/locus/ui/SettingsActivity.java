@@ -92,6 +92,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(SettingsActivity.this, MainActivity.class));
+        finish();
     }
 
     private void updateRadiusText(){

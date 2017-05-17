@@ -161,15 +161,23 @@ public class SavedPlaces extends AppCompatActivity implements NavigationView.OnN
         recyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.savedplace_menu, menu);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            Intent i=new Intent(this,MainActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 
     @Override

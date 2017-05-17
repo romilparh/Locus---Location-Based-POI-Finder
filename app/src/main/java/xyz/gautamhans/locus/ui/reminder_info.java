@@ -19,5 +19,6 @@ public class reminder_info extends AppCompatActivity {
     public void onBackPressed() {
         Intent i=new Intent(this,FeedbackActivity.class);
         startActivity(i);
+        finish();
     }
 }

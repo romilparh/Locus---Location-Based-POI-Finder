@@ -154,6 +154,7 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
         } else {
             Intent i=new Intent(this,MainActivity.class);
             startActivity(i);
+            finish();
         }
     }
 
