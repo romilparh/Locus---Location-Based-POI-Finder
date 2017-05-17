@@ -22,7 +22,10 @@
             <ImageView
                 android:id="@+id/placePhoto"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:contentDescription="Place Image"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:id="@+id/place_name_tv_i"
