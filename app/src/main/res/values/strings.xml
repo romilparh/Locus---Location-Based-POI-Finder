@@ -120,4 +120,12 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="noReminderHint">No reminder found. \nCreate a new reminder by \npressing plus button.</string>
+
+    <!-- Manuals -->
+    <string name="whatLo">Locus is a location-based application which allows a user to know his/her surroundings better by providing them recommended places (Best-Rated by visitors) as well as categorised view of different locations such as ATMs, Banks, Taxi Stations, Police Stations, Restraunts etc. It allows a user to make best use of MAPS without having to mess with cumbersome UI of Google Maps which users often struggle to use.
+Along with this, this application also allows you to create location-based reminders. For instance, If a person wants to buy eggs, he/she can set up a reminder and will get a notification whenever he/she enters in defined radius for any supermarket. The procedure is available under Help and Feedback.
+This application also allows a user to save particular places for quick access. For instance, if a user visits Best Price more often, he/she can use saved places for quick access for place details and navigation. The tutorial for "Saving a Place" and accessing it is provided in Help and Feedback.
+At last, we will also like to tell you that this application uses minimal local storage of your device as the data is synced and saved on our server eliminating need of your phone storage to keep this application and your phone run efficiently. The synchronization of data will also be done between number of devices logged in with same Google ID.
+        Thank you for choosing "LOCUS" and giving us a chance to make your life simple.
+</string>
 </resources>
