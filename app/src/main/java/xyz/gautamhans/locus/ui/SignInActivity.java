@@ -105,6 +105,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             setDefaults(acct.getDisplayName(), acct.getEmail(), acct.getIdToken(), String.valueOf(acct.getPhotoUrl()));
             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
         else{
             Toast.makeText(this, "Status: " + result.getStatus(), Toast.LENGTH_LONG).show();
