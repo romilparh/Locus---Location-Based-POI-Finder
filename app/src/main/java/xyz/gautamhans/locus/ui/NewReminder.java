@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -58,6 +59,7 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
     private double mLatitude;
     private double mLongtitude;
     private GoogleApiClient mGoogleApiClient;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,8 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
         address_selected = (TextView) findViewById(R.id.address_selected_tv);
         radius_text = (TextView) findViewById(R.id.radius_text);
         mRadius = (SeekBar) findViewById(R.id.radius_slider);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        floatingActionButton.setOnClickListener(this);
         chooseLocation = (ImageView) findViewById(R.id.choose_loc_icon_iv);
         chooseLocation.setOnClickListener(this);
         mRadius.setMax(RADIUS_MAX);
@@ -130,7 +134,7 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
         }
     }
 
-    void onSaveButtonClicked(View view) {
+    void onSaveButtonClicked() {
         String title = task_title.getText().toString();
         String description = task_title.getText().toString();
         String address = address_selected.getText().toString();
@@ -247,6 +251,10 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
                 e.printStackTrace();
             }
         }
+
+        if (v.getId() == R.id.floatingActionButton){
+            onSaveButtonClicked();
+        }
     }
 
     private class SaveReminderTask extends AsyncTask<Void, Void, Integer> {
@@ -311,8 +319,6 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
 
             mGoogleApiClient.disconnect();
             mContext = null;
-
-
         }
     }
 }

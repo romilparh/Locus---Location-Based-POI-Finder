@@ -127,7 +127,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="10dp"
         android:clickable="true"
-        android:onClick="onSaveButtonClicked"
         app:fabSize="normal"
         app:srcCompat="@drawable/checked" />
 </RelativeLayout>
