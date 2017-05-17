@@ -1,6 +1,8 @@
 package xyz.gautamhans.locus.ui.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +10,14 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import xyz.gautamhans.locus.R;
-import xyz.gautamhans.locus.ui.PlaceCardDetails;
+import xyz.gautamhans.locus.retrofit.pojosplaces.Photo;
+import xyz.gautamhans.locus.retrofit.pojosplaces.Result;
+import xyz.gautamhans.locus.ui.MainActivity;
 
 /**
  * Created by Gautam on 02-Apr-17.
@@ -20,10 +26,15 @@ import xyz.gautamhans.locus.ui.PlaceCardDetails;
 public class RVAdapter_PlaceCard extends
         RecyclerView.Adapter<RVAdapter_PlaceCard.PlaceCardViewHolder> {
 
-    List<PlaceCardDetails> placeCardDetails;
+    List<Result> resultList;
+    private String photoBaseUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=";
+    private String API_KEY = "&key=AIzaSyBE8jPCH28fGzNwldLfR2h5WTgMC_IvuJI";
+    String finalImageUrl;
+    Context context;
 
-    public RVAdapter_PlaceCard(List<PlaceCardDetails> placeCardDetails) {
-        this.placeCardDetails = placeCardDetails;
+    public RVAdapter_PlaceCard(List<Result> resultList, Context context) {
+        this.resultList = resultList;
+        this.context = context;
     }
 
     @Override
@@ -36,15 +47,32 @@ public class RVAdapter_PlaceCard extends
 
     @Override
     public void onBindViewHolder(RVAdapter_PlaceCard.PlaceCardViewHolder holder, int position) {
-        holder.iv_place_photo.setImageResource(placeCardDetails.get(position).place_photoId);
-        holder.tv_place_name.setText(placeCardDetails.get(position).place_name);
-        holder.tv_place_address.setText(placeCardDetails.get(position).place_address);
-        holder.rb_place_rating.setRating((float) placeCardDetails.get(position).place_rating);
+        holder.tv_place_name.setText(resultList.get(position).getName());
+
+        if (resultList.get(position).getRating() != null) {
+            float rating = Float.parseFloat(String.valueOf(resultList.get(position).getRating()));
+            holder.rb_place_rating.setRating(rating);
+        } else {
+            holder.rb_place_rating.setVisibility(View.GONE);
+        }
+
+        holder.tv_place_address.setText(resultList.get(position).getFormattedAddress());
+        List<Photo> photoList= resultList.get(position).getPhotos();
+        try {
+            Log.d("list size", ": " + photoList.size());
+            Log.d("photoRef ", ": " + photoList.get(0).getPhotoReference());
+            if(photoList.get(0).getPhotoReference()!=null){
+                finalImageUrl = photoBaseUrl + photoList.get(0).getPhotoReference() +API_KEY;
+                Picasso.with(context).load(finalImageUrl).fit().into(holder.iv_place_photo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return placeCardDetails.size();
+        return resultList.size();
     }
 
     @Override
@@ -54,17 +82,17 @@ public class RVAdapter_PlaceCard extends
 
     class PlaceCardViewHolder extends RecyclerView.ViewHolder {
 
-            ImageView iv_place_photo;
-            TextView tv_place_name, tv_place_address;
-            RatingBar rb_place_rating;
+        ImageView iv_place_photo;
+        TextView tv_place_name, tv_place_address;
+        RatingBar rb_place_rating;
 
-            public PlaceCardViewHolder(View itemView) {
-                super(itemView);
-                iv_place_photo = (ImageView) itemView.findViewById(R.id.place_photo);
-                tv_place_name = (TextView) itemView.findViewById(R.id.place_name);
-                tv_place_address = (TextView) itemView.findViewById(R.id.place_address);
-                rb_place_rating = (RatingBar) itemView.findViewById(R.id.place_rating);
-            }
+        public PlaceCardViewHolder(View itemView) {
+            super(itemView);
+            iv_place_photo = (ImageView) itemView.findViewById(R.id.place_photo);
+            tv_place_name = (TextView) itemView.findViewById(R.id.place_name);
+            tv_place_address = (TextView) itemView.findViewById(R.id.place_address);
+            rb_place_rating = (RatingBar) itemView.findViewById(R.id.place_rating);
         }
     }
+}
 

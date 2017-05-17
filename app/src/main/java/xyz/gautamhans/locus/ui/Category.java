@@ -167,6 +167,7 @@ public class Category extends AppCompatActivity implements
                 if (mProgressDialog.isShowing()) {
                     mProgressDialog.dismiss();
                 }
+
                 places = response.body().getResults();
                 Log.d(String.valueOf(this), "Number of places received: " + places.size());
                 setAdapter();

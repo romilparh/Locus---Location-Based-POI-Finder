@@ -2,6 +2,7 @@ package xyz.gautamhans.locus.ui;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,7 +12,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -31,7 +31,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
@@ -47,21 +50,32 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import xyz.gautamhans.locus.R;
 import xyz.gautamhans.locus.background.UEC;
+import xyz.gautamhans.locus.retrofit.ApiClientPlaces;
+import xyz.gautamhans.locus.retrofit.ApiInterface;
+import xyz.gautamhans.locus.retrofit.pojosplaces.Attractions;
 import xyz.gautamhans.locus.ui.adapter.RVAdapter_PlaceCard;
 import xyz.gautamhans.locus.ui.adapter.RVCat_Adapter;
+import xyz.gautamhans.locus.retrofit.pojosplaces.*;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
-        , com.google.android.gms.location.LocationListener, RVCat_Adapter.ListItemClickListener{
+        , LocationListener, RVCat_Adapter.ListItemClickListener, View.OnClickListener {
 
     //location user resolution specifier
     protected static final int REQUEST_CHECK_SETTINGS = 0x1;
@@ -69,6 +83,7 @@ public class MainActivity extends AppCompatActivity
     //RecyclerView Variables
     public RecyclerView rv_cat, rv_places;
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    private ProgressBar progressBar;
     boolean userExists;
     String longt, lat;
     //User information Navigation Drawer
@@ -89,7 +104,11 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
+    private TextView placeLoadErrorText;
+    private Button refreshButton;
     SharedPreferences sharedPref;
+
+    List<xyz.gautamhans.locus.retrofit.pojosplaces.Result> resultsList;
 
     public static boolean isLocationEnabled(Context context) {
         int locationMode = 0;
@@ -184,6 +203,10 @@ public class MainActivity extends AppCompatActivity
 
         rv_cat = (RecyclerView) findViewById(R.id.rv_cat);
         rv_places = (RecyclerView) findViewById(R.id.rv_places);
+        progressBar = (ProgressBar) findViewById(R.id.progressBarPlaces);
+        placeLoadErrorText = (TextView) findViewById(R.id.placeLoadErrorText);
+        refreshButton = (Button) findViewById(R.id.refresh_places_main);
+        refreshButton.setOnClickListener(this);
 
         LinearLayoutManager llm_cat = new LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false);
@@ -195,7 +218,7 @@ public class MainActivity extends AppCompatActivity
         rv_places.setLayoutManager(llm_places);
 
         initializeDataCat();
-        initializeDataPlaces();
+//        initializeDataPlaces();
         initializeAdapter();
         initializeUserInfo();
     }
@@ -248,27 +271,50 @@ public class MainActivity extends AppCompatActivity
         categoryDetailsList.add(new CategoryDetailsModel(R.drawable.uni));
     }
 
-    public void initializeDataPlaces() {
-        placeCardDetails = new ArrayList<>();
-        placeCardDetails.add(new PlaceCardDetails(R.drawable.brewmaster, 4.0, "The Brewmaster", "3rd Floor & Terrace, Chun Mun Mall"));
-        placeCardDetails.add(new PlaceCardDetails(R.drawable.curo_mall, 3.9, "Curo Mall", "3rd Floor & Terrace, Chun Mun Mall"));
-        placeCardDetails.add(new PlaceCardDetails(R.drawable.pvr_mbdmall, 4.5, "PVR MBD Mall", "3rd Floor & Terrace, Chun Mun Mall"));
-        placeCardDetails.add(new PlaceCardDetails(R.drawable.hotel_cabbana, 4.6, "Hotel Cabbana", "Phagwara-Jalandhar Highway"));
-        placeCardDetails.add(new PlaceCardDetails(R.drawable.brewmaster, 4.0, "The Brewmaster", "3rd Floor & Terrace, Chun Mun Mall"));
-        placeCardDetails.add(new PlaceCardDetails(R.drawable.curo_mall, 3.9, "Curo Mall", "3rd Floor & Terrace, Chun Mun Mall"));
-        placeCardDetails.add(new PlaceCardDetails(R.drawable.pvr_mbdmall, 4.5, "PVR MBD Mall", "3rd Floor & Terrace, Chun Mun Mall"));
-        placeCardDetails.add(new PlaceCardDetails(R.drawable.hotel_cabbana, 4.6, "Hotel Cabbana", "Phagwara-Jalandhar Highway"));
-        placeCardDetails.add(new PlaceCardDetails(R.drawable.brewmaster, 4.0, "The Brewmaster", "3rd Floor & Terrace, Chun Mun Mall"));
-        placeCardDetails.add(new PlaceCardDetails(R.drawable.curo_mall, 3.9, "Curo Mall", "3rd Floor & Terrace, Chun Mun Mall"));
-        placeCardDetails.add(new PlaceCardDetails(R.drawable.pvr_mbdmall, 4.5, "PVR MBD Mall", "3rd Floor & Terrace, Chun Mun Mall"));
-        placeCardDetails.add(new PlaceCardDetails(R.drawable.hotel_cabbana, 4.6, "Hotel Cabbana", "Phagwara-Jalandhar Highway"));
+    public void initializeDataPlaces(String lat, String longt) {
+        String rankby = "distance";
+        String attractions = "Attractions";
+        Retrofit retrofit = ApiClientPlaces.getClient();
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+
+        Call<Attractions> attractionsCall = apiInterface.getAttractions(Uri.encode(attractions),
+                lat + "," + longt,
+                rankby);
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        attractionsCall.enqueue(new Callback<Attractions>() {
+            @Override
+            public void onResponse(Call<Attractions> call, Response<Attractions> response) {
+
+                progressBar.setVisibility(View.GONE);
+
+                Log.d("request url", ":" + call.request().url().toString());
+                Log.d("response", ": " +new Gson().toJson(response));
+                resultsList = response.body().getResults();
+                Log.d(String.valueOf(this), "Number of places received: " + resultsList.size());
+                setAdapter(resultsList);
+            }
+
+            @Override
+            public void onFailure(Call<Attractions> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
+                placeLoadErrorText.setVisibility(View.VISIBLE);
+                refreshButton.setVisibility(View.VISIBLE);
+                Log.d(String.valueOf(this), throwable.toString());
+            }
+        });
+    }
+
+    private void setAdapter(List<Result> resultsList) {
+        RVAdapter_PlaceCard adapter = new RVAdapter_PlaceCard(resultsList, this);
+        rv_places.setAdapter(adapter);
     }
 
     public void initializeAdapter() {
         RVCat_Adapter adapter = new RVCat_Adapter(categoryDetailsList, this);
         rv_cat.setAdapter(adapter);
-        RVAdapter_PlaceCard adapter_placeCard = new RVAdapter_PlaceCard(placeCardDetails);
-        rv_places.setAdapter(adapter_placeCard);
+
     }
 
     @Override
@@ -463,9 +509,13 @@ public class MainActivity extends AppCompatActivity
             Log.i(String.valueOf(this.getClass()), "Lat: " + lat + " Longt: " + longt);
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("currentLatString", lat);
+            editor.putString("currentLongString", longt);
             editor.putLong("currentLat", Double.doubleToLongBits(mCurrentLocation.getLatitude()));
             editor.putLong("currentLong", Double.doubleToLongBits(mCurrentLocation.getLongitude()));
             editor.apply();
+
+            initializeDataPlaces(lat, longt);
         }
         startLocationUpdates();
     }
@@ -566,6 +616,14 @@ public class MainActivity extends AppCompatActivity
         } catch (Exception e) {
             Toast.makeText(this, "Network error.", Toast.LENGTH_LONG).show();
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.refresh_places){
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            initializeDataPlaces(sharedPref.getString("currentLatString", ""), sharedPref.getString("currentLongString", ""));
         }
     }
 }

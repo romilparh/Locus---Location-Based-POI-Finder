@@ -1,11 +1,11 @@
 
-package xyz.gautamhans.locus.retrofit.pojos;
+package xyz.gautamhans.locus.retrofit.pojosplaces;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Example {
+public class Attractions {
 
     @SerializedName("html_attributions")
     @Expose
@@ -39,7 +39,6 @@ public class Example {
     public List<Result> getResults() {
         return results;
     }
-
 
     public void setResults(List<Result> results) {
         this.results = results;

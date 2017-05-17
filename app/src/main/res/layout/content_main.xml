@@ -40,6 +40,32 @@
         android:layout_marginTop="16dp"
         />
 
+    <ProgressBar
+        android:id="@+id/progressBarPlaces"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/placeLoadErrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sorry, places couldn't be loaded"
+        android:layout_gravity="center|center_vertical"
+        android:visibility="gone"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Refresh"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:id="@+id/refresh_places_main"
+        />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_places"
             android:layout_width="wrap_content"
