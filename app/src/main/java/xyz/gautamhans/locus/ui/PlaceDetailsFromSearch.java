@@ -149,6 +149,11 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
             case R.id.save_place:
                 savePlace();
                 break;
+
+            case android.R.id.home:
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+                break;
             default:
                 
         }
