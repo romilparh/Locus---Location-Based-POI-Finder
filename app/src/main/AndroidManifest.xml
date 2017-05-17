@@ -119,7 +119,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.FeedbackActivity" />
         </activity>
-        <activity android:name=".ui.Save_Place_Info"></activity>
+        <activity android:name=".ui.Save_Place_Info">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.FeedbackActivity" />
+        </activity>
     </application>
 
 </manifest>
