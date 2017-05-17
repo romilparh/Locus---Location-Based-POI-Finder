@@ -22,16 +22,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:padding="15dp">
 
             <TextView
+                android:id="@+id/rating_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/rating_text"
                 android:text="Rating: "
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <RatingBar
                 android:id="@+id/rb_rating"
@@ -39,28 +39,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/rating_text"
-                android:layout_toEndOf="@+id/call_text"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/call_text" />
 
             <ImageView
                 android:id="@+id/address_icon"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@drawable/directionsigns"
                 android:layout_below="@id/rating_text"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="20dp"
+                android:src="@drawable/directionsigns" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Address"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp"
+                android:layout_below="@id/rb_rating"
                 android:layout_marginBottom="2dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@id/address_icon"
-                android:layout_below="@id/rb_rating"/>
+                android:text="Address"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_place_name_pd"
@@ -71,56 +71,85 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_address"
-                android:layout_marginTop="5dp"
                 android:layout_below="@id/tv_place_name_pd"
-                />
+                android:layout_marginTop="5dp" />
 
             <TextView
                 android:id="@+id/call_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Call: "
                 android:layout_below="@id/tv_address"
-                android:textSize="16sp"
-                android:textStyle="bold"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
-                />
+                android:text="Call: "
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_call_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/call_text"
-                android:layout_marginTop="10dp"
                 android:layout_below="@id/tv_address"
-                android:textSize="16sp"
-                />
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/call_text"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/weblink_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="Website: "
                 android:layout_below="@id/call_text"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:text="Website: "
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_website_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/weblink_text"
-                android:layout_marginTop="10dp"
                 android:layout_below="@id/tv_call_info"
-                android:textSize="16sp"
-                />
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/weblink_text"
+                android:textSize="16sp" />
 
+
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_view_on_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        cardElevation="4dp"
+        cardUseCompatPadding="true"
+        android:layout_margin="1dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_view_on_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/bt_view_on_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="View On Map"
+                android:textColor="@color/colorBlueLight"
+                />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
