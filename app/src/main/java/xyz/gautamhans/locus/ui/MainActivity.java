@@ -75,7 +75,7 @@ import xyz.gautamhans.locus.retrofit.pojosplaces.*;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
-        , LocationListener, RVCat_Adapter.ListItemClickListener, View.OnClickListener {
+        , LocationListener, RVCat_Adapter.ListItemClickListener, View.OnClickListener, RVAdapter_PlaceCard.ListItemClickListener {
 
     //location user resolution specifier
     protected static final int REQUEST_CHECK_SETTINGS = 0x1;
@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setAdapter(List<Result> resultsList) {
-        RVAdapter_PlaceCard adapter = new RVAdapter_PlaceCard(resultsList, this);
+        RVAdapter_PlaceCard adapter = new RVAdapter_PlaceCard(resultsList, this, this);
         rv_places.setAdapter(adapter);
     }
 
@@ -625,5 +625,17 @@ public class MainActivity extends AppCompatActivity
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
             initializeDataPlaces(sharedPref.getString("currentLatString", ""), sharedPref.getString("currentLongString", ""));
         }
+    }
+
+    @Override
+    public void onListItemClick(int clickedItemIndex, String place_id, String photoReference) {
+        Log.i(String.valueOf(this), "Item #" + clickedItemIndex + "\nPlace ID:" + place_id);
+        Intent intent = new Intent(MainActivity.this, PlaceDetails.class);
+        Bundle extras = new Bundle();
+        extras.putInt("clickIndex", clickedItemIndex);
+        extras.putString("placeId", place_id);
+        extras.putString("ref", photoReference);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 }

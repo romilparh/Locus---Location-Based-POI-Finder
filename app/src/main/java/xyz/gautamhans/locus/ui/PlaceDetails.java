@@ -61,6 +61,12 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.placedetails_layout);
 
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Intent intent = getIntent();
         if (intent != null) {
             Bundle extras = intent.getExtras();
@@ -85,6 +91,12 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
 
         loadData();
         loadViews();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     private void loadData() {
@@ -148,6 +160,11 @@ public class PlaceDetails extends AppCompatActivity implements GoogleApiClient.C
             case R.id.save_place:
                 savePlace();
                 break;
+
+            case android.R.id.home:
+                onBackPressed();
+                break;
+
             default:
                 Toast.makeText(this, "Incorrect Item Toast", Toast.LENGTH_LONG).show();
         }

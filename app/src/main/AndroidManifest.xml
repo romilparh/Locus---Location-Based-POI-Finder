@@ -49,7 +49,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.PlaceDetails"
-            android:parentActivityName=".ui.Category"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.FeedbackActivity"

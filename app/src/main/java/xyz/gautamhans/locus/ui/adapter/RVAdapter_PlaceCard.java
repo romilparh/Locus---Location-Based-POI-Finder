@@ -29,12 +29,20 @@ public class RVAdapter_PlaceCard extends
     List<Result> resultList;
     private String photoBaseUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=";
     private String API_KEY = "&key=AIzaSyBE8jPCH28fGzNwldLfR2h5WTgMC_IvuJI";
-    String finalImageUrl;
-    Context context;
+    private String finalImageUrl;
+    private Context context;
+    private String photoReference;
 
-    public RVAdapter_PlaceCard(List<Result> resultList, Context context) {
+    private ListItemClickListener mListItemClickListener;
+
+    public interface ListItemClickListener {
+        void onListItemClick(int clickedItemIndex, String place_id, String photoReference);
+    }
+
+    public RVAdapter_PlaceCard(List<Result> resultList, Context context, ListItemClickListener mListItemClickListener) {
         this.resultList = resultList;
         this.context = context;
+        this.mListItemClickListener = mListItemClickListener;
     }
 
     @Override
@@ -80,7 +88,7 @@ public class RVAdapter_PlaceCard extends
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    class PlaceCardViewHolder extends RecyclerView.ViewHolder {
+    class PlaceCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView iv_place_photo;
         TextView tv_place_name, tv_place_address;
@@ -92,6 +100,20 @@ public class RVAdapter_PlaceCard extends
             tv_place_name = (TextView) itemView.findViewById(R.id.place_name);
             tv_place_address = (TextView) itemView.findViewById(R.id.place_address);
             rb_place_rating = (RatingBar) itemView.findViewById(R.id.place_rating);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            String place_id = resultList.get(clickedPosition).getPlaceId();
+            if (resultList.get(clickedPosition).getPhotos() != null)
+                try{
+                    photoReference = resultList.get(clickedPosition).getPhotos().get(clickedPosition).getPhotoReference();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            mListItemClickListener.onListItemClick(clickedPosition, place_id, photoReference);
         }
     }
 }
