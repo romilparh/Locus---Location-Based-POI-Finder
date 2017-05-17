@@ -22,7 +22,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1. Categories are available on home activity. To open categorised data for places, click on one of following"/>
+                    android:textSize="20dp"
+                    android:text="@string/category_step1"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -34,11 +35,13 @@
             </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="2. After clicking on particular category, a list will be displayed on screen. For instance, following list for ATMs"/>
+                        android:textSize="20dp"
+                        android:text="@string/category_step2"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="fill_parent"
@@ -50,19 +53,21 @@
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="3. Now, click on any place you would like to. It will show you each and every detail about that place"/>
+                        android:textSize="20dp"
+                        android:text="@string/category_step3"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
                     <ImageView
                         android:layout_width="fill_parent"
-                        android:layout_height="400"
-                        android:src="@drawable/save_place"/>
+                        android:layout_height="420dp"
+                        android:src="@drawable/place_info"/>
                 </RelativeLayout>
             </LinearLayout>
         </android.support.v7.widget.CardView>

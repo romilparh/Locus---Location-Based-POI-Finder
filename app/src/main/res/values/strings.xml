@@ -128,4 +128,10 @@ This application also allows a user to save particular places for quick access. 
 At last, we will also like to tell you that this application uses minimal local storage of your device as the data is synced and saved on our server eliminating need of your phone storage to keep this application and your phone run efficiently. The synchronization of data will also be done between number of devices logged in with same Google ID.
         Thank you for choosing "LOCUS" and giving us a chance to make your life simple.
 </string>
+    <string name="category_step1">1. Categories are available on home activity. To open categorised data for places, click on one of following</string>
+    <string name="category_step2">2. After clicking on particular category, a list will be displayed on screen. For instance, following list for ATMs</string>
+    <string name="category_step3">3. Now, click on any place you would like to. It will show you each and every detail about that place</string>
+    <string name="saved_step1">1. Open Navigation Drawer</string>
+    <string name="saved_step2">2. Select Saved Places from drawer menu. </string>
+    <string name="saved_step3">3. It will open the saved places interface providing you with all the places that have been saved for a particular user.</string>
 </resources>
