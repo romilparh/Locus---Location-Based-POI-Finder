@@ -15,12 +15,12 @@ import xyz.gautamhans.locus.retrofit.pojosplaces.Attractions;
 
 public interface ApiInterface {
 
-    @GET("json?key=AIzaSyBE8jPCH28fGzNwldLfR2h5WTgMC_IvuJI")
+    @GET("json?key=AIzaSyCCMCIXp6kXBSQdkucV51LP23cuvxu4tjI")
     Call<Example> getNearbyPlaces(@Query("location") String location,
                                   @Query("rankby") String rankby,
                                   @Query("type") String category);
 
-    @GET("json?key=AIzaSyBE8jPCH28fGzNwldLfR2h5WTgMC_IvuJI")
+    @GET("json?key=AIzaSyCCMCIXp6kXBSQdkucV51LP23cuvxu4tjI")
     Call<Attractions> getAttractions(@Query("query") String attractions,
                                      @Query("location") String location,
                                      @Query("rankby") String rankby);

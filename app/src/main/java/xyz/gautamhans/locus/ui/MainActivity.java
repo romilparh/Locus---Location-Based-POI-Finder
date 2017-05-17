@@ -569,6 +569,8 @@ public class MainActivity extends AppCompatActivity
                         mToast = Toast.makeText(this, "Latitude: " + lat + "\nLongitude: " + longt, Toast.LENGTH_LONG);
                         mToast.show();
 
+                        initializeDataPlaces(lat, longt);
+
                         Log.i(String.valueOf(this.getClass()), "Lat: " + lat + " Longt: " + longt);
                     }
 
