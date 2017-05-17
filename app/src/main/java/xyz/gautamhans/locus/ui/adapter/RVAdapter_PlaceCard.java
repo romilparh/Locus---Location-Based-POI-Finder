@@ -67,6 +67,7 @@ public class RVAdapter_PlaceCard extends
         holder.tv_place_address.setText(resultList.get(position).getFormattedAddress());
         List<Photo> photoList= resultList.get(position).getPhotos();
         try {
+
             Log.d("list size", ": " + photoList.size());
             Log.d("photoRef ", ": " + photoList.get(0).getPhotoReference());
             if(photoList.get(0).getPhotoReference()!=null){
