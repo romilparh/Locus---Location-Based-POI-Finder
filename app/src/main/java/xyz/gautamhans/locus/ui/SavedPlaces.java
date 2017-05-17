@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -162,7 +163,6 @@ public class SavedPlaces extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         startActivity(new Intent(this, MainActivity.class));
     }
 
@@ -252,14 +252,26 @@ public class SavedPlaces extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public void onViewMapClicked(View v, int position, String latitude, String longitude, String placeName) {
-        Double latitudeLoc = Double.valueOf(latitude);
-        Double longitudeLoc = Double.valueOf(longitude);
-        String placeNameLoc = placeName;
-
-        Uri gmmIntentUri = Uri.parse("geo:"+latitudeLoc+","+longitudeLoc+"("+Uri.encode(placeNameLoc)+")?z=19");
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-        mapIntent.setPackage("com.google.android.apps.maps");
-        startActivity(mapIntent);
+        Float placeLatitudeFloat = Float.parseFloat(latitude);
+        Float placeLongitudeFloat = Float.parseFloat(longitude);
+        String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)", placeLatitudeFloat, placeLongitudeFloat, placeName);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setPackage("com.google.android.apps.maps");
+        try {
+            startActivity(intent);
+        }
+        catch(ActivityNotFoundException ex)
+        {
+            try
+            {
+                Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(unrestrictedIntent);
+            }
+            catch(ActivityNotFoundException innerEx)
+            {
+                Toast.makeText(this, "Please install a maps application", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
 }

@@ -137,6 +137,12 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_place:
