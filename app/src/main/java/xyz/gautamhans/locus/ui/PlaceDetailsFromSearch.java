@@ -1,17 +1,23 @@
 package xyz.gautamhans.locus.ui;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +29,7 @@ import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,7 +43,7 @@ import xyz.gautamhans.locus.retrofit.ApiInterfaceSavePlace;
  * Created by Gautam on 19-Apr-17.
  */
 
-public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     String placeId, placeName, placeAddress, placeContact, placeLatitude, placeLongitude;
     String  photoReference = "na";
@@ -48,7 +55,9 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
     ImageView iv_place_photo;
     List<xyz.gautamhans.locus.retrofit.pojos.Place> savePlaceList;
     Toast mToast;
-
+    private CardView cv_view_on_map;
+    private RelativeLayout rl_view_on_map;
+    private Button bt_view_on_map;
 
     private GoogleApiClient mGoogleApiClient;
 
@@ -70,6 +79,14 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
         tv_website_info = (TextView) findViewById(R.id.tv_website_info);
         ratingBar = (RatingBar) findViewById(R.id.rb_rating);
         iv_place_photo = (ImageView) findViewById(R.id.iv_place_photo);
+
+
+        cv_view_on_map = (CardView) findViewById(R.id.cv_view_on_map);
+        rl_view_on_map = (RelativeLayout) findViewById(R.id.rl_view_on_map);
+        bt_view_on_map = (Button) findViewById(R.id.bt_view_on_map);
+        cv_view_on_map.setOnClickListener(this);
+        rl_view_on_map.setOnClickListener(this);
+        bt_view_on_map.setOnClickListener(this);
 
         //Google API Client
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -103,6 +120,7 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
                             iv_place_photo.setImageResource(R.drawable.defaultplace);
                             placeLatitude = String.valueOf(myPlace.getLatLng().latitude);
                             placeLongitude = String.valueOf(myPlace.getLatLng().longitude);
+                            setIntents();
                         } else {
                             Log.i(String.valueOf(PlaceDetailsFromSearch.this), String.valueOf(places.getStatus()));
                         }
@@ -200,5 +218,71 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    private void setIntents(){
+        tv_website_info.setOnClickListener(this);
+        tv_call_info.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_website_info:
+                if(placeWeblink!=null){
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(placeWeblink));
+                    startActivity(i);
+                }
+                break;
+            case R.id.tv_call_info:
+                if(placeContact!=null){
+                    Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+placeContact));
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                }
+                break;
+
+            case R.id.cv_view_on_map:
+                openMaps();
+                break;
+
+            case R.id.rl_view_on_map:
+                openMaps();
+                break;
+
+            case R.id.bt_view_on_map:
+                openMaps();
+                break;
+
+            default:
+                Log.d("placedetails: ", "incorrect intent" );
+        }
+    }
+
+    private void openMaps(){
+        if(placeLatitude!=null && placeLongitude!=null){
+            Float placeLatitudeFloat = Float.parseFloat(placeLatitude);
+            Float placeLongitudeFloat = Float.parseFloat(placeLongitude);
+            String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)", placeLatitudeFloat, placeLongitudeFloat, placeName);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            intent.setPackage("com.google.android.apps.maps");
+            try
+            {
+                startActivity(intent);
+            }
+            catch(ActivityNotFoundException ex)
+            {
+                try
+                {
+                    Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    startActivity(unrestrictedIntent);
+                }
+                catch(ActivityNotFoundException innerEx)
+                {
+                    Toast.makeText(this, "Please install a maps application", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 }
