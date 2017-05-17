@@ -174,6 +174,7 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
         task_description.setText("");
         address_selected.setText("");
         startActivity(new Intent(NewReminder.this, Reminders.class));
+        finish();
     }
 
     private void setGeoFence() {
@@ -208,6 +209,7 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
         if (item.getItemId() == android.R.id.home) {
             Intent intent = new Intent(NewReminder.this, Reminders.class);
             startActivity(intent);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -228,6 +230,7 @@ public class NewReminder extends AppCompatActivity implements GoogleApiClient.Co
         this.setResult(Activity.RESULT_OK);
         new SaveReminderTask(this, mExistingID, title, description, placeID, radius, latitude, longitude, address).execute();
         startActivity(new Intent(NewReminder.this, Reminders.class));
+        finish();
     }
 
     @Override

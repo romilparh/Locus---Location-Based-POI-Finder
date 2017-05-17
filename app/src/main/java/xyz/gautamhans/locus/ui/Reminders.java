@@ -118,6 +118,7 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
     public void addReminder(View view) {
         Intent intent = new Intent(Reminders.this, NewReminder.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -262,9 +263,11 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
         if (id == R.id.nav_home) {
             Intent i=new Intent(this,MainActivity.class);
             startActivity(i);
+            finish();
         } else if (id == R.id.nav_saved_places) {
             Intent i=new Intent(this, SavedPlaces.class);
             startActivity(i);
+            finish();
         } else if (id == R.id.nav_reminders) {
             Context context = getApplicationContext();
             CharSequence text = "Already on Reminders Page";
@@ -274,11 +277,13 @@ public class Reminders extends AppCompatActivity implements RVAdapter_Reminders.
 
         } else if (id == R.id.nav_settings) {
             startActivity(new Intent(Reminders.this, SettingsActivity.class));
+            finish();
         } else if (id == R.id.nav_feedback) {
             sendEMAIL();
         } else if (id == R.id.nav_help) {
             Intent i=new Intent(this,FeedbackActivity.class);
             startActivity(i);
+            finish();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

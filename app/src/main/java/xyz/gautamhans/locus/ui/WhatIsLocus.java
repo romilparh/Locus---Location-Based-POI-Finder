@@ -16,11 +16,11 @@ public class WhatIsLocus extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_what_is_locus);
         getSupportActionBar().setTitle("What is Locus?");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     @Override
     public void onBackPressed() {
             Intent i=new Intent(this,FeedbackActivity.class);
             startActivity(i);
+            finish();
     }
 }

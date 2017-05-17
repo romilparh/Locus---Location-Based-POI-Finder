@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    tools:context="xyz.gautamhans.locus.ui.reminder_info"
+    tools:context="xyz.gautamhans.locus.ui.Reminder_Info"
     android:padding="10dp"
     android:fillViewport="true"
     >

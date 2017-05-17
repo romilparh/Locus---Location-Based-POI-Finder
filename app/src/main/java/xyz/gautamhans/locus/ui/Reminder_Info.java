@@ -6,14 +6,13 @@ import android.os.Bundle;
 
 import xyz.gautamhans.locus.R;
 
-public class navigate_info extends AppCompatActivity {
+public class Reminder_Info extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigate_info);
-        getSupportActionBar().setTitle("How to navigate to a place?");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_reminder_info);
+        getSupportActionBar().setTitle("How to view, add or delete reminders?");
     }
     @Override
     public void onBackPressed() {

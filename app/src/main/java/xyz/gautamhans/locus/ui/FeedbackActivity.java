@@ -18,10 +18,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,19 +68,19 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
         startActivity(i);
     }
     public void openManualReminder(View v){
-        Intent i=new Intent(this,reminder_info.class);
+        Intent i=new Intent(this,Reminder_Info.class);
         startActivity(i);
     }
     public void openManualNavigation(View v){
-        Intent i=new Intent(this,navigate_info.class);
+        Intent i=new Intent(this,Navigate_Info.class);
         startActivity(i);
     }
     public void openManualCategory(View v){
-        Intent i=new Intent(this,categorised_info.class);
+        Intent i=new Intent(this,Categorised_info.class);
         startActivity(i);
     }
     public void openManualSaved(View v){
-        Intent i=new Intent(this,saved_place_info.class);
+        Intent i=new Intent(this,Saved_Place_Info.class);
         startActivity(i);
     }
     public void openManualSave(View v){
@@ -179,14 +176,18 @@ public class FeedbackActivity extends AppCompatActivity implements NavigationVie
         if (id == R.id.nav_home) {
             Intent i=new Intent(this,MainActivity.class);
             startActivity(i);
+            finish();
         } else if (id == R.id.nav_saved_places) {
             Intent i=new Intent(this, SavedPlaces.class);
             startActivity(i);
+            finish();
         } else if (id == R.id.nav_reminders) {
             Intent intent = new Intent(FeedbackActivity.this, Reminders.class);
             startActivity(intent);
+            finish();
         } else if (id == R.id.nav_settings) {
             startActivity(new Intent(FeedbackActivity.this, SettingsActivity.class));
+            finish();
         } else if (id == R.id.nav_feedback) {
             sendEMAIL();
         } else if (id == R.id.nav_help) {

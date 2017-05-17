@@ -85,6 +85,7 @@ public class PlaceSearch extends AppCompatActivity {
                     extras.putString("placeID", placeId);
                     intent.putExtras(extras);
                     startActivity(intent);
+                    finish();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

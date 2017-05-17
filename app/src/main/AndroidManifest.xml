@@ -51,7 +51,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.FeedbackActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <activity
             android:name=".ui.NewReminder"
             android:noHistory="true"/>
@@ -94,12 +95,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.FeedbackActivity" />
         </activity>
-        <activity android:name=".ui.reminder_info">
+        <activity android:name=".ui.Reminder_Info">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.FeedbackActivity" />
         </activity>
-        <activity android:name=".ui.categorised_info">
+        <activity android:name=".ui.Categorised_info">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.FeedbackActivity" />
@@ -109,12 +110,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.FeedbackActivity" />
         </activity>
-        <activity android:name=".ui.saved_place_info">
+        <activity android:name=".ui.Saved_Place_Info">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.FeedbackActivity" />
         </activity>
-        <activity android:name=".ui.navigate_info">
+        <activity android:name=".ui.Navigate_Info">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.FeedbackActivity" />

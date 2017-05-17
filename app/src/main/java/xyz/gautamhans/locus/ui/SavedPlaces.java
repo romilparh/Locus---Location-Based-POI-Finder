@@ -230,6 +230,7 @@ public class SavedPlaces extends AppCompatActivity implements NavigationView.OnN
         if (id == R.id.nav_home) {
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
+            finish();
         } else if (id == R.id.nav_saved_places) {
             Context context = getApplicationContext();
             CharSequence text = "Already on Saved Places Page";
@@ -239,14 +240,17 @@ public class SavedPlaces extends AppCompatActivity implements NavigationView.OnN
         } else if (id == R.id.nav_reminders) {
             Intent intent = new Intent(this, Reminders.class);
             startActivity(intent);
+            finish();
 
         } else if (id == R.id.nav_settings) {
             startActivity(new Intent(SavedPlaces.this, SettingsActivity.class));
+            finish();
         } else if (id == R.id.nav_feedback) {
             sendEMAIL();
         } else if (id == R.id.nav_help) {
             Intent i=new Intent(this,FeedbackActivity.class);
             startActivity(i);
+            finish();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

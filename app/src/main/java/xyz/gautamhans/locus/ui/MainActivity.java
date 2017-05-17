@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity
                 if (isFirstStart) {
                     Intent i = new Intent(MainActivity.this, IntroActivity.class);
                     startActivity(i);
+                    finish();
                     SharedPreferences.Editor e = getPrefs.edit();
                     e.putBoolean("firstStart", false);
                     e.apply();
@@ -417,6 +418,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.search) {
             Intent intent = new Intent(MainActivity.this, PlaceSearch.class);
             startActivity(intent);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -432,17 +434,21 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_saved_places) {
             Intent i = new Intent(MainActivity.this, SavedPlaces.class);
             startActivity(i);
+            finish();
         } else if (id == R.id.nav_reminders) {
             Intent i = new Intent(MainActivity.this, Reminders.class);
             startActivity(i);
+            finish();
 
         } else if (id == R.id.nav_settings) {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            finish();
         } else if (id == R.id.nav_feedback) {
             sendEMAIL();
         } else if (id == R.id.nav_help) {
             Intent i=new Intent(this,FeedbackActivity.class);
             startActivity(i);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -637,5 +643,6 @@ public class MainActivity extends AppCompatActivity
         extras.putString("ref", photoReference);
         intent.putExtras(extras);
         startActivity(intent);
+        finish();
     }
 }

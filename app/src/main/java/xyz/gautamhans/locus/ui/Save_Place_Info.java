@@ -13,7 +13,6 @@ public class Save_Place_Info extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save__place__info);
         getSupportActionBar().setTitle("How to save a place?");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     @Override
     public void onBackPressed() {

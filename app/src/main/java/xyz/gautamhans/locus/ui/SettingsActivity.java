@@ -110,6 +110,7 @@ public class SettingsActivity extends AppCompatActivity {
             if (item.getItemId() == android.R.id.home) {
                 Intent actMain = new Intent(SettingsActivity.this, MainActivity.class);
                 startActivity(actMain);
+                finish();
             }
         } catch (Exception e) {
             e.printStackTrace();

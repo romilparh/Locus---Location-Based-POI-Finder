@@ -240,6 +240,7 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(placeWeblink));
                     startActivity(i);
+                    finish();
                 }
                 break;
             case R.id.tv_call_info:
@@ -247,6 +248,7 @@ public class PlaceDetailsFromSearch extends AppCompatActivity implements GoogleA
                     Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+placeContact));
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);
+                    finish();
                 }
                 break;
 

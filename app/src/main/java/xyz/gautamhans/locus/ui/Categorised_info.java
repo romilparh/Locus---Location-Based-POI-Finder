@@ -6,15 +6,14 @@ import android.os.Bundle;
 
 import xyz.gautamhans.locus.R;
 
-public class categorised_info extends AppCompatActivity {
+public class Categorised_info extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorised_info);
         getSupportActionBar().setTitle("How to view categorised places?");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
+        }
     @Override
     public void onBackPressed() {
         Intent i=new Intent(this,FeedbackActivity.class);
