@@ -31,7 +31,7 @@ import xyz.gautamhans.locus.R;
 
 public class FeedbackActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     int fail;
-
+    // I will be optimizing later (after finishing of all activities)
     private DrawerLayout drawer;
     private View navHeader;
     private NavigationView navigationView;
