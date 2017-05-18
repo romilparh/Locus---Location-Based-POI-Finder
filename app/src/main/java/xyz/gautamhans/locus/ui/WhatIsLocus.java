@@ -19,8 +19,10 @@ public class WhatIsLocus extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-            Intent i=new Intent(this,FeedbackActivity.class);
-            startActivity(i);
-            finish();
+        super.onBackPressed();
+        finish();
+//            Intent i=new Intent(this,FeedbackActivity.class);
+//            startActivity(i);
+//            finish();
     }
 }
